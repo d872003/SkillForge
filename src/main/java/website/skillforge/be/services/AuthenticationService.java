@@ -5,40 +5,57 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.LoginRequestDTO;
+import website.skillforge.be.dto.LoginResponseDTO;
 import website.skillforge.be.dto.RegisterRequestDTO;
 import website.skillforge.be.entities.Account;
 import website.skillforge.be.repository.AccountRepository;
+import website.skillforge.be.util.TokenHandler;
 
 @Service
 public class AuthenticationService {
     @Autowired
     AccountRepository accountRepository;
-
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
     AuthenticationManager authenticationManager;
+    @Autowired
+    TokenHandler tokenHandler;
     public Account register(RegisterRequestDTO registerRequestDTO) {
         Account account = new Account();
         String rawPassword = registerRequestDTO.getPassword();
         account.setUsername(registerRequestDTO.getUsername());
         account.setPassword(passwordEncoder.encode(rawPassword));
+        account.setEmail(registerRequestDTO.getEmail());
+        account.setFullName(registerRequestDTO.getFullName());
+        account.setPhone(registerRequestDTO.getPhone());
         Account newAccount = accountRepository.save(account);
         return newAccount;
     }
-    public Account login(LoginRequestDTO loginRequestDTO) {
+    public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
         try
         {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword())
             );
-            return (Account)authentication.getPrincipal();
+            Account account = (Account) authentication.getPrincipal();
+            LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
+            loginResponseDTO.setToken(tokenHandler.generateToken(account));
+            loginResponseDTO.setUsername(account.getUsername());
+            loginResponseDTO.setFullName(account.getFullName());
+            loginResponseDTO.setEmail(account.getEmail());
+            loginResponseDTO.setPhone(account.getPhone());
+            loginResponseDTO.setRole(account.getRole());
+            loginResponseDTO.setStatus(account.getStatus());
+
+            return loginResponseDTO;
         }catch(Exception e) {
-            return null;
+            throw new InternalAuthenticationServiceException("Authentication failed: " + e.getMessage());
         }
     }
     public Account loginGoogle(String token) {
@@ -53,4 +70,6 @@ public class AuthenticationService {
         }
         return null;
     }
+
+
 }
