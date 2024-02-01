@@ -1,6 +1,7 @@
 package website.skillforge.be.dto;
 
 import lombok.Data;
+import website.skillforge.be.enums.Role;
 
 @Data
 public class RegisterRequestDTO {
@@ -9,9 +10,5 @@ public class RegisterRequestDTO {
     private String email;
     private String fullName;
     private String phone;
-    private enum Role {
-        STUDENT,
-        ADMIN,
-        TEACHER
-    }
+    private Role role;
 }

@@ -34,6 +34,7 @@ public class AuthenticationService {
         account.setPassword(passwordEncoder.encode(rawPassword));
         account.setEmail(registerRequestDTO.getEmail());
         account.setFullName(registerRequestDTO.getFullName());
+        account.setRole(registerRequestDTO.getRole());
         account.setPhone(registerRequestDTO.getPhone());
         Account newAccount = accountRepository.save(account);
         return newAccount;
