@@ -11,10 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "Skill Forge", version = "1.0", description = "Information"))
 @SecurityScheme(name = "api", scheme = "bearer", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
-public class SkillforgeApplication {
+public class SkillForgeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SkillforgeApplication.class, args);
+		SpringApplication.run(SkillForgeApplication.class, args);
 	}
 
 }

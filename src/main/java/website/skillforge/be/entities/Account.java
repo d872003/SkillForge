@@ -22,14 +22,18 @@ public class Account implements UserDetails {
 
     @Column(unique = true, nullable = false)
     String username;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
+
     String fullName;
     @Column(unique = true, nullable = false)
     String email;
     String phone;
+
     @Enumerated(EnumType.STRING)
     Role role;
+
     String status;
 
 
