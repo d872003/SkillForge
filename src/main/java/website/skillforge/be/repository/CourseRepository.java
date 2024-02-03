@@ -7,7 +7,7 @@ import website.skillforge.be.entities.Course;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    Course findByName(String name);
-    Course findById(long id);
+    Course findCourseByName(String name);
+    Course findCourseById(long id);
 
 }

@@ -14,5 +14,6 @@ public class CreateCourseRequestDTO {
     private String description;
     private String status;
     private Date createdDate;
+    private long categoryId;
 
 }

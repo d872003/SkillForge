@@ -1,6 +1,5 @@
 package website.skillforge.be.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,17 +9,19 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Category {
+public class Chapter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
-    @Column(unique = false, nullable = false)
     String name;
+    int totalOfLesson;
     String description;
+    boolean isFreeChapter;
 
-    @OneToMany(mappedBy = "category")
-    @JsonIgnore
-    List<Course> course;
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+    @OneToMany(mappedBy = "chapter")
+    private List<Lesson> lesson;
 }
-

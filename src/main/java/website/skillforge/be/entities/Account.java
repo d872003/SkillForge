@@ -1,5 +1,6 @@
 package website.skillforge.be.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import website.skillforge.be.enums.Role;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,7 +20,7 @@ import java.util.Collection;
 public class Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    Long id;
 
     @Column(unique = true, nullable = false)
     String username;
@@ -63,4 +65,8 @@ public class Account implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    @OneToMany(mappedBy = "createBy")
+    @JsonIgnore
+    List<Course> course;
 }

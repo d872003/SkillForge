@@ -10,17 +10,18 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Category {
+public class Quiz {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
+    private String name;
+    private String description;
 
-    @Column(unique = false, nullable = false)
-    String name;
-    String description;
-
-    @OneToMany(mappedBy = "category")
+    @ManyToOne
+    @JoinColumn(name = "lesson_id")
+    private Lesson lesson;
+    @OneToMany(mappedBy = "quiz")
     @JsonIgnore
-    List<Course> course;
+    private List<Question> question;
 }
-

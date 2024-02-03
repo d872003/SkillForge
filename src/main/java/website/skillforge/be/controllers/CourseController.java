@@ -21,15 +21,26 @@ public class CourseController {
         Course  course = courseService.createCourse(createCourseRequestDTO);
         return ResponseEntity.ok(course);
     }
-    @DeleteMapping("/course")
-    public ResponseEntity deleteCourse(@Param("Course Id:") Long id){
+    @DeleteMapping("/course/{id}")
+    public ResponseEntity deleteCourse(@PathVariable Long id){
         courseService.deleteCourseById(id);
         return ResponseEntity.ok("Deleted successfully");
     }
-    @PutMapping("/course")
-    public ResponseEntity updateCourse(@Param("Course Id:") Long id, @RequestBody CreateCourseRequestDTO createCourseRequestDTO){
+    @PutMapping("/course/{id}")
+    public ResponseEntity updateCourse(@PathVariable Long id, @RequestBody CreateCourseRequestDTO createCourseRequestDTO){
         Course newCourse = courseService.updateCourse(id,createCourseRequestDTO);
         return ResponseEntity.ok(newCourse);
+    }
+
+    @GetMapping("/course/{id}")
+    public ResponseEntity getCourseById(@PathVariable Long id){
+        Course course = courseService.getCourseById(id);
+        return ResponseEntity.ok(course);
+    }
+    @GetMapping("/course/{name}")
+    public ResponseEntity getCourseByName(@PathVariable String name){
+        Course course = courseService.getCourseByName(name);
+        return ResponseEntity.ok(course);
     }
 }
 
