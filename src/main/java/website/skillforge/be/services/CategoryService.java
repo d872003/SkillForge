@@ -6,6 +6,8 @@ import website.skillforge.be.dto.CreateCategoryRequestDTO;
 import website.skillforge.be.entities.Category;
 import website.skillforge.be.repository.CategoryRepository;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
     @Autowired
@@ -14,6 +16,7 @@ public class CategoryService {
     public Category createCategory(CreateCategoryRequestDTO createCourseRequestDTO) {
         Category category = new Category();
         category.setName(createCourseRequestDTO.getName());
+        category.setCode(createCourseRequestDTO.getCode());
         category.setDescription(createCourseRequestDTO.getDescription());
         return categoryRepository.save(category);
     }
@@ -25,6 +28,7 @@ public class CategoryService {
     public Category findCategoryByName(String name) {
         return categoryRepository.findCategoryByName(name);
     }
+
 
     public int deleteCategoryById(Long id) {
         categoryRepository.deleteById(id);
@@ -39,6 +43,10 @@ public class CategoryService {
             return categoryRepository.save(existingCategory);
         }
         return null;
+    }
+
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
 
 }

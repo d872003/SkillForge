@@ -10,6 +10,8 @@ import website.skillforge.be.repository.CategoryRepository;
 import website.skillforge.be.repository.CourseRepository;
 import website.skillforge.be.util.AccountUtil;
 
+import java.util.List;
+
 @Service
 public class CourseService {
     @Autowired
@@ -60,5 +62,9 @@ public class CourseService {
         }
 
         return null; //
+    }
+
+    public List<Course> getAllCourses() {
+        return courseRepository.findAll();
     }
 }

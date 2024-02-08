@@ -13,10 +13,13 @@ public class Chapter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @Column(columnDefinition = "nvarchar(255)")
     String name;
     int totalOfLesson;
+    @Column(columnDefinition = "nvarchar(255)")
     String description;
     boolean isFreeChapter;
+
 
     @ManyToOne
     @JoinColumn(name = "course_id")

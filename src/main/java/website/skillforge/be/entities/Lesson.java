@@ -14,8 +14,12 @@ public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @Column(columnDefinition = "nvarchar(255)")
     String name;
     String videoLink;
+    int totalOfQuiz;
+    int totalOfAssignment;
+    @Column(columnDefinition = "nvarchar(255)")
     String description;
 
     @ManyToOne

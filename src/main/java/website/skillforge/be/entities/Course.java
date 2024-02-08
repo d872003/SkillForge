@@ -17,11 +17,12 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", insertable = false, updatable = false)
     Long id;
-
+    @Column(columnDefinition = "nvarchar(255)")
     String name;
     double price;
     int totalOfChapter;
     String pictureLink;
+    @Column(columnDefinition = "nvarchar(255)")
     String description;
     Date createdDate;
     String status;

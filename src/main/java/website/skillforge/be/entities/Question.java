@@ -11,6 +11,7 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @Column(columnDefinition = "nvarchar(255)")
     String name;
 
     @ManyToOne

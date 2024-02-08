@@ -3,10 +3,8 @@ package website.skillforge.be.dto;
 import lombok.Data;
 
 @Data
-public class CreateCategoryRequestDTO {
+public class CreateChapterRequestDTO {
 
     private String name;
-    private String code;
     private String description;
-
 }

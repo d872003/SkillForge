@@ -21,18 +21,17 @@ public class Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     @Column(unique = true, nullable = false)
     String username;
-
+    String avatar;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
-
+    @Column(columnDefinition = "nvarchar(255)")
     String fullName;
     @Column(unique = true, nullable = false)
     String email;
-    String phone;
 
+    String phone;
     @Enumerated(EnumType.STRING)
     Role role;
 
