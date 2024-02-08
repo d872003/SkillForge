@@ -26,6 +26,10 @@ public class Lesson {
     @JoinColumn(name = "chapter_id")
     private Chapter chapter;
 
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account createBy;
+
     @OneToMany(mappedBy = "lesson")
     @JsonIgnore
     private List<Quiz> quiz;
