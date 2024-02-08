@@ -23,17 +23,19 @@ public class AuthenticationController {
     AuthenticationService authenticationService;
 
     @PostMapping("/authentication/register")
-    public ResponseEntity register(@RequestBody RegisterRequestDTO account){
+    public ResponseEntity register(@RequestBody RegisterRequestDTO account) {
         Account newAcoount = authenticationService.register(account);
         return ResponseEntity.ok(newAcoount);
     }
+
     @PostMapping("/authentication/login")
-    public ResponseEntity login(@RequestBody LoginRequestDTO account){
+    public ResponseEntity login(@RequestBody LoginRequestDTO account) {
         LoginResponseDTO newAcoount = authenticationService.login(account);
         return ResponseEntity.ok(newAcoount);
     }
+
     @PostMapping("/authentication/loginGoogle")
-    public ResponseEntity loginGoogle(@RequestBody LoginGoogleRequest account){
+    public ResponseEntity loginGoogle(@RequestBody LoginGoogleRequest account) {
         return ResponseEntity.ok(authenticationService.loginGoogle(account.getToken()));
     }
 

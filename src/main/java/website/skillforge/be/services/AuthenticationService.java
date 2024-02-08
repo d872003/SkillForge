@@ -27,6 +27,7 @@ public class AuthenticationService {
     AuthenticationManager authenticationManager;
     @Autowired
     TokenHandler tokenHandler;
+
     public Account register(RegisterRequestDTO registerRequestDTO) {
         Account account = new Account();
         String rawPassword = registerRequestDTO.getPassword();
@@ -40,9 +41,9 @@ public class AuthenticationService {
         Account newAccount = accountRepository.save(account);
         return newAccount;
     }
+
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
-        try
-        {
+        try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword())
             );
             Account account = (Account) authentication.getPrincipal();
@@ -56,17 +57,18 @@ public class AuthenticationService {
             loginResponseDTO.setStatus(account.getStatus());
 
             return loginResponseDTO;
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new InternalAuthenticationServiceException("Authentication failed: " + e.getMessage());
         }
     }
+
     public Account loginGoogle(String token) {
-        try{
+        try {
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
             String email = decodedToken.getEmail();
             Account account = accountRepository.findByEmail(email);
             return account;
-        }catch(FirebaseAuthException e){
+        } catch (FirebaseAuthException e) {
             e.printStackTrace();
             System.out.println(e);
         }

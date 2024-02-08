@@ -13,8 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SecurityScheme(name = "api", scheme = "bearer", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
 public class SkillForgeApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SkillForgeApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SkillForgeApplication.class, args);
+    }
 
 }

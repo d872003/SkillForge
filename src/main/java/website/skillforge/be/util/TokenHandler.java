@@ -12,7 +12,7 @@ import java.util.Date;
 public class TokenHandler {
     private final String SECRET_KEY = "skillforge";
     //    1s => 1000ms
-//    private final UUID EXPIRATION = 1 * 60 * 1000;
+    //    private final UUID EXPIRATION = 1 * 60 * 1000;
     private final long EXPIRATION = 1 * 24 * 60 * 60 * 1000;
 
     // create token (encode)
@@ -20,12 +20,7 @@ public class TokenHandler {
         Date now = new Date(); // get current time
         Date expirationDate = new Date(now.getTime() + EXPIRATION);
 
-        String token = Jwts.builder()
-                .setSubject(account.getUsername())
-                .setIssuedAt(now)
-                .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
-                .compact();
+        String token = Jwts.builder().setSubject(account.getUsername()).setIssuedAt(now).setExpiration(expirationDate).signWith(SignatureAlgorithm.HS512, SECRET_KEY).compact();
         return token;
     }
 

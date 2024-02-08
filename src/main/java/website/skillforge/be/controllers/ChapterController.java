@@ -21,11 +21,13 @@ public class ChapterController {
     public ResponseEntity createChapter(@RequestBody CreateChapterRequestDTO createChapterRequestDTO) {
         return ResponseEntity.ok(chapterService.CreateChapter(createChapterRequestDTO));
     }
+
     @DeleteMapping("/chapter/{id}")
     public ResponseEntity deleteChapter(@PathVariable Long id) {
         chapterService.DeleteChapter(id);
         return ResponseEntity.ok("deleted successfully");
     }
+
     @GetMapping("/chapter/{id}")
     public ResponseEntity getChapterById(@PathVariable Long id) {
         return ResponseEntity.ok(chapterService.GetChapter(id));

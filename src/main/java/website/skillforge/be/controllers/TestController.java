@@ -21,8 +21,8 @@ public class TestController {
 
     @GetMapping("/test")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity test(){
-        Account account = (Account)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public ResponseEntity test() {
+        Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(account);
     }
 }

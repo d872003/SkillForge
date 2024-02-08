@@ -21,7 +21,8 @@ public class CourseService {
 
     @Autowired
     AccountUtil accountUtil;
-    public Course createCourse(CreateCourseRequestDTO course){
+
+    public Course createCourse(CreateCourseRequestDTO course) {
         Account account = accountUtil.getCurrentAccount();
         Category category = categoryRepository.findCategoryById(course.getCategoryId());
         Course newCourse = new Course();
@@ -36,16 +37,20 @@ public class CourseService {
         newCourse.setCreateBy(account);
         return courseRepository.save(newCourse);
     }
-    public int deleteCourseById(Long id){
+
+    public int deleteCourseById(Long id) {
         courseRepository.deleteById(id);
         return 1;
     }
-    public Course getCourseById(Long id){
+
+    public Course getCourseById(Long id) {
         return courseRepository.findCourseById(id);
     }
-    public Course getCourseByName(String name){
+
+    public Course getCourseByName(String name) {
         return courseRepository.findCourseByName(name);
     }
+
     public Course updateCourse(Long id, CreateCourseRequestDTO course) {
         Course existingCourse = courseRepository.findCourseById(id);
 

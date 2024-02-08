@@ -10,7 +10,7 @@ import website.skillforge.be.exception.exceptions.AuthenticationException;
 @ControllerAdvice
 public class AuthenticationHandleException {
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<?> duplicate(AuthenticationException exception){
+    public ResponseEntity<?> duplicate(AuthenticationException exception) {
         return new ResponseEntity<String>(exception.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 }

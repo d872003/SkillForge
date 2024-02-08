@@ -11,7 +11,7 @@ import org.springframework.web.client.HttpClientErrorException;
 @ControllerAdvice
 public class ApiHandleException {
     @ExceptionHandler(InternalAuthenticationServiceException.class)
-    public ResponseEntity<?> duplicate(InternalAuthenticationServiceException exception){
+    public ResponseEntity<?> duplicate(InternalAuthenticationServiceException exception) {
         return new ResponseEntity<String>(exception.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 

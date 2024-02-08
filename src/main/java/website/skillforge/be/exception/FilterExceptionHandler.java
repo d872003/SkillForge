@@ -20,7 +20,6 @@ public class FilterExceptionHandler implements AuthenticationEntryPoint {
     private HandlerExceptionResolver resolver;
 
 
-
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, org.springframework.security.core.AuthenticationException authException) throws IOException, ServletException {
         resolver.resolveException(request, response, null, new AuthenticationException("Access Deny"));

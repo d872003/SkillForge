@@ -19,35 +19,39 @@ public class CourseController {
 
     @PostMapping("/course")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
-    public ResponseEntity createCourse(@RequestBody CreateCourseRequestDTO createCourseRequestDTO){
-        Course  course = courseService.createCourse(createCourseRequestDTO);
+    public ResponseEntity createCourse(@RequestBody CreateCourseRequestDTO createCourseRequestDTO) {
+        Course course = courseService.createCourse(createCourseRequestDTO);
         return ResponseEntity.ok(course);
     }
+
     @DeleteMapping("/course/{id}")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
-    public ResponseEntity deleteCourse(@PathVariable Long id){
+    public ResponseEntity deleteCourse(@PathVariable Long id) {
         courseService.deleteCourseById(id);
         return ResponseEntity.ok("Deleted successfully");
     }
+
     @PutMapping("/course/{id}")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
-    public ResponseEntity updateCourse(@PathVariable Long id, @RequestBody CreateCourseRequestDTO createCourseRequestDTO){
-        Course newCourse = courseService.updateCourse(id,createCourseRequestDTO);
+    public ResponseEntity updateCourse(@PathVariable Long id, @RequestBody CreateCourseRequestDTO createCourseRequestDTO) {
+        Course newCourse = courseService.updateCourse(id, createCourseRequestDTO);
         return ResponseEntity.ok(newCourse);
     }
 
     @GetMapping("/course/{id}")
-    public ResponseEntity getCourseById(@PathVariable Long id){
+    public ResponseEntity getCourseById(@PathVariable Long id) {
         Course course = courseService.getCourseById(id);
         return ResponseEntity.ok(course);
     }
+
     @GetMapping("/course/{name}")
-    public ResponseEntity getCourseByName(@PathVariable String name){
+    public ResponseEntity getCourseByName(@PathVariable String name) {
         Course course = courseService.getCourseByName(name);
         return ResponseEntity.ok(course);
     }
+
     @GetMapping("/course")
-    public ResponseEntity getAllCourses(){
+    public ResponseEntity getAllCourses() {
         return ResponseEntity.ok(courseService.getAllCourses());
     }
 }
