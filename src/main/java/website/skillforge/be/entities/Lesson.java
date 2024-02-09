@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,7 +22,7 @@ public class Lesson {
     int totalOfAssignment;
     @Column(columnDefinition = "nvarchar(255)")
     String description;
-
+    Date createdDate;
     @ManyToOne
     @JoinColumn(name = "chapter_id")
     private Chapter chapter;

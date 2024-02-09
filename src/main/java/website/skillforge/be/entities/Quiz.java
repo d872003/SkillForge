@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class Quiz {
     private String name;
     @Column(columnDefinition = "nvarchar(255)")
     private String description;
-
+    Date createdDate;
     @ManyToOne
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;

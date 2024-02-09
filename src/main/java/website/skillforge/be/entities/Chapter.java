@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class Chapter {
     @Column(columnDefinition = "nvarchar(255)")
     String description;
     boolean isFreeChapter;
-
+    Date createdDate;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
