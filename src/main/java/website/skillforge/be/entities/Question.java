@@ -17,7 +17,4 @@ public class Question {
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
-    @ManyToOne
-    @JoinColumn(name = "assignment_id")
-    private Assignment assignment;
 }

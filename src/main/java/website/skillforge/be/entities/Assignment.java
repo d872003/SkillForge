@@ -26,7 +26,9 @@ public class Assignment {
     @ManyToOne
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
-    @OneToMany(mappedBy = "assignment")
+
+    @OneToOne(mappedBy = "assignment")
     @JsonIgnore
-    private List<Question> question;
+    private Rubric rubric;
+
 }
