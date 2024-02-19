@@ -2,9 +2,9 @@ package website.skillforge.be.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import website.skillforge.be.dto.CreateChapterRequestDTO;
+import website.skillforge.be.dto.createDTO.CreateChapterRequestDTO;
+import website.skillforge.be.dto.updateDTO.UpdateChapterDTO;
 import website.skillforge.be.entities.Account;
-import website.skillforge.be.entities.Category;
 import website.skillforge.be.entities.Chapter;
 import website.skillforge.be.entities.Course;
 import website.skillforge.be.repository.ChapterRepository;
@@ -39,10 +39,12 @@ public class ChapterService {
         chapterRepository.delete(chapter);
         return chapter;
     }
-    public Chapter UpdateChapter(Long id, CreateChapterRequestDTO createChapterRequestDTO) {
+
+    public Chapter UpdateChapter(Long id, UpdateChapterDTO updateChapterDTO) {
         Chapter chapter = chapterRepository.findChapterById(id);
-        chapter.setName(createChapterRequestDTO.getName());
-        chapter.setDescription(createChapterRequestDTO.getDescription());
+        chapter.setName(updateChapterDTO.getName());
+        chapter.setDescription(updateChapterDTO.getDescription());
+        chapter.setFreeChapter(updateChapterDTO.isFreeChapter());
         return chapterRepository.save(chapter);
     }
     public Chapter GetChapter(Long id) {

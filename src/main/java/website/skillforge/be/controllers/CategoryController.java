@@ -5,10 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import website.skillforge.be.dto.CreateCategoryRequestDTO;
-import website.skillforge.be.dto.CreateCourseRequestDTO;
+import website.skillforge.be.dto.createDTO.CreateCategoryRequestDTO;
+import website.skillforge.be.dto.updateDTO.UpdateCategoryDTO;
 import website.skillforge.be.entities.Category;
-import website.skillforge.be.entities.Course;
 import website.skillforge.be.services.CategoryService;
 
 @RestController
@@ -35,8 +34,8 @@ public class CategoryController {
 
     @PutMapping("/category/{id}")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
-    public ResponseEntity updateCategory(@PathVariable Long id, @RequestBody CreateCategoryRequestDTO createCategoryRequestDTO) {
-        Category newCategory = categoryService.updateCategory(id, createCategoryRequestDTO);
+    public ResponseEntity updateCategory(@PathVariable Long id, @RequestBody UpdateCategoryDTO updateCategoryDTO) {
+        Category newCategory = categoryService.updateCategory(id, updateCategoryDTO);
         return ResponseEntity.ok(newCategory);
     }
 

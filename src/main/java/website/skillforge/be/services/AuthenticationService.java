@@ -10,10 +10,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import website.skillforge.be.dto.LoginRequestDTO;
-import website.skillforge.be.dto.LoginResponseDTO;
-import website.skillforge.be.dto.RegisterRequestDTO;
+import website.skillforge.be.dto.authenticationDTO.LoginRequestDTO;
+import website.skillforge.be.dto.authenticationDTO.LoginResponseDTO;
+import website.skillforge.be.dto.authenticationDTO.RegisterRequestDTO;
 import website.skillforge.be.entities.Account;
+import website.skillforge.be.enums.status.AccountStatus;
 import website.skillforge.be.repository.AccountRepository;
 import website.skillforge.be.util.TokenHandler;
 
@@ -38,6 +39,7 @@ public class AuthenticationService {
         account.setAvatar(registerRequestDTO.getAvatar());
         account.setRole(registerRequestDTO.getRole());
         account.setPhone(registerRequestDTO.getPhone());
+        account.setStatus(AccountStatus.ACTIVE);
         Account newAccount = accountRepository.save(account);
         return newAccount;
     }
@@ -54,7 +56,6 @@ public class AuthenticationService {
             loginResponseDTO.setEmail(account.getEmail());
             loginResponseDTO.setPhone(account.getPhone());
             loginResponseDTO.setRole(account.getRole());
-            loginResponseDTO.setStatus(account.getStatus());
 
             return loginResponseDTO;
         } catch (Exception e) {

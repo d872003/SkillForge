@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import website.skillforge.be.dto.LoginGoogleRequest;
-import website.skillforge.be.dto.LoginRequestDTO;
-import website.skillforge.be.dto.LoginResponseDTO;
-import website.skillforge.be.dto.RegisterRequestDTO;
+import website.skillforge.be.dto.authenticationDTO.LoginGoogleRequest;
+import website.skillforge.be.dto.authenticationDTO.LoginRequestDTO;
+import website.skillforge.be.dto.authenticationDTO.LoginResponseDTO;
+import website.skillforge.be.dto.authenticationDTO.RegisterRequestDTO;
 import website.skillforge.be.entities.Account;
-import website.skillforge.be.repository.AccountRepository;
 import website.skillforge.be.services.AuthenticationService;
 
 @RestController

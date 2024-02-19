@@ -7,4 +7,5 @@ import website.skillforge.be.entities.Answer;
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
     Answer findAnswerById(Long id);
 
+
 }

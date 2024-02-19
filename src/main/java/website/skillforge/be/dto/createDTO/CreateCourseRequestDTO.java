@@ -1,19 +1,17 @@
-package website.skillforge.be.dto;
+package website.skillforge.be.dto.createDTO;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class CreateCourseRequestDTO {
 
     private String name;
     private double price;
-    private int totalOfChapter;
     private String pictureLink;
     private String description;
-    private String status;
-    private Date createdDate;
+    private LocalDate createdDate;
     private long categoryId;
 
 }

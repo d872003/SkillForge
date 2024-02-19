@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Nationalized;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,6 +21,10 @@ public class Category {
     private String name;
     @Column(columnDefinition = "nvarchar(255)")
     private String description;
+
+    private LocalDate createdDate;
+    private LocalDate lastUpdatedDate;
+
 
     @OneToMany(mappedBy = "category")
     @JsonIgnore

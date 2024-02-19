@@ -1,8 +1,8 @@
-package website.skillforge.be.dto;
+package website.skillforge.be.dto.createDTO;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class CreateLessonRequestDTO {
@@ -10,5 +10,5 @@ public class CreateLessonRequestDTO {
     private String description;
     private String videoLink;
     private long chapter_id;
-    private Date createdDate;
+    private LocalDate createdDate;
 }

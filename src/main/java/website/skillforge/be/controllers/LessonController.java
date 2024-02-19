@@ -4,7 +4,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import website.skillforge.be.dto.CreateLessonRequestDTO;
+import website.skillforge.be.dto.createDTO.CreateLessonRequestDTO;
+import website.skillforge.be.dto.updateDTO.UpdateLessonDTO;
 import website.skillforge.be.entities.Lesson;
 import website.skillforge.be.services.LessonService;
 
@@ -28,8 +29,8 @@ public class LessonController {
     }
 
     @PutMapping("/lesson/{id}")
-    public ResponseEntity updateLesson(@PathVariable Long id, @RequestBody CreateLessonRequestDTO createLessonRequestDTO) {
-        Lesson lesson = lessonService.updateLesson(id, createLessonRequestDTO);
+    public ResponseEntity updateLesson(@PathVariable Long id, @RequestBody UpdateLessonDTO updateLessonDTO) {
+        Lesson lesson = lessonService.updateLesson(id, updateLessonDTO);
         return ResponseEntity.ok(lesson);
     }
 

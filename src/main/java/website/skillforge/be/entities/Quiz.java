@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +22,8 @@ public class Quiz {
     private String name;
     @Column(columnDefinition = "nvarchar(255)")
     private String description;
-    Date createdDate;
+    LocalDate createdDate;
+    LocalDate lastUpdatedDate;
     @ManyToOne
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;

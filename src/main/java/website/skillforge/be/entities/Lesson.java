@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,9 @@ public class Lesson {
     int totalOfAssignment;
     @Column(columnDefinition = "nvarchar(255)")
     String description;
-    Date createdDate;
+
+    LocalDate createdDate;
+    LocalDate lastUpdatedDate;
     @ManyToOne
     @JoinColumn(name = "chapter_id")
     private Chapter chapter;

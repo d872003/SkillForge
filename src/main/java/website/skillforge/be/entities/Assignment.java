@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Getter
@@ -22,11 +21,10 @@ public class Assignment {
     @Column(columnDefinition = "nvarchar(255)")
     private String description;
     Date createdDate;
-
+    Date lastUpdatedDate;
     @ManyToOne
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
-
     @OneToOne(mappedBy = "assignment")
     @JsonIgnore
     private Rubric rubric;

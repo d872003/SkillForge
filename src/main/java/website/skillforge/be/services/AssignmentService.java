@@ -2,7 +2,7 @@ package website.skillforge.be.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import website.skillforge.be.dto.CreateAssignmentRequestDTO;
+import website.skillforge.be.dto.createDTO.CreateAssignmentRequestDTO;
 import website.skillforge.be.entities.Assignment;
 import website.skillforge.be.repository.AssignmentRepository;
 import website.skillforge.be.repository.LessonRepository;
@@ -20,7 +20,7 @@ public class AssignmentService {
         Assignment assigment = new Assignment();
         assigment.setName(createAssignmentRequestDTO.getName());
         assigment.setDescription(createAssignmentRequestDTO.getDescription());
-        assigment.setCreatedDate(createAssignmentRequestDTO.getCreatedDate());
+//        assigment.setCreatedDate(createAssignmentRequestDTO.getCreatedDate());
         assigment.setLesson(lessonRepository.findLessonById(createAssignmentRequestDTO.getLesson_id()));
         return assignmentRepository.save(assigment);
     }

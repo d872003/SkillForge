@@ -2,7 +2,8 @@ package website.skillforge.be.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import website.skillforge.be.dto.CreateCategoryRequestDTO;
+import website.skillforge.be.dto.createDTO.CreateCategoryRequestDTO;
+import website.skillforge.be.dto.updateDTO.UpdateCategoryDTO;
 import website.skillforge.be.entities.Category;
 import website.skillforge.be.repository.CategoryRepository;
 
@@ -30,15 +31,15 @@ public class CategoryService {
     }
 
 
-    public int deleteCategoryById(Long id) {
+    public void deleteCategoryById(Long id) {
         categoryRepository.deleteById(id);
-        return 1;
     }
 
-    public Category updateCategory(Long id, CreateCategoryRequestDTO category) {
+    public Category updateCategory(Long id, UpdateCategoryDTO category) {
         Category existingCategory = categoryRepository.findCategoryById(id);
         if (existingCategory != null) {
             existingCategory.setName(category.getName());
+            existingCategory.setCode(category.getCode());
             existingCategory.setDescription(category.getDescription());
             return categoryRepository.save(existingCategory);
         }

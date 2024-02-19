@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import website.skillforge.be.enums.status.Status;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -20,12 +21,14 @@ public class Course {
     @Column(columnDefinition = "nvarchar(255)")
     String name;
     double price;
-    int totalOfChapter;
+    @Column(columnDefinition = "nvarchar(255)")
     String pictureLink;
     @Column(columnDefinition = "nvarchar(255)")
     String description;
-    Date createdDate;
-    String status;
+    LocalDate createdDate;
+    LocalDate lastUpdatedDate;
+    @Enumerated(EnumType.STRING)
+    Status status;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

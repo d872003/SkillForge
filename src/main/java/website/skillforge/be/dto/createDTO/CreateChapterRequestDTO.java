@@ -1,8 +1,8 @@
-package website.skillforge.be.dto;
+package website.skillforge.be.dto.createDTO;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class CreateChapterRequestDTO {
@@ -11,5 +11,5 @@ public class CreateChapterRequestDTO {
     private String description;
     private boolean isFreeChapter;
     private long course_id;
-    private Date createdDate;
+    private LocalDate createdDate;
 }
