@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -18,8 +19,8 @@ public class Rubric {
     @Column(columnDefinition = "nvarchar(255)")
     private String description;
 
-    Date createDate;
-    Date lastUpdatedDate;
+    LocalDate createDate;
+    LocalDate lastUpdatedDate;
 
 
     @OneToOne

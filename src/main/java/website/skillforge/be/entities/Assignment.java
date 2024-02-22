@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -20,8 +21,8 @@ public class Assignment {
     private String name;
     @Column(columnDefinition = "nvarchar(255)")
     private String description;
-    Date createdDate;
-    Date lastUpdatedDate;
+    LocalDate createdDate;
+    LocalDate lastUpdatedDate;
     @ManyToOne
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;

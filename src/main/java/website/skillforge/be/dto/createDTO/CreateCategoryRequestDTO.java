@@ -11,5 +11,6 @@ public class CreateCategoryRequestDTO {
     private String code;
     private String description;
     private LocalDate createdDate;
+    private LocalDate lastUpdatedDate;
 
 }

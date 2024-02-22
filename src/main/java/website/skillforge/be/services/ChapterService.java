@@ -3,7 +3,6 @@ package website.skillforge.be.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.createDTO.CreateChapterRequestDTO;
-import website.skillforge.be.dto.updateDTO.UpdateChapterDTO;
 import website.skillforge.be.entities.Account;
 import website.skillforge.be.entities.Chapter;
 import website.skillforge.be.entities.Course;
@@ -40,10 +39,11 @@ public class ChapterService {
         return chapter;
     }
 
-    public Chapter UpdateChapter(Long id, UpdateChapterDTO updateChapterDTO) {
+    public Chapter UpdateChapter(Long id, CreateChapterRequestDTO updateChapterDTO) {
         Chapter chapter = chapterRepository.findChapterById(id);
         chapter.setName(updateChapterDTO.getName());
         chapter.setDescription(updateChapterDTO.getDescription());
+        chapter.setCourse(courseRepository.findCourseById(updateChapterDTO.getCourse_id()));
         chapter.setFreeChapter(updateChapterDTO.isFreeChapter());
         return chapterRepository.save(chapter);
     }

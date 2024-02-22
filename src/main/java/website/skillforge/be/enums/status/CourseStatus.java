@@ -1,6 +1,6 @@
 package website.skillforge.be.enums.status;
 
-public enum Status {
+public enum CourseStatus {
     DRAFT,
     VERIFYING,
     PUBLISHED,

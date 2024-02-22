@@ -12,6 +12,7 @@ public class CreateCourseRequestDTO {
     private String pictureLink;
     private String description;
     private LocalDate createdDate;
+    private LocalDate lastUpdatedDate;
     private long categoryId;
 
 }

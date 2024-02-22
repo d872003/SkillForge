@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import website.skillforge.be.dto.createDTO.CreateCourseRequestDTO;
-import website.skillforge.be.dto.updateDTO.UpdateCourseDTO;
 import website.skillforge.be.entities.Course;
 import website.skillforge.be.services.CourseService;
 
@@ -33,7 +32,7 @@ public class CourseController {
 
     @PutMapping("/course/{id}")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
-    public ResponseEntity updateCourse(@PathVariable Long id, @RequestBody UpdateCourseDTO updateCourseDTO) {
+    public ResponseEntity updateCourse(@PathVariable Long id, @RequestBody CreateCourseRequestDTO updateCourseDTO) {
         Course newCourse = courseService.updateCourse(id, updateCourseDTO);
         return ResponseEntity.ok(newCourse);
     }

@@ -11,4 +11,5 @@ public class CreateLessonRequestDTO {
     private String videoLink;
     private long chapter_id;
     private LocalDate createdDate;
+    private LocalDate lastUpdatedDate;
 }

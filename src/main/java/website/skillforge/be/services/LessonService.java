@@ -3,7 +3,6 @@ package website.skillforge.be.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.createDTO.CreateLessonRequestDTO;
-import website.skillforge.be.dto.updateDTO.UpdateLessonDTO;
 import website.skillforge.be.entities.*;
 import website.skillforge.be.repository.ChapterRepository;
 import website.skillforge.be.repository.LessonRepository;
@@ -47,7 +46,7 @@ public class LessonService {
         return 1;
     }
 
-    public Lesson updateLesson(Long id, UpdateLessonDTO lesson) {
+    public Lesson updateLesson(Long id, CreateLessonRequestDTO lesson) {
         Lesson existingCategory = lessonRepository.findLessonById(id);
         if (existingCategory != null) {
             Chapter chapter = chapterRepository.findChapterById(lesson.getChapter_id());

@@ -22,6 +22,7 @@ public class QuizService {
         Quiz quiz = new Quiz();
         quiz.setName(createQuizRequestDTO.getName());
         quiz.setDescription(createQuizRequestDTO.getDescription());
+        quiz.setCreatedDate(createQuizRequestDTO.getCreatedDate());
         quiz.setLesson(lesson);
         quizRepository.save(quiz);
         return quiz;
@@ -34,9 +35,12 @@ public class QuizService {
     }
 
     public Quiz updateQuiz(Long id, CreateQuizRequestDTO createQuizRequestDTO) {
+        Lesson lesson = lessonRepository.findLessonById(createQuizRequestDTO.getLesson_id());
         Quiz quiz = quizRepository.findQuizById(id);
         quiz.setName(createQuizRequestDTO.getName());
         quiz.setDescription(createQuizRequestDTO.getDescription());
+        quiz.setLastUpdatedDate(createQuizRequestDTO.getLastUpdatedDate());
+        quiz.setLesson(lesson);
         quizRepository.save(quiz);
         return quiz;
     }

@@ -26,16 +26,17 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
-    public void deleteQuestion(Long id) {
+    public void deleteQuestionById(Long id) {
         Question question = questionRepository.findQuestionById(id);
         questionRepository.delete(question);
     }
 
-    public Question updateQuestion(Long id, Question question) {
-        Question question1 = questionRepository.findQuestionById(id);
-        question1.setQuestionNumber(question.getQuestionNumber());
-        question1.setDescription(question.getDescription());
-        return questionRepository.save(question1);
+    public Question updateQuestion(Long id, CreateQuestionRequestDTO createQuestionRequest) {
+        Question question = questionRepository.findQuestionById(id);
+        question.setQuestionNumber(createQuestionRequest.getQuestionNumber());
+        question.setDescription(createQuestionRequest.getDescription());
+        question.setQuiz(quizRepository.findQuizById(createQuestionRequest.getQuiz_id()));
+        return questionRepository.save(question);
     }
 
 

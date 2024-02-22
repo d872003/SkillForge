@@ -14,16 +14,9 @@ public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private int answerNumber;
     @Column(columnDefinition = "nvarchar(255)")
-    private String answer1;
-    @Column(columnDefinition = "nvarchar(255)")
-    private String answer2;
-    @Column(columnDefinition = "nvarchar(255)")
-    private String answer3;
-    @Column(columnDefinition = "nvarchar(255)")
-    private String answer4;
-
+    private String answerContent;
     private boolean isTrue;
 
     @ManyToOne

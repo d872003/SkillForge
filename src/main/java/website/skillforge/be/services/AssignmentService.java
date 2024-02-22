@@ -20,7 +20,7 @@ public class AssignmentService {
         Assignment assigment = new Assignment();
         assigment.setName(createAssignmentRequestDTO.getName());
         assigment.setDescription(createAssignmentRequestDTO.getDescription());
-//        assigment.setCreatedDate(createAssignmentRequestDTO.getCreatedDate());
+        assigment.setCreatedDate(createAssignmentRequestDTO.getCreatedDate());
         assigment.setLesson(lessonRepository.findLessonById(createAssignmentRequestDTO.getLesson_id()));
         return assignmentRepository.save(assigment);
     }
@@ -39,6 +39,7 @@ public class AssignmentService {
         if (existingAssignment != null) {
             existingAssignment.setName(assignment.getName());
             existingAssignment.setDescription(assignment.getDescription());
+            existingAssignment.setLastUpdatedDate(assignment.getLastUpdatedDate());
             return assignmentRepository.save(existingAssignment);
         }
         return null;

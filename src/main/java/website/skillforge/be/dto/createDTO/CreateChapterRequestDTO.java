@@ -12,4 +12,5 @@ public class CreateChapterRequestDTO {
     private boolean isFreeChapter;
     private long course_id;
     private LocalDate createdDate;
+    private LocalDate lastUpdatedDate;
 }

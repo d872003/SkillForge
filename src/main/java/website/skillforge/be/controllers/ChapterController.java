@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import website.skillforge.be.dto.createDTO.CreateChapterRequestDTO;
-import website.skillforge.be.dto.updateDTO.UpdateChapterDTO;
 import website.skillforge.be.services.ChapterService;
 
 @RestController
@@ -30,7 +29,7 @@ public class ChapterController {
     }
 
     @PutMapping("/chapter/{id}")
-    public ResponseEntity updateChapter(@PathVariable Long id, @RequestBody UpdateChapterDTO updateChapterRequestDTO) {
+    public ResponseEntity updateChapter(@PathVariable Long id, @RequestBody CreateChapterRequestDTO updateChapterRequestDTO) {
         return ResponseEntity.ok(chapterService.UpdateChapter(id, updateChapterRequestDTO));
     }
 
