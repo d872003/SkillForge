@@ -8,6 +8,7 @@ import website.skillforge.be.repository.ChapterRepository;
 import website.skillforge.be.repository.LessonRepository;
 import website.skillforge.be.util.AccountUtil;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,12 +22,14 @@ public class LessonService {
 
     public Lesson createLesson(CreateLessonRequestDTO createLessonRequestDTO) {
         Account account = accountUtil.getCurrentAccount();
+        Date date = new Date();
         Chapter chapter = chapterRepository.findChapterById(createLessonRequestDTO.getChapter_id());
         Lesson lesson = new Lesson();
         lesson.setName(createLessonRequestDTO.getName());
         lesson.setVideoLink(createLessonRequestDTO.getVideoLink());
         lesson.setDescription(createLessonRequestDTO.getDescription());
-        lesson.setCreatedDate(createLessonRequestDTO.getCreatedDate());
+        lesson.setCreatedDate(date);
+        lesson.setLastUpdatedDate(date);
         lesson.setChapter(chapter);
         lesson.setCreateBy(account);
         return lessonRepository.save(lesson);
@@ -47,17 +50,16 @@ public class LessonService {
     }
 
     public Lesson updateLesson(Long id, CreateLessonRequestDTO lesson) {
-        Lesson existingCategory = lessonRepository.findLessonById(id);
-        if (existingCategory != null) {
-            Chapter chapter = chapterRepository.findChapterById(lesson.getChapter_id());
-            existingCategory.setName(lesson.getName());
-            existingCategory.setDescription(lesson.getDescription());
-            existingCategory.setVideoLink(lesson.getVideoLink());
-            existingCategory.setLastUpdatedDate(lesson.getLastUpdatedDate());
-            existingCategory.setChapter(chapter);
-            return lessonRepository.save(existingCategory);
+        Lesson lesson1 = lessonRepository.findLessonById(id);
+        if (lesson1 == null) {
+            return null;
         }
-        return null;
+        Date date = new Date();
+        lesson1.setName(lesson.getName());
+        lesson1.setDescription(lesson.getDescription());
+        lesson1.setVideoLink(lesson.getVideoLink());
+        lesson1.setLastUpdatedDate(date);
+        return lessonRepository.save(lesson1);
     }
 
     public List<Lesson> getAllLesson() {

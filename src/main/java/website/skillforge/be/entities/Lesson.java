@@ -24,8 +24,8 @@ public class Lesson {
     @Column(columnDefinition = "nvarchar(255)")
     String description;
 
-    LocalDate createdDate;
-    LocalDate lastUpdatedDate;
+    Date createdDate;
+    Date lastUpdatedDate;
     @ManyToOne
     @JoinColumn(name = "chapter_id")
     private Chapter chapter;

@@ -8,6 +8,7 @@ import website.skillforge.be.entities.Quiz;
 import website.skillforge.be.repository.LessonRepository;
 import website.skillforge.be.repository.QuizRepository;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,10 +20,12 @@ public class QuizService {
 
     public Quiz createQuiz(CreateQuizRequestDTO createQuizRequestDTO) {
         Lesson lesson = lessonRepository.findLessonById(createQuizRequestDTO.getLesson_id());
+        Date date = new Date();
         Quiz quiz = new Quiz();
         quiz.setName(createQuizRequestDTO.getName());
         quiz.setDescription(createQuizRequestDTO.getDescription());
-        quiz.setCreatedDate(createQuizRequestDTO.getCreatedDate());
+        quiz.setCreatedDate(date);
+        quiz.setLastUpdatedDate(date);
         quiz.setLesson(lesson);
         quizRepository.save(quiz);
         return quiz;
@@ -36,10 +39,14 @@ public class QuizService {
 
     public Quiz updateQuiz(Long id, CreateQuizRequestDTO createQuizRequestDTO) {
         Lesson lesson = lessonRepository.findLessonById(createQuizRequestDTO.getLesson_id());
+        Date date = new Date();
+        if (lesson == null) {
+            return null;
+        }
         Quiz quiz = quizRepository.findQuizById(id);
         quiz.setName(createQuizRequestDTO.getName());
         quiz.setDescription(createQuizRequestDTO.getDescription());
-        quiz.setLastUpdatedDate(createQuizRequestDTO.getLastUpdatedDate());
+        quiz.setLastUpdatedDate(date);
         quiz.setLesson(lesson);
         quizRepository.save(quiz);
         return quiz;

@@ -11,8 +11,6 @@ public class CreateCourseRequestDTO {
     private double price;
     private String pictureLink;
     private String description;
-    private LocalDate createdDate;
-    private LocalDate lastUpdatedDate;
     private long categoryId;
 
 }

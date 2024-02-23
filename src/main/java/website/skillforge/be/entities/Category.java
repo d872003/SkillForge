@@ -22,8 +22,8 @@ public class Category {
     @Column(columnDefinition = "nvarchar(255)")
     private String description;
 
-    private LocalDate createdDate;
-    private LocalDate lastUpdatedDate;
+    private Date createdDate;
+    private Date lastUpdatedDate;
 
 
     @OneToMany(mappedBy = "category")

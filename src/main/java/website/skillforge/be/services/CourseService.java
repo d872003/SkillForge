@@ -11,6 +11,7 @@ import website.skillforge.be.repository.CategoryRepository;
 import website.skillforge.be.repository.CourseRepository;
 import website.skillforge.be.util.AccountUtil;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,13 +26,15 @@ public class CourseService {
 
     public Course createCourse(CreateCourseRequestDTO course) {
         Account account = accountUtil.getCurrentAccount();
+        Date date = new Date();
         Category category = categoryRepository.findCategoryById(course.getCategoryId());
         Course newCourse = new Course();
         newCourse.setName(course.getName());
         newCourse.setPrice(course.getPrice());
         newCourse.setPictureLink(course.getPictureLink());
         newCourse.setDescription(course.getDescription());
-        newCourse.setCreatedDate(course.getCreatedDate());
+        newCourse.setCreatedDate(date);
+        newCourse.setLastUpdatedDate(date);
         newCourse.setCourseStatus(CourseStatus.DRAFT);
         newCourse.setCategory(category);
         newCourse.setCreateBy(account);
@@ -55,17 +58,16 @@ public class CourseService {
     public Course updateCourse(Long id, CreateCourseRequestDTO course) {
         Course existingCourse = courseRepository.findCourseById(id);
         if (existingCourse != null) {
+            Date date = new Date();
             Category category = categoryRepository.findCategoryById(course.getCategoryId());
             existingCourse.setName(course.getName());
             existingCourse.setPrice(course.getPrice());
             existingCourse.setPictureLink(course.getPictureLink());
             existingCourse.setDescription(course.getDescription());
             existingCourse.setCategory(category);
-            existingCourse.setLastUpdatedDate(course.getLastUpdatedDate());
-            existingCourse.setCourseStatus(CourseStatus.PUBLISHED);
+            existingCourse.setLastUpdatedDate(date);
             return courseRepository.save(existingCourse);
         }
-
         return null;
     }
 

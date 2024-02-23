@@ -15,4 +15,9 @@ public class ApiHandleException {
         return new ResponseEntity<String>(exception.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> serverError(Exception exception) {
+        return new ResponseEntity<String>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

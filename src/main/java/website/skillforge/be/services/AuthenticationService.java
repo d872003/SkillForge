@@ -56,19 +56,25 @@ public class AuthenticationService {
             loginResponseDTO.setEmail(account.getEmail());
             loginResponseDTO.setPhone(account.getPhone());
             loginResponseDTO.setRole(account.getRole());
-
             return loginResponseDTO;
         } catch (Exception e) {
             throw new InternalAuthenticationServiceException("Authentication failed: " + e.getMessage());
         }
     }
 
-    public Account loginGoogle(String token) {
+    public LoginResponseDTO loginGoogle(String token) {
         try {
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
             String email = decodedToken.getEmail();
             Account account = accountRepository.findByEmail(email);
-            return account;
+            LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
+            loginResponseDTO.setToken(tokenHandler.generateToken(account));
+            loginResponseDTO.setUsername(account.getUsername());
+            loginResponseDTO.setFullName(account.getFullName());
+            loginResponseDTO.setEmail(account.getEmail());
+            loginResponseDTO.setPhone(account.getPhone());
+            loginResponseDTO.setRole(account.getRole());
+            return loginResponseDTO;
         } catch (FirebaseAuthException e) {
             e.printStackTrace();
             System.out.println(e);

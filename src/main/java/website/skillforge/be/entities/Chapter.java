@@ -18,13 +18,12 @@ public class Chapter {
     Long id;
     @Column(columnDefinition = "nvarchar(255)")
     String name;
-    int totalOfLesson;
     @Column(columnDefinition = "nvarchar(255)")
     String description;
     boolean isFreeChapter;
 
-    LocalDate createdDate;
-    LocalDate lastUpdatedDate;
+    Date createdDate;
+    Date lastUpdatedDate;
 
     @ManyToOne
     @JoinColumn(name = "course_id")

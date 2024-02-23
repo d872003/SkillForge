@@ -33,6 +33,9 @@ public class QuestionService {
 
     public Question updateQuestion(Long id, CreateQuestionRequestDTO createQuestionRequest) {
         Question question = questionRepository.findQuestionById(id);
+        if (question == null) {
+            return null;
+        }
         question.setQuestionNumber(createQuestionRequest.getQuestionNumber());
         question.setDescription(createQuestionRequest.getDescription());
         question.setQuiz(quizRepository.findQuizById(createQuestionRequest.getQuiz_id()));

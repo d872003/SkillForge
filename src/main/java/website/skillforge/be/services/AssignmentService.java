@@ -7,6 +7,7 @@ import website.skillforge.be.entities.Assignment;
 import website.skillforge.be.repository.AssignmentRepository;
 import website.skillforge.be.repository.LessonRepository;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,9 +19,11 @@ public class AssignmentService {
 
     public Assignment createAssignment(CreateAssignmentRequestDTO createAssignmentRequestDTO) {
         Assignment assigment = new Assignment();
+        Date date = new Date();
         assigment.setName(createAssignmentRequestDTO.getName());
         assigment.setDescription(createAssignmentRequestDTO.getDescription());
-        assigment.setCreatedDate(createAssignmentRequestDTO.getCreatedDate());
+        assigment.setCreatedDate(date);
+        assigment.setLastUpdatedDate(date);
         assigment.setLesson(lessonRepository.findLessonById(createAssignmentRequestDTO.getLesson_id()));
         return assignmentRepository.save(assigment);
     }
@@ -37,15 +40,17 @@ public class AssignmentService {
     public Assignment updateAssignment(Long id, CreateAssignmentRequestDTO assignment) {
         Assignment existingAssignment = assignmentRepository.findAssignmentById(id);
         if (existingAssignment != null) {
+            Date date = new Date();
             existingAssignment.setName(assignment.getName());
             existingAssignment.setDescription(assignment.getDescription());
-            existingAssignment.setLastUpdatedDate(assignment.getLastUpdatedDate());
+            existingAssignment.setLastUpdatedDate(date);
             return assignmentRepository.save(existingAssignment);
         }
         return null;
     }
 
     public List<Assignment> getAllAssignments() {
+
         return assignmentRepository.findAll();
     }
 

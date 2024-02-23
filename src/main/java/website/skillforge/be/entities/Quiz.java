@@ -22,8 +22,8 @@ public class Quiz {
     private String name;
     @Column(columnDefinition = "nvarchar(255)")
     private String description;
-    LocalDate createdDate;
-    LocalDate lastUpdatedDate;
+    Date createdDate;
+    Date lastUpdatedDate;
     @ManyToOne
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;

@@ -5,29 +5,24 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-public class Assignment {
-
+public class Criterion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(columnDefinition = "nvarchar(255)")
     private String name;
-    @Column(columnDefinition = "nvarchar(255)")
     private String description;
-    Date createdDate;
-    Date lastUpdatedDate;
+
     @ManyToOne
-    @JoinColumn(name = "lesson_id")
-    private Lesson lesson;
-    @OneToOne(mappedBy = "assignment")
-    @JsonIgnore
+    @JoinColumn(name = "rubric_id")
     private Rubric rubric;
+
+    @OneToMany(mappedBy = "criterion")
+    @JsonIgnore
+    private List<RubricAnswer> rubricAnswerList;
 
 }

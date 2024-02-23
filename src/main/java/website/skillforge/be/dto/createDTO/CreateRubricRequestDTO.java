@@ -10,7 +10,5 @@ public class CreateRubricRequestDTO {
 
     private String name;
     private String description;
-    private Date createdDate;
-    private LocalDate lastUpdatedDate;
     private long assignment_id;
 }

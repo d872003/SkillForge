@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import website.skillforge.be.dto.createDTO.CreateChapterRequestDTO;
+import website.skillforge.be.entities.Chapter;
 import website.skillforge.be.services.ChapterService;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -22,6 +25,11 @@ public class ChapterController {
         return ResponseEntity.ok(chapterService.CreateChapter(createChapterRequestDTO));
     }
 
+    @PostMapping("/chapters")
+    public ResponseEntity createChapters(@RequestBody List<CreateChapterRequestDTO> createChapterRequestDTO) {
+        return ResponseEntity.ok(chapterService.CreateChapters(createChapterRequestDTO));
+    }
+
     @DeleteMapping("/chapter/{id}")
     public ResponseEntity deleteChapter(@PathVariable Long id) {
         chapterService.DeleteChapter(id);
@@ -31,6 +39,11 @@ public class ChapterController {
     @PutMapping("/chapter/{id}")
     public ResponseEntity updateChapter(@PathVariable Long id, @RequestBody CreateChapterRequestDTO updateChapterRequestDTO) {
         return ResponseEntity.ok(chapterService.UpdateChapter(id, updateChapterRequestDTO));
+    }
+
+    @PutMapping("/chapters")
+    public ResponseEntity updateChapters(@RequestParam List<Long> id, @RequestBody List<CreateChapterRequestDTO> updateChapterRequestDTO) {
+        return ResponseEntity.ok(chapterService.UpdateChapters(id, updateChapterRequestDTO));
     }
 
 

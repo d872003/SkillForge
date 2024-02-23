@@ -2,12 +2,9 @@ package website.skillforge.be.dto.createDTO;
 
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
-public class CreateAssignmentRequestDTO {
-
+public class CreateCriterionRequestDTO {
     private String name;
     private String description;
-    private long lesson_id;
+    private long rubric_id;
 }

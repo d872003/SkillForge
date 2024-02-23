@@ -7,6 +7,7 @@ import lombok.Setter;
 import website.skillforge.be.enums.status.CourseStatus;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,8 +26,8 @@ public class Course {
     String pictureLink;
     @Column(columnDefinition = "nvarchar(255)")
     String description;
-    LocalDate createdDate;
-    LocalDate lastUpdatedDate;
+    Date createdDate;
+    Date lastUpdatedDate;
     @Enumerated(EnumType.STRING)
     CourseStatus courseStatus;
 

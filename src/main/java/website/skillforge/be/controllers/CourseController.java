@@ -22,7 +22,6 @@ public class CourseController {
         Course course = courseService.createCourse(createCourseRequestDTO);
         return ResponseEntity.ok(course);
     }
-
     @DeleteMapping("/course/{id}")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
     public ResponseEntity deleteCourse(@PathVariable Long id) {
