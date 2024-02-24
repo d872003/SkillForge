@@ -21,6 +21,9 @@ public class Rubric {
     Date createDate;
     Date lastUpdatedDate;
 
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account createBy;
 
     @OneToOne
     @JoinColumn(name = "assignment_id")
