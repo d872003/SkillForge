@@ -7,6 +7,7 @@ import lombok.Setter;
 import website.skillforge.be.enums.status.Status;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 @Entity
 @Setter
@@ -23,6 +24,8 @@ public class Criteria {
     @Column(columnDefinition = "nvarchar(255)")
     String description;
 
+    Date createdDate;
+    Date lastUpdateDate;
     long MaxScore;
 
     @ManyToOne
