@@ -20,9 +20,9 @@ public class AnswerService {
         Answer answer = new Answer();
 //        Question question = questionRepository.findQuestionByQuestionNumber(createAnswerRequest.getQuestionId());
         answer.setAnswer1(createAnswerRequest.getAnswer1());
-        answer.setAnswer2(createAnswerRequest.getAnswer2());
-        answer.setAnswer3(createAnswerRequest.getAnswer3());
-        answer.setAnswer4(createAnswerRequest.getAnswer4());
+//        answer.setAnswer2(createAnswerRequest.getAnswer2());
+//        answer.setAnswer3(createAnswerRequest.getAnswer3());
+//        answer.setAnswer4(createAnswerRequest.getAnswer4());
         answer.setTrue(createAnswerRequest.getIsTrue());
 //        answer.setQuestion(question);
         return answerRepository.save(answer);
@@ -37,9 +37,9 @@ public class AnswerService {
         Answer existingAnswer = answerRepository.findAnswerById(id);
         if (existingAnswer != null) {
             existingAnswer.setAnswer1(answer.getAnswer1());
-            existingAnswer.setAnswer2(answer.getAnswer2());
-            existingAnswer.setAnswer3(answer.getAnswer3());
-            existingAnswer.setAnswer4(answer.getAnswer4());
+//            existingAnswer.setAnswer2(answer.getAnswer2());
+//            existingAnswer.setAnswer3(answer.getAnswer3());
+//            existingAnswer.setAnswer4(answer.getAnswer4());
             existingAnswer.setTrue(answer.getIsTrue());
             return answerRepository.save(existingAnswer);
         }

@@ -31,7 +31,7 @@ public class Rubric {
     @JoinColumn(name = "assignment_id")
     private Assignment assignment;
 
-    @OneToMany(mappedBy = "Criteria")
+    @OneToMany(mappedBy = "rubric")
     @JsonIgnore
     private List<Criteria> criteria;
 }

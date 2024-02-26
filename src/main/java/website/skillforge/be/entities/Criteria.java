@@ -18,10 +18,10 @@ public class Criteria {
     Long id;
 
     @Column(columnDefinition = "nvarchar(255)")
-    String criteriaName;
+    String name;
 
     @Column(columnDefinition = "nvarchar(255)")
-    String Description;
+    String description;
 
     long MaxScore;
 

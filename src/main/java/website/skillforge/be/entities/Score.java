@@ -18,7 +18,7 @@ public class Score {
     @Column(name = "id", insertable = false, updatable = false)
     Long id;
 
-    int Score;
+    int score;
 
     Date SubmissionDate;
 
