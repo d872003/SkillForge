@@ -3,8 +3,11 @@ package website.skillforge.be.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.createDTO.CreateRubricRequestDTO;
+import website.skillforge.be.dto.updateDTO.UpdateCourseDTO;
+import website.skillforge.be.dto.updateDTO.UpdateRubricDTO;
 import website.skillforge.be.entities.Account;
 import website.skillforge.be.entities.Assignment;
+import website.skillforge.be.entities.Course;
 import website.skillforge.be.entities.Rubric;
 import website.skillforge.be.enums.status.Status;
 import website.skillforge.be.repository.AssignmentRepository;
@@ -33,8 +36,24 @@ public class RubricService {
         return rubric;
     }
 
+    public Rubric updateRubric(Long id, UpdateRubricDTO rubric){
+        Rubric oldRubric = rubricRepository.findRubricById(id);
+        if(oldRubric != null){
+            oldRubric.setName(rubric.getName());
+            oldRubric.setDescription(rubric.getDescription());
+            oldRubric.setLastUpdatedDate(rubric.getLastUpdatedDate());
+            return rubricRepository.save(oldRubric);
+        }
+        return null;
+    }
+
+   public void deleteRubric(Long id){
+        Rubric rubric = rubricRepository.findRubricById(id);
+        rubricRepository.delete(rubric);
+   }
 
     public Rubric getRubricById(Long id) {
+
         return rubricRepository.findRubricById(id);
     }
 
