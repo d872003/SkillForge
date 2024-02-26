@@ -3,9 +3,9 @@ package website.skillforge.be.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.createDTO.CreateQuestionRequestDTO;
-import website.skillforge.be.entities.Question;
+import website.skillforge.be.entities.QuizQuestion;
 import website.skillforge.be.entities.Quiz;
-import website.skillforge.be.repository.QuestionRepository;
+import website.skillforge.be.repository.QuizQuestionRepository;
 import website.skillforge.be.repository.QuizRepository;
 
 import java.util.List;
@@ -13,42 +13,42 @@ import java.util.List;
 @Service
 public class QuestionService {
     @Autowired
-    private QuestionRepository questionRepository;
+    private QuizQuestionRepository quizQuestionRepository;
     @Autowired
     private QuizRepository quizRepository;
 
-    public Question createQuestion(CreateQuestionRequestDTO createQuestionRequest) {
-        Question question = new Question();
+    public QuizQuestion createQuestion(CreateQuestionRequestDTO createQuestionRequest) {
+        QuizQuestion question = new QuizQuestion();
         Quiz quiz = quizRepository.findQuizById(createQuestionRequest.getQuiz_id());
         question.setQuestionNumber(createQuestionRequest.getQuestionNumber());
-        question.setDescription(createQuestionRequest.getDescription());
+        question.setQuestionContent(createQuestionRequest.getQuestionContent());
         question.setQuiz(quiz);
-        return questionRepository.save(question);
+        return quizQuestionRepository.save(question);
     }
 
     public void deleteQuestionById(Long id) {
-        Question question = questionRepository.findQuestionById(id);
-        questionRepository.delete(question);
+        QuizQuestion question = quizQuestionRepository.findQuestionById(id);
+        quizQuestionRepository.delete(question);
     }
 
-    public Question updateQuestion(Long id, CreateQuestionRequestDTO createQuestionRequest) {
-        Question question = questionRepository.findQuestionById(id);
+    public QuizQuestion updateQuestion(Long id, CreateQuestionRequestDTO createQuestionRequest) {
+        QuizQuestion question = quizQuestionRepository.findQuestionById(id);
         if (question == null) {
             return null;
         }
         question.setQuestionNumber(createQuestionRequest.getQuestionNumber());
-        question.setDescription(createQuestionRequest.getDescription());
+        question.setQuestionContent(createQuestionRequest.getQuestionContent());
         question.setQuiz(quizRepository.findQuizById(createQuestionRequest.getQuiz_id()));
-        return questionRepository.save(question);
+        return quizQuestionRepository.save(question);
     }
 
 
-    public List<Question> getAllQuestions() {
-        return questionRepository.findAll();
+    public List<QuizQuestion> getAllQuestions() {
+        return quizQuestionRepository.findAll();
     }
 
-    public Question getQuestionById(Long id) {
-        return questionRepository.findQuestionById(id);
+    public QuizQuestion getQuestionById(Long id) {
+        return quizQuestionRepository.findQuestionById(id);
     }
 
 

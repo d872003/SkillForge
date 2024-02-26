@@ -5,37 +5,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import website.skillforge.be.dto.createDTO.CreateQuestionRequestDTO;
-import website.skillforge.be.entities.Question;
+import website.skillforge.be.entities.QuizQuestion;
 import website.skillforge.be.services.QuestionService;
 
 @RestController
 @CrossOrigin("*")
 @SecurityRequirement(name = "api")
-public class QuestionController {
+public class QuizQuestionController {
     @Autowired
     private QuestionService questionService;
 
     @PostMapping("/question")
     public ResponseEntity createQuestion(@RequestBody CreateQuestionRequestDTO createQuestionRequestDTO) {
-        Question question = questionService.createQuestion(createQuestionRequestDTO);
+        QuizQuestion question = questionService.createQuestion(createQuestionRequestDTO);
         return ResponseEntity.ok(question);
     }
 
     @DeleteMapping("/question/{id}")
     public ResponseEntity deleteQuestion(@RequestBody Long id) {
         questionService.deleteQuestionById(id);
-        return ResponseEntity.ok("Question deleted successfully");
+        return ResponseEntity.ok("QuizQuestion deleted successfully");
     }
 
     @PutMapping("/question/{id}")
     public ResponseEntity updateQuestion(@PathVariable Long id, @RequestBody CreateQuestionRequestDTO createQuestionRequestDTO) {
-        Question question = questionService.updateQuestion(id, createQuestionRequestDTO);
+        QuizQuestion question = questionService.updateQuestion(id, createQuestionRequestDTO);
         return ResponseEntity.ok(question);
     }
 
     @GetMapping("/question/{id}")
     public ResponseEntity getQuestionById(@PathVariable Long id) {
-        Question question = questionService.getQuestionById(id);
+        QuizQuestion question = questionService.getQuestionById(id);
         return ResponseEntity.ok(question);
     }
 

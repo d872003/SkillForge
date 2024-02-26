@@ -45,13 +45,14 @@ public class ChapterService {
         }
         return chapters;
     }
-    public Chapter DeleteChapter(Long id) {
+
+    public Chapter DeleteChapterById(Long id) {
         Chapter chapter = chapterRepository.findChapterById(id);
         chapterRepository.delete(chapter);
         return chapter;
     }
 
-    public Chapter UpdateChapter(Long id, CreateChapterRequestDTO updateChapterDTO) {
+    public Chapter UpdateChapterById(Long id, CreateChapterRequestDTO updateChapterDTO) {
         Chapter chapter = chapterRepository.findChapterById(id);
         if (chapter == null) {
             return null;
@@ -65,14 +66,15 @@ public class ChapterService {
         return chapterRepository.save(chapter);
     }
 
-    public List<Chapter> UpdateChapters(List<Long> ids, List<CreateChapterRequestDTO> updateChapterDTO) {
+    public List<Chapter> UpdateChaptersById(List<Long> ids, List<CreateChapterRequestDTO> updateChapterDTO) {
         List<Chapter> chapters = new java.util.ArrayList<>();
         for (int i = 0; i < ids.size(); i++) {
-            chapters.add(UpdateChapter(ids.get(i), updateChapterDTO.get(i)));
+            chapters.add(UpdateChapterById(ids.get(i), updateChapterDTO.get(i)));
         }
         return chapters;
     }
-    public Chapter GetChapter(Long id) {
+
+    public Chapter GetChapterById(Long id) {
         return chapterRepository.findChapterById(id);
     }
     public Chapter GetChapterByName(String name) {

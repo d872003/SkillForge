@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -29,5 +27,6 @@ public class Quiz {
     private Lesson lesson;
     @OneToMany(mappedBy = "quiz")
     @JsonIgnore
-    private List<Question> question;
+    private List<QuizQuestion> quizQuestion;
+
 }

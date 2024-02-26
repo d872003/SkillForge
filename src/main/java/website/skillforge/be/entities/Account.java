@@ -69,4 +69,8 @@ public class Account implements UserDetails {
     @OneToMany(mappedBy = "createBy")
     @JsonIgnore
     List<Course> course;
+
+    @OneToMany(mappedBy = "doBy")
+    @JsonIgnore
+    List<QuizResult> quizResult;
 }
