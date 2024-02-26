@@ -5,18 +5,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
-public class RubricAnswer {
+public class QuizResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String ansContent;
-    private double score;
+
+    private int score;
+
+    private int trueAnswerNumber;
+
+    private int falseAnswerNumber;
+
+    private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "criterion_id")
-    private Criterion criterion;
+    @JoinColumn(name = "account_id")
+    private Account doBy;
+
+
 }

@@ -32,24 +32,24 @@ public class ChapterController {
 
     @DeleteMapping("/chapter/{id}")
     public ResponseEntity deleteChapter(@PathVariable Long id) {
-        chapterService.DeleteChapter(id);
+        chapterService.DeleteChapterById(id);
         return ResponseEntity.ok("deleted successfully");
     }
 
     @PutMapping("/chapter/{id}")
     public ResponseEntity updateChapter(@PathVariable Long id, @RequestBody CreateChapterRequestDTO updateChapterRequestDTO) {
-        return ResponseEntity.ok(chapterService.UpdateChapter(id, updateChapterRequestDTO));
+        return ResponseEntity.ok(chapterService.UpdateChapterById(id, updateChapterRequestDTO));
     }
 
     @PutMapping("/chapters")
     public ResponseEntity updateChapters(@RequestParam List<Long> id, @RequestBody List<CreateChapterRequestDTO> updateChapterRequestDTO) {
-        return ResponseEntity.ok(chapterService.UpdateChapters(id, updateChapterRequestDTO));
+        return ResponseEntity.ok(chapterService.UpdateChaptersById(id, updateChapterRequestDTO));
     }
 
 
     @GetMapping("/chapter/{id}")
     public ResponseEntity getChapterById(@PathVariable Long id) {
-        return ResponseEntity.ok(chapterService.GetChapter(id));
+        return ResponseEntity.ok(chapterService.GetChapterById(id));
     }
 
     @GetMapping("/chapter")

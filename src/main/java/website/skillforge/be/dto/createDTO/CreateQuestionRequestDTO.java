@@ -6,7 +6,7 @@ import lombok.Data;
 public class CreateQuestionRequestDTO {
 
     private Integer questionNumber;
-    private String description;
+    private String questionContent;
     private long quiz_id;
 
 }

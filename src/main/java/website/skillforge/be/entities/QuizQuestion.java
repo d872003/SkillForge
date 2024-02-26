@@ -11,22 +11,21 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Question {
-
+public class QuizQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     private int questionNumber;
     @Column(columnDefinition = "nvarchar(255)")
-    private String description;
+    private String questionContent;
+    private double questionScore;
 
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     @JsonIgnore
     private Quiz quiz;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "quizQuestion")
     @JsonIgnore
-    private List<Answer> answers;
+    private List<QuizAnswer> quizAnswers;
 }
