@@ -1,10 +1,12 @@
 package website.skillforge.be.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,5 +30,9 @@ public class Rubric {
     @OneToOne
     @JoinColumn(name = "assignment_id")
     private Assignment assignment;
+
+    @OneToMany(mappedBy = "Criteria")
+    @JsonIgnore
+    private List<Criteria> criteria;
 }
 
