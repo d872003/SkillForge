@@ -63,7 +63,6 @@ public class RubricService {
     }
 
     public List<Rubric> getAllRubric() {
-
         return rubricRepository.findAll();
     }
 }

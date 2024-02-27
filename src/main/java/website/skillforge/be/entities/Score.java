@@ -16,14 +16,14 @@ public class Score {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", insertable = false, updatable = false)
-    Long id;
+    private Long id;
 
-    int score;
+    private Integer score;
 
-    Date SubmissionDate;
+    private Date SubmissionDate;
 
     @Column(columnDefinition = "nvarchar(255)")
-    String comment;
+    private String comment;
 
     @ManyToOne
     @JoinColumn (name = "rubric_id")

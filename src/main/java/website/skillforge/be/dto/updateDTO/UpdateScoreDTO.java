@@ -1,13 +1,13 @@
-package website.skillforge.be.dto.createDTO;
+package website.skillforge.be.dto.updateDTO;
 
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class CreateScoreRequestDTO {
+public class UpdateScoreDTO {
 
-    private Integer score;
+    private int score;
     private Date submissionDate;
     private String comment;
     private long rubric_id;

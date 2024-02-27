@@ -3,7 +3,6 @@ package website.skillforge.be.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.createDTO.CreateCriteriaRequestDTO;
-import website.skillforge.be.dto.createDTO.CreateRubricRequestDTO;
 import website.skillforge.be.dto.updateDTO.UpdateCriteriaDTO;
 import website.skillforge.be.entities.*;
 import website.skillforge.be.enums.status.Status;

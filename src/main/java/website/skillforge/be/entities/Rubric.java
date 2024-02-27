@@ -14,11 +14,11 @@ import java.util.List;
 public class Rubric {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
     @Column(columnDefinition = "nvarchar(255)")
-    private String name;
+    String name;
     @Column(columnDefinition = "nvarchar(255)")
-    private String description;
+    String description;
 
     Date createDate;
     Date lastUpdatedDate;
