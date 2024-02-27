@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import website.skillforge.be.entities.quiz.QuizResult;
 import website.skillforge.be.enums.status.AccountStatus;
 import website.skillforge.be.enums.Role;
 
@@ -31,7 +32,8 @@ public class Account implements UserDetails {
     String fullName;
     @Column(unique = true, nullable = false)
     String email;
-
+    @Column(columnDefinition = "nvarchar(255)")
+    String avatarLink;
     String phone;
     @Enumerated(EnumType.STRING)
     Role role;

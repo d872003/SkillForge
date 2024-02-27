@@ -7,6 +7,6 @@ public class CreateAnswerRequestDTO {
     private int answerNumber;
     private String answerContent;
     private Boolean isTrue;
-    private long questionId;
+    private long quizQuestion_id;
 
 }

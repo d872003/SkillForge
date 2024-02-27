@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import website.skillforge.be.entities.assignment.Assignment;
+import website.skillforge.be.entities.quiz.Quiz;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
