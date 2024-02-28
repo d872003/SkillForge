@@ -75,4 +75,8 @@ public class Account implements UserDetails {
     @OneToMany(mappedBy = "doBy")
     @JsonIgnore
     List<QuizResult> quizResult;
+
+    @OneToMany(mappedBy = "uploadBy")
+    @JsonIgnore
+    List<Video> video;
 }

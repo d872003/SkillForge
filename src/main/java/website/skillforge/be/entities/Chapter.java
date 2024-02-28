@@ -36,4 +36,8 @@ public class Chapter {
     @OneToMany(mappedBy = "chapter")
     @JsonIgnore
     private List<Lesson> lesson;
+
+    @OneToMany(mappedBy = "chapter")
+    @JsonIgnore
+    private List<Video> video;
 }

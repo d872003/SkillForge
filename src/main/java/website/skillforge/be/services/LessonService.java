@@ -26,7 +26,7 @@ public class LessonService {
         Chapter chapter = chapterRepository.findChapterById(createLessonRequestDTO.getChapter_id());
         Lesson lesson = new Lesson();
         lesson.setName(createLessonRequestDTO.getName());
-        lesson.setVideoLink(createLessonRequestDTO.getVideoLink());
+        //lesson.setVideoLink(createLessonRequestDTO.getVideoLink());
         lesson.setDescription(createLessonRequestDTO.getDescription());
         lesson.setCreatedDate(date);
         lesson.setLastUpdatedDate(date);
@@ -57,7 +57,7 @@ public class LessonService {
         Date date = new Date();
         lesson1.setName(lesson.getName());
         lesson1.setDescription(lesson.getDescription());
-        lesson1.setVideoLink(lesson.getVideoLink());
+        //lesson1.setVideoLink(lesson.getVideoLink());
         lesson1.setLastUpdatedDate(date);
         return lessonRepository.save(lesson1);
     }

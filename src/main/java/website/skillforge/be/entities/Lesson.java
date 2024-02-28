@@ -19,7 +19,7 @@ public class Lesson {
     Long id;
     @Column(columnDefinition = "nvarchar(255)")
     String name;
-    String videoLink;
+//    String videoLink;
     int totalOfQuiz;
     int totalOfAssignment;
     @Column(columnDefinition = "nvarchar(255)")
@@ -42,4 +42,8 @@ public class Lesson {
     @OneToMany(mappedBy = "lesson")
     @JsonIgnore
     private List<Assignment> assignment;
+
+    @OneToOne(mappedBy = "lesson")
+    @JsonIgnore
+    private Video video;
 }
