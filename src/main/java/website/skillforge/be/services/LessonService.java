@@ -64,7 +64,7 @@ public class LessonService {
         Date date = new Date();
         lesson1.setName(lesson.getName());
         lesson1.setDescription(lesson.getDescription());
-        //lesson1.setVideoLink(lesson.getVideoLink());
+        lesson1.setVideoLink(lesson.getVideoLink());
         lesson1.setLastUpdatedDate(date);
         return lessonRepository.save(lesson1);
     }
