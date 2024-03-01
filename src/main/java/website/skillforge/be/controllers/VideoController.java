@@ -22,9 +22,9 @@ public class VideoController {
     }
 
     @DeleteMapping("/video/{id}")
-    public ResponseEntity deleteLesson(@PathVariable Long id) {
+    public ResponseEntity deleteVideo(@PathVariable Long id) {
         videoService.deleteVideoById(id);
-        return ResponseEntity.ok("Lesson deleted successfully");
+        return ResponseEntity.ok("Video deleted successfully");
     }
 
     @PutMapping("/video/{id}")
