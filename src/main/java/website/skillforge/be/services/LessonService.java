@@ -17,17 +17,24 @@ public class LessonService {
     private LessonRepository lessonRepository;
     @Autowired
     private ChapterRepository chapterRepository;
+//    @Autowired
+//    private VideoRepository videoRepository;
     @Autowired
     AccountUtil accountUtil;
 
-    public Lesson createLesson(CreateLessonRequestDTO createLessonRequestDTO) {
+    public Lesson createLesson(CreateLessonRequestDTO createLessonRequestDTO ) {
         Account account = accountUtil.getCurrentAccount();
         Date date = new Date();
         Chapter chapter = chapterRepository.findChapterById(createLessonRequestDTO.getChapter_id());
         Lesson lesson = new Lesson();
         lesson.setName(createLessonRequestDTO.getName());
-        //lesson.setVideoLink(createLessonRequestDTO.getVideoLink());
         lesson.setDescription(createLessonRequestDTO.getDescription());
+//        Video video = videoRepository.findVideoById(createLessonRequestDTO.getChapter_id());
+//        video.setVideoLink(createVideoRequestDTO.getVideoLink());
+//        video.setName(createLessonRequestDTO.getName());
+//        video.setUploadBy(account);
+//        videoRepository.save(video);
+        lesson.setVideoLink(createLessonRequestDTO.getVideoLink());
         lesson.setCreatedDate(date);
         lesson.setLastUpdatedDate(date);
         lesson.setChapter(chapter);

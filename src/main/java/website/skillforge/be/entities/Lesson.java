@@ -19,7 +19,7 @@ public class Lesson {
     Long id;
     @Column(columnDefinition = "nvarchar(255)")
     String name;
-//    String videoLink;
+    String videoLink;
     int totalOfQuiz;
     int totalOfAssignment;
     @Column(columnDefinition = "nvarchar(255)")
@@ -27,6 +27,7 @@ public class Lesson {
 
     Date createdDate;
     Date lastUpdatedDate;
+
     @ManyToOne
     @JoinColumn(name = "chapter_id")
     private Chapter chapter;

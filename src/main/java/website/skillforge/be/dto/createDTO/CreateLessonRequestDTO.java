@@ -8,6 +8,6 @@ import java.time.LocalDate;
 public class CreateLessonRequestDTO {
     private String name;
     private String description;
-//    private String videoLink;
+    private String videoLink;
     private long chapter_id;
 }
