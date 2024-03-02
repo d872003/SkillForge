@@ -74,8 +74,28 @@ public class ChapterService {
         return chapters;
     }
 
+    public List<Chapter> UpdateChaptersByCourseId(Long courseId, CreateChapterRequestDTO updateChapterDTO) {
+        List<Chapter> chapters = chapterRepository.findChapterByCourse_id(courseId);
+        if (chapters == null) {
+            return null;
+        }
+        Date date = new Date();
+        for (int i = 0; i < chapters.size(); i++) {
+            chapters.get(i).setName(updateChapterDTO.getName());
+            chapters.get(i).setDescription(updateChapterDTO.getDescription());
+            chapters.get(i).setCourse(courseRepository.findCourseById(courseId));
+            chapters.get(i).setLastUpdatedDate(date);
+            chapters.get(i).setFreeChapter(updateChapterDTO.isFreeChapter());
+        }
+        return chapterRepository.saveAll(chapters);
+    }
+
     public Chapter GetChapterById(Long id) {
         return chapterRepository.findChapterById(id);
+    }
+
+    public List<Chapter> GetChaptersByCourseId(Long id) {
+        return chapterRepository.findChapterByCourse_id(id);
     }
     public Chapter GetChapterByName(String name) {
         return chapterRepository.findChapterByName(name);

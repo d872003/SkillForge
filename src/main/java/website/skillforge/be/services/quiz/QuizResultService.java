@@ -10,7 +10,8 @@ import website.skillforge.be.util.AccountUtil;
 import java.util.Date;
 
 @Service
-public class QuizResultService {
+public class
+QuizResultService {
     @Autowired
     private QuizResultRepository quizResultRepository;
     @Autowired

@@ -33,6 +33,11 @@ public class LessonController {
         return ResponseEntity.ok(lesson);
     }
 
+    @PutMapping("/lesson/chapterId")
+    public ResponseEntity updateLessonByChapterId(@RequestParam Long id, @RequestBody CreateLessonRequestDTO updateLessonDTO) {
+        return ResponseEntity.ok(lessonService.UpdateLessonByChapterId(id, updateLessonDTO));
+    }
+
     @GetMapping("/lesson")
     public ResponseEntity getAllLessons() {
         return ResponseEntity.ok(lessonService.getAllLesson());
@@ -46,6 +51,11 @@ public class LessonController {
     @GetMapping("/lesson/{name}")
     public ResponseEntity getLessonByName(@PathVariable String name) {
         return ResponseEntity.ok(lessonService.findLessonByName(name));
+    }
+
+    @GetMapping("/lesson/courseId")
+    public ResponseEntity getLessonsByCourseId(@RequestParam Long id) {
+        return ResponseEntity.ok(lessonService.getAllLessonByChapterId(id));
     }
 
 }
