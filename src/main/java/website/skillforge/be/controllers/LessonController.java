@@ -47,6 +47,7 @@ public class LessonController {
     public ResponseEntity getLessonById(@PathVariable Long id) {
         return ResponseEntity.ok(lessonService.findLessonById(id));
     }
+    //
 
     @GetMapping("/lesson/{name}")
     public ResponseEntity getLessonByName(@PathVariable String name) {
