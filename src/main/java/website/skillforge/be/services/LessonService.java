@@ -62,8 +62,29 @@ public class LessonService {
         return lessonRepository.save(lesson1);
     }
 
+    public List<Lesson> UpdateLessonByChapterId(Long id, CreateLessonRequestDTO updateLessonDTO) {
+        List<Lesson> lessons = lessonRepository.findLessonByChapter_id(id);
+        if (lessons == null) {
+            return null;
+        }
+        Date date = new Date();
+        for (int i = 0; i < lessons.size(); i++) {
+            lessons.get(i).setName(updateLessonDTO.getName());
+            lessons.get(i).setDescription(updateLessonDTO.getDescription());
+            lessons.get(i).setVideoLink(updateLessonDTO.getVideoLink());
+            lessons.get(i).setLastUpdatedDate(date);
+        }
+        return lessonRepository.saveAll(lessons);
+
+    }
+
+
     public List<Lesson> getAllLesson() {
         return lessonRepository.findAll();
+    }
+
+    public List<Lesson> getAllLessonByChapterId(Long id) {
+        return lessonRepository.findLessonByChapter_id(id);
     }
 
 }

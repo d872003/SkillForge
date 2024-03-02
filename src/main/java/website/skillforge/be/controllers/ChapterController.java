@@ -46,10 +46,20 @@ public class ChapterController {
         return ResponseEntity.ok(chapterService.UpdateChaptersById(id, updateChapterRequestDTO));
     }
 
+    @PutMapping("/chapters/courseId")
+    public ResponseEntity UpdateChaptersByCourseId(@RequestParam Long id, @RequestBody CreateChapterRequestDTO updateChapterRequestDTO) {
+        return ResponseEntity.ok(chapterService.UpdateChaptersByCourseId(id, updateChapterRequestDTO));
+    }
+
 
     @GetMapping("/chapter/{id}")
     public ResponseEntity getChapterById(@PathVariable Long id) {
         return ResponseEntity.ok(chapterService.GetChapterById(id));
+    }
+
+    @GetMapping("/chapters/courseId")
+    public ResponseEntity getChaptersByCourseId(@RequestParam Long id) {
+        return ResponseEntity.ok(chapterService.GetChaptersByCourseId(id));
     }
 
     @GetMapping("/chapter")

@@ -22,9 +22,9 @@ import java.util.List;
 public class Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     @Column(unique = true, nullable = false)
-    String username;
+    private String username;
     String avatar;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
