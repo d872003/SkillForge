@@ -38,9 +38,9 @@ public class QuizController {
         return ResponseEntity.ok(quizService.getQuizById(id));
     }
 
-    @GetMapping("/quiz/{name}")
-    public ResponseEntity getQuizByName(@PathVariable String name) {
-        return ResponseEntity.ok(quizService.getQuizByName(name));
+    @GetMapping("/quiz/lessonId")
+    public ResponseEntity getQuizByLessonId(@RequestParam Long id) {
+        return ResponseEntity.ok(quizService.getQuizByLessonId(id));
     }
 
     @GetMapping("/quiz")

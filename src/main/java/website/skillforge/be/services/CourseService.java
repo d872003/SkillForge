@@ -2,13 +2,15 @@ package website.skillforge.be.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import website.skillforge.be.dto.CourseDetailResponse;
 import website.skillforge.be.dto.createDTO.CreateCourseRequestDTO;
-import website.skillforge.be.entities.Account;
-import website.skillforge.be.entities.Category;
-import website.skillforge.be.entities.Course;
+import website.skillforge.be.entities.*;
+import website.skillforge.be.entities.quiz.Quiz;
 import website.skillforge.be.enums.status.CourseStatus;
 import website.skillforge.be.repository.CategoryRepository;
 import website.skillforge.be.repository.CourseRepository;
+
+import website.skillforge.be.services.quiz.QuizService;
 import website.skillforge.be.util.AccountUtil;
 
 import java.util.Date;
@@ -20,6 +22,12 @@ public class CourseService {
     CourseRepository courseRepository;
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    ChapterService chapterService;
+    @Autowired
+    LessonService lessonService;
+    @Autowired
+    QuizService quizService;
 
     @Autowired
     AccountUtil accountUtil;
@@ -71,6 +79,25 @@ public class CourseService {
         return null;
     }
 
+    public CourseDetailResponse getCourseDetail(Long id) {
+        Course course = courseRepository.findCourseById(id);
+        CourseDetailResponse courseDetailResponse = new CourseDetailResponse();
+        courseDetailResponse.setName(course.getName());
+        courseDetailResponse.setDescription(course.getDescription());
+        courseDetailResponse.setPictureLink(course.getPictureLink());
+        courseDetailResponse.setPrice(course.getPrice());
+        List<Chapter> chapters = chapterService.GetChaptersByCourseId(id);
+        courseDetailResponse.setChapters(chapters);
+        for (Chapter chapter : chapters) {
+            List<Lesson> lessons = lessonService.getAllLessonByChapterId(chapter.getId());
+            courseDetailResponse.setLessons(lessons);
+            for (Lesson lesson : lessons) {
+                List<Quiz> quizzes = quizService.getQuizByLessonId(lesson.getId());
+                courseDetailResponse.setQuizzes(quizzes);
+            }
+        }
+        return courseDetailResponse;
+    }
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }

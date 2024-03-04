@@ -49,12 +49,7 @@ public class LessonController {
     }
     //
 
-    @GetMapping("/lesson/{name}")
-    public ResponseEntity getLessonByName(@PathVariable String name) {
-        return ResponseEntity.ok(lessonService.findLessonByName(name));
-    }
-
-    @GetMapping("/lesson/courseId")
+    @GetMapping("/lessons/chapterId")
     public ResponseEntity getLessonsByCourseId(@RequestParam Long id) {
         return ResponseEntity.ok(lessonService.getAllLessonByChapterId(id));
     }
