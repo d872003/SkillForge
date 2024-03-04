@@ -1,16 +1,20 @@
 package website.skillforge.be.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import website.skillforge.be.entities.quiz.QuizResult;
+import website.skillforge.be.enums.status.AccountStatus;
+import website.skillforge.be.enums.Role;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,15 +22,30 @@ import java.util.Collection;
 public class Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
-    String username;
+    private Long id;
+    @Column(unique = true, nullable = false)
+    private String username;
+    String avatar;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
+    @Column(columnDefinition = "nvarchar(255)")
+    String fullName;
+    @Column(unique = true, nullable = false)
     String email;
+    @Column(columnDefinition = "nvarchar(255)")
+    String avatarLink;
+    String phone;
+    @Enumerated(EnumType.STRING)
+    Role role;
+    @Enumerated(EnumType.STRING)
+    AccountStatus status;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(this.role.toString()));
+        return authorities;
     }
 
     @Override
@@ -48,4 +67,12 @@ public class Account implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    @OneToMany(mappedBy = "createBy")
+    @JsonIgnore
+    List<Course> course;
+
+    @OneToMany(mappedBy = "doBy")
+    @JsonIgnore
+    List<QuizResult> quizResult;
 }

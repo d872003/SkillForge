@@ -1,4 +1,4 @@
-package website.skillforge.be.dto;
+package website.skillforge.be.dto.authenticationDTO;
 
 import lombok.Data;
 
@@ -7,5 +7,6 @@ public class LoginRequestDTO {
 
     private String username;
     private String password;
+
 
 }
