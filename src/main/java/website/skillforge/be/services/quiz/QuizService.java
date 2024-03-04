@@ -56,8 +56,8 @@ public class QuizService {
         return quizRepository.findQuizById(id);
     }
 
-    public Quiz getQuizByName(String name) {
-        return quizRepository.findQuizByName(name);
+    public List<Quiz> getQuizByLessonId(Long id) {
+        return quizRepository.findQuizByLesson_id(id);
     }
 
     public List<Quiz> getAllQuizzes() {
