@@ -26,10 +26,12 @@ public class Chapter {
     Date lastUpdatedDate;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "course_id")
     private Course course;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "account_id")
     private Account createBy;
 

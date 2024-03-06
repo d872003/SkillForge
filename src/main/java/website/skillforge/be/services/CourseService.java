@@ -86,16 +86,8 @@ public class CourseService {
         courseDetailResponse.setDescription(course.getDescription());
         courseDetailResponse.setPictureLink(course.getPictureLink());
         courseDetailResponse.setPrice(course.getPrice());
-        List<Chapter> chapters = chapterService.GetChaptersByCourseId(id);
-        courseDetailResponse.setChapters(chapters);
-        for (Chapter chapter : chapters) {
-            List<Lesson> lessons = lessonService.getAllLessonByChapterId(chapter.getId());
-            courseDetailResponse.setLessons(lessons);
-            for (Lesson lesson : lessons) {
-                List<Quiz> quizzes = quizService.getQuizByLessonId(lesson.getId());
-                courseDetailResponse.setQuizzes(quizzes);
-            }
-        }
+        courseDetailResponse.setCategoryId(course.getCategory().getId());
+        courseDetailResponse.setCategoryName(course.getCategory().getName());
         return courseDetailResponse;
     }
     public List<Course> getAllCourses() {

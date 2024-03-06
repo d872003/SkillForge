@@ -10,6 +10,7 @@ import website.skillforge.be.repository.ChapterRepository;
 import website.skillforge.be.repository.CourseRepository;
 import website.skillforge.be.util.AccountUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class ChapterService {
     AccountUtil accountUtil;
 
     public Chapter CreateChapter(CreateChapterRequestDTO createChapterRequestDTO) {
+        ;
         Account account = accountUtil.getCurrentAccount();
         Date date = new Date();
         Course course = courseRepository.findCourseById(createChapterRequestDTO.getCourse_id());

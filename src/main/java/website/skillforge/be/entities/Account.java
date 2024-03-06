@@ -33,7 +33,6 @@ public class Account implements UserDetails {
     @Column(unique = true, nullable = false)
     String email;
     @Column(columnDefinition = "nvarchar(255)")
-    String avatarLink;
     String phone;
     @Enumerated(EnumType.STRING)
     Role role;

@@ -18,6 +18,8 @@ import website.skillforge.be.enums.status.AccountStatus;
 import website.skillforge.be.repository.AccountRepository;
 import website.skillforge.be.util.TokenHandler;
 
+import java.util.List;
+
 @Service
 public class AuthenticationService {
     @Autowired
@@ -55,6 +57,10 @@ public class AuthenticationService {
             loginResponseDTO.setFullName(account.getFullName());
             loginResponseDTO.setEmail(account.getEmail());
             loginResponseDTO.setPhone(account.getPhone());
+            loginResponseDTO.setStatus(account.getStatus());
+            if (loginResponseDTO.getStatus().equals(AccountStatus.DELETED)) {
+                return null;
+            }
             loginResponseDTO.setRole(account.getRole());
             return loginResponseDTO;
         } catch (Exception e) {
@@ -73,6 +79,10 @@ public class AuthenticationService {
             loginResponseDTO.setFullName(account.getFullName());
             loginResponseDTO.setEmail(account.getEmail());
             loginResponseDTO.setPhone(account.getPhone());
+            loginResponseDTO.setStatus(account.getStatus());
+            if (loginResponseDTO.getStatus().equals(AccountStatus.DELETED)) {
+                return null;
+            }
             loginResponseDTO.setRole(account.getRole());
             return loginResponseDTO;
         } catch (FirebaseAuthException e) {
@@ -80,6 +90,39 @@ public class AuthenticationService {
             System.out.println(e);
         }
         return null;
+    }
+
+    public Account getAccountById(Long id) {
+        return accountRepository.findAccountById(id);
+    }
+
+    public List<Account> getAllAccounts() {
+        return accountRepository.findAll();
+    }
+
+    public Account updateAccount(Long id, RegisterRequestDTO registerRequestDTO) {
+        Account account = accountRepository.findAccountById(id);
+        if (account == null) {
+            return null;
+        }
+        account.setUsername(registerRequestDTO.getUsername());
+        account.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
+        account.setEmail(registerRequestDTO.getEmail());
+        account.setFullName(registerRequestDTO.getFullName());
+        account.setAvatar(registerRequestDTO.getAvatar());
+        account.setRole(registerRequestDTO.getRole());
+        account.setPhone(registerRequestDTO.getPhone());
+        account.setStatus(AccountStatus.ACTIVE);
+        return account;
+    }
+
+    public void deleteAccount(Long id) {
+        Account account = accountRepository.findAccountById(id);
+        if (account == null) {
+            return;
+        }
+        account.setStatus(AccountStatus.DELETED);
+        accountRepository.save(account);
     }
 
 }

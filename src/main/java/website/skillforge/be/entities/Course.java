@@ -32,6 +32,7 @@ public class Course {
     CourseStatus courseStatus;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "category_id")
     private Category category;
 

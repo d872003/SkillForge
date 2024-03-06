@@ -14,8 +14,7 @@ public class CourseDetailResponse {
     private String pictureLink;
     private String description;
     private long categoryId;
-    List<Chapter> chapters;
-    List<Lesson> lessons;
-    List<Quiz> quizzes;
+    private String categoryName;
+
 
 }
