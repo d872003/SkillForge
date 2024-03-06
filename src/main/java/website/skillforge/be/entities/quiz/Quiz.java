@@ -23,9 +23,12 @@ public class Quiz {
     private String description;
     Date createdDate;
     Date lastUpdatedDate;
+
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
+
     @OneToMany(mappedBy = "quiz")
     @JsonIgnore
     private List<QuizQuestion> quizQuestion;

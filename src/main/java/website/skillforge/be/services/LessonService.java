@@ -8,6 +8,7 @@ import website.skillforge.be.repository.ChapterRepository;
 import website.skillforge.be.repository.LessonRepository;
 import website.skillforge.be.util.AccountUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

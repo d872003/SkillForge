@@ -20,18 +20,18 @@ public class Lesson {
     @Column(columnDefinition = "nvarchar(255)")
     String name;
     String videoLink;
-    int totalOfQuiz;
-    int totalOfAssignment;
     @Column(columnDefinition = "nvarchar(255)")
     String description;
-
     Date createdDate;
     Date lastUpdatedDate;
+
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "chapter_id")
     private Chapter chapter;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "account_id")
     private Account createBy;
 
