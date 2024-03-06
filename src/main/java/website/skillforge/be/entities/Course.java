@@ -22,6 +22,7 @@ public class Course {
     @Column(columnDefinition = "nvarchar(255)")
     String name;
     double price;
+    String code;
     @Column(columnDefinition = "nvarchar(255)")
     String pictureLink;
     @Column(columnDefinition = "nvarchar(255)")
@@ -32,7 +33,6 @@ public class Course {
     CourseStatus courseStatus;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "category_id")
     private Category category;
 

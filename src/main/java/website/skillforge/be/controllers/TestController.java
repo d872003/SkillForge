@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import website.skillforge.be.entities.Account;
 
+import javax.annotation.security.PermitAll;
 import java.security.Principal;
 
 @RestController
@@ -19,8 +20,7 @@ import java.security.Principal;
 public class TestController {
 
 
-    @GetMapping("/test")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/test/public")
     public ResponseEntity test() {
         Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(account);
