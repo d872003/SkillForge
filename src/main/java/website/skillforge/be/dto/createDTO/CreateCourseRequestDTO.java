@@ -9,6 +9,7 @@ public class CreateCourseRequestDTO {
 
     private String name;
     private double price;
+    private String code;
     private String pictureLink;
     private String description;
     private long categoryId;

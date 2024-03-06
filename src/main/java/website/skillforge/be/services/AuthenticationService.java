@@ -58,9 +58,6 @@ public class AuthenticationService {
             loginResponseDTO.setEmail(account.getEmail());
             loginResponseDTO.setPhone(account.getPhone());
             loginResponseDTO.setStatus(account.getStatus());
-            if (loginResponseDTO.getStatus().equals(AccountStatus.DELETED)) {
-                return null;
-            }
             loginResponseDTO.setRole(account.getRole());
             return loginResponseDTO;
         } catch (Exception e) {
@@ -80,9 +77,6 @@ public class AuthenticationService {
             loginResponseDTO.setEmail(account.getEmail());
             loginResponseDTO.setPhone(account.getPhone());
             loginResponseDTO.setStatus(account.getStatus());
-            if (loginResponseDTO.getStatus().equals(AccountStatus.DELETED)) {
-                return null;
-            }
             loginResponseDTO.setRole(account.getRole());
             return loginResponseDTO;
         } catch (FirebaseAuthException e) {

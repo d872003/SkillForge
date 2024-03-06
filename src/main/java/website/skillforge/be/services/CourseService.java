@@ -39,6 +39,7 @@ public class CourseService {
         Course newCourse = new Course();
         newCourse.setName(course.getName());
         newCourse.setPrice(course.getPrice());
+        newCourse.setCode(course.getCode());
         newCourse.setPictureLink(course.getPictureLink());
         newCourse.setDescription(course.getDescription());
         newCourse.setCreatedDate(date);
@@ -59,6 +60,9 @@ public class CourseService {
         return courseRepository.findCourseById(id);
     }
 
+    public Course getCourseByCode(String code) {
+        return courseRepository.findCourseByCode(code);
+    }
     public Course getCourseByName(String name) {
         return courseRepository.findCourseByName(name);
     }
@@ -69,6 +73,7 @@ public class CourseService {
             Date date = new Date();
             Category category = categoryRepository.findCategoryById(course.getCategoryId());
             existingCourse.setName(course.getName());
+            existingCourse.setCode(course.getCode());
             existingCourse.setPrice(course.getPrice());
             existingCourse.setPictureLink(course.getPictureLink());
             existingCourse.setDescription(course.getDescription());
@@ -79,15 +84,26 @@ public class CourseService {
         return null;
     }
 
-    public CourseDetailResponse getCourseDetail(Long id) {
-        Course course = courseRepository.findCourseById(id);
+    public CourseDetailResponse getCourseDetail() {
         CourseDetailResponse courseDetailResponse = new CourseDetailResponse();
-        courseDetailResponse.setName(course.getName());
-        courseDetailResponse.setDescription(course.getDescription());
-        courseDetailResponse.setPictureLink(course.getPictureLink());
-        courseDetailResponse.setPrice(course.getPrice());
-        courseDetailResponse.setCategoryId(course.getCategory().getId());
-        courseDetailResponse.setCategoryName(course.getCategory().getName());
+        List<Course> courses = getAllCourses();
+        for (Course course : courses) {
+            courseDetailResponse.setId(course.getId());
+            courseDetailResponse.setName(course.getName());
+            courseDetailResponse.setCode(course.getCode());
+            courseDetailResponse.setPrice(course.getPrice());
+            courseDetailResponse.setPictureLink(course.getPictureLink());
+            courseDetailResponse.setDescription(course.getDescription());
+            courseDetailResponse.setCategory(course.getCategory());
+            courseDetailResponse.setCreateBy(course.getCreateBy());
+            courseDetailResponse.setChapters(chapterService.GetChaptersByCourseId(course.getId()));
+            for (Chapter chapter : courseDetailResponse.getChapters()) {
+                courseDetailResponse.setLessons(lessonService.getAllLessonByChapterId(chapter.getId()));
+                for (Lesson lesson : courseDetailResponse.getLessons()) {
+                    courseDetailResponse.setQuizzes(quizService.getQuizByLessonId(lesson.getId()));
+                }
+            }
+        }
         return courseDetailResponse;
     }
     public List<Course> getAllCourses() {
