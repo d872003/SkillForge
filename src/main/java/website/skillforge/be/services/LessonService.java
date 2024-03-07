@@ -3,6 +3,7 @@ package website.skillforge.be.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.createDTO.CreateLessonRequestDTO;
+import website.skillforge.be.dto.createDTO.GetAllLessonResponse;
 import website.skillforge.be.entities.*;
 import website.skillforge.be.repository.ChapterRepository;
 import website.skillforge.be.repository.LessonRepository;
@@ -86,6 +87,21 @@ public class LessonService {
 
     public List<Lesson> getAllLessonByChapterId(Long id) {
         return lessonRepository.findLessonByChapter_id(id);
+    }
+
+    public List<GetAllLessonResponse> getAllLessonDTOByChapterId(Long id) {
+        List<Lesson> lessons = lessonRepository.findLessonByChapter_id(id);
+        List<GetAllLessonResponse> lessonDTOs = new ArrayList<>();
+        for (Lesson lesson : lessons) {
+            GetAllLessonResponse lessonDTO = new GetAllLessonResponse();
+            lessonDTO.setId(lesson.getId());
+            lessonDTO.setName(lesson.getName());
+            lessonDTO.setDescription(lesson.getDescription());
+            lessonDTO.setVideoLink(lesson.getVideoLink());
+            lessonDTO.setChapter_id(lesson.getChapter().getId());
+            lessonDTOs.add(lessonDTO);
+        }
+        return lessonDTOs;
     }
 
 }

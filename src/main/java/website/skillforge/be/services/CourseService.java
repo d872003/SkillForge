@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.CourseDetailResponse;
 import website.skillforge.be.dto.createDTO.CreateCourseRequestDTO;
+import website.skillforge.be.dto.createDTO.CreateLessonRequestDTO;
+import website.skillforge.be.dto.createDTO.GetAllLessonResponse;
 import website.skillforge.be.entities.*;
 import website.skillforge.be.entities.quiz.Quiz;
 import website.skillforge.be.enums.status.CourseStatus;
@@ -107,13 +109,14 @@ public class CourseService {
         courseDetailResponse.setCreateBy(course.getCreateBy());
         courseDetailResponse.setChapters(chapterService.GetChaptersByCourseId(course.getId()));
         for (Chapter chapter : courseDetailResponse.getChapters()) {
-            courseDetailResponse.setLessons(lessonService.getAllLessonByChapterId(chapter.getId()));
-            for (Lesson lesson : courseDetailResponse.getLessons()) {
-                courseDetailResponse.setQuizzes(quizService.getQuizByLessonId(lesson.getId()));
+            courseDetailResponse.setLessons(lessonService.getAllLessonDTOByChapterId(chapter.getId()));
+            for (GetAllLessonResponse lesson : courseDetailResponse.getLessons()) {
+                courseDetailResponse.setQuizzes(quizService.getAllQuizDTOByLessonId(lesson.getId()));
             }
         }
         return courseDetailResponse;
     }
+
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }

@@ -6,6 +6,5 @@ public enum CourseStatus {
     PUBLISHED,
     REJECTED,
     DELETED,
-    ENROLLED;
 
 }

@@ -25,7 +25,7 @@ public class Course {
     String code;
     @Column(columnDefinition = "nvarchar(255)")
     String pictureLink;
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(MAX)")
     String description;
     Date createdDate;
     Date lastUpdatedDate;
