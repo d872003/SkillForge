@@ -3,6 +3,7 @@ package website.skillforge.be.controllers;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import website.skillforge.be.dto.authenticationDTO.LoginGoogleRequest;
 import website.skillforge.be.dto.authenticationDTO.LoginRequestDTO;
@@ -36,11 +37,13 @@ public class AuthenticationController {
     }
 
     @GetMapping("/authentication/getAccountById")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity getAccountById(@RequestParam Long id) {
         return ResponseEntity.ok(authenticationService.getAccountById(id));
     }
 
     @GetMapping("/authentication/getAllAccounts")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity getAllAccounts() {
         return ResponseEntity.ok(authenticationService.getAllAccounts());
     }
