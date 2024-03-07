@@ -1,10 +1,9 @@
 package website.skillforge.be.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import website.skillforge.be.enums.status.EnrollStatus;
+import website.skillforge.be.enums.status.OrderStatus;
 
 import java.util.Date;
 
@@ -12,20 +11,18 @@ import java.util.Date;
 @Setter
 @Getter
 
-public class CourseEnrollment {
+public class Ordered {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    EnrollStatus status;
-    Date startDate;
-
+    Date createdDate;
+    OrderStatus status;
+    Double totalPrice;
+    Long courseId;
     @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "course_id")
-    private Course course;
-
-    @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "account_id")
     private Account account;
+    private String AdditionalNotes;
+
+
 }
