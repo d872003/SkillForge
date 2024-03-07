@@ -43,4 +43,8 @@ public class Course {
     @OneToMany(mappedBy = "course")
     @JsonIgnore
     private List<Chapter> chapter;
+
+    @OneToMany(mappedBy = "course")
+    @JsonIgnore
+    private List<CourseEnrollment> courseEnrollment;
 }

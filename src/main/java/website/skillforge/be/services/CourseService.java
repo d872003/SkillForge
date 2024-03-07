@@ -13,6 +13,7 @@ import website.skillforge.be.repository.CourseRepository;
 import website.skillforge.be.services.quiz.QuizService;
 import website.skillforge.be.util.AccountUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -84,24 +85,31 @@ public class CourseService {
         return null;
     }
 
-    public CourseDetailResponse getCourseDetail() {
-        CourseDetailResponse courseDetailResponse = new CourseDetailResponse();
+    public List<CourseDetailResponse> getCourseDetail() {
+        List<CourseDetailResponse> courseDetailResponse = new ArrayList<>();
         List<Course> courses = getAllCourses();
         for (Course course : courses) {
-            courseDetailResponse.setId(course.getId());
-            courseDetailResponse.setName(course.getName());
-            courseDetailResponse.setCode(course.getCode());
-            courseDetailResponse.setPrice(course.getPrice());
-            courseDetailResponse.setPictureLink(course.getPictureLink());
-            courseDetailResponse.setDescription(course.getDescription());
-            courseDetailResponse.setCategory(course.getCategory());
-            courseDetailResponse.setCreateBy(course.getCreateBy());
-            courseDetailResponse.setChapters(chapterService.GetChaptersByCourseId(course.getId()));
-            for (Chapter chapter : courseDetailResponse.getChapters()) {
-                courseDetailResponse.setLessons(lessonService.getAllLessonByChapterId(chapter.getId()));
-                for (Lesson lesson : courseDetailResponse.getLessons()) {
-                    courseDetailResponse.setQuizzes(quizService.getQuizByLessonId(lesson.getId()));
-                }
+            courseDetailResponse.add(getCourseDetail(course.getId()));
+        }
+        return courseDetailResponse;
+    }
+
+    public CourseDetailResponse getCourseDetail(Long id) {
+        CourseDetailResponse courseDetailResponse = new CourseDetailResponse();
+        Course course = getCourseById(id);
+        courseDetailResponse.setId(course.getId());
+        courseDetailResponse.setName(course.getName());
+        courseDetailResponse.setCode(course.getCode());
+        courseDetailResponse.setPrice(course.getPrice());
+        courseDetailResponse.setPictureLink(course.getPictureLink());
+        courseDetailResponse.setDescription(course.getDescription());
+        courseDetailResponse.setCategory(course.getCategory());
+        courseDetailResponse.setCreateBy(course.getCreateBy());
+        courseDetailResponse.setChapters(chapterService.GetChaptersByCourseId(course.getId()));
+        for (Chapter chapter : courseDetailResponse.getChapters()) {
+            courseDetailResponse.setLessons(lessonService.getAllLessonByChapterId(chapter.getId()));
+            for (Lesson lesson : courseDetailResponse.getLessons()) {
+                courseDetailResponse.setQuizzes(quizService.getQuizByLessonId(lesson.getId()));
             }
         }
         return courseDetailResponse;

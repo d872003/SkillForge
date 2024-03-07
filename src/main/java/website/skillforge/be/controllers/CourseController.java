@@ -70,22 +70,10 @@ public class CourseController {
         return ResponseEntity.ok(course);
     }
 
-    //    @GetMapping("courseDetail/{id}")
-//    public ResponseEntity getCourseDetail(@PathVariable Long id) {
-//        Map<String, Object> responseData = new HashMap<>();
-//        responseData.put("chapters", chapterService.GetChaptersByCourseId(id));
-//        responseData.put("course", courseService.getCourseDetail(id));
-//        List<Chapter> chapters = (List<Chapter>) responseData.get("chapters");
-//        if (chapters != null && !chapters.isEmpty()) {
-//            Long chapterId = chapters.get(0).getId();
-//            responseData.put("lessons", lessonService.getAllLessonByChapterId(chapterId));
-//            List<Lesson> lesson = (List<Lesson>) responseData.get("lessons");
-//            if (lesson != null && !lesson.isEmpty()) {
-//                responseData.put("quizzes", quizService.getQuizByLessonId(lesson.get(0).getId()));
-//            }
-//        }
-//        return ResponseEntity.ok(responseData);
-//    }
+    @GetMapping("courseDetail/{id}")
+    public ResponseEntity getCourseDetail(@PathVariable Long id) {
+        return ResponseEntity.ok(courseService.getCourseDetail(id));
+    }
     @GetMapping("/courseDetailAll")
     public ResponseEntity getCourseDetailAll() {
         return ResponseEntity.ok(courseService.getCourseDetail());
