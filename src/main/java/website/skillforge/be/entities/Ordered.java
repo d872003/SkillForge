@@ -16,13 +16,13 @@ public class Ordered {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     Date createdDate;
+    @Enumerated(EnumType.STRING)
     OrderStatus status;
-    Double totalPrice;
+    Long totalPrice;
     Long courseId;
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
-    private String AdditionalNotes;
 
 
 }

@@ -35,7 +35,7 @@ public class OrderController {
     @Autowired
     private CourseRepository courseRepository;
 
-    @GetMapping("/order")
+    @PostMapping("/order")
     public ResponseEntity createUrl(@RequestBody OrderedDTO orderedDTO) throws NoSuchAlgorithmException, InvalidKeyException, Exception {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
@@ -47,17 +47,19 @@ public class OrderController {
         ordered.setStatus(OrderStatus.ODERED);
         ordered.setAccount(accountUtils.getCurrentAccount());
         ordered.setCourseId(orderedDTO.getCourseId());
-        Course course = courseRepository.findCourseById(orderedDTO.getCourseId());
-
         ordered.setTotalPrice(orderedDTO.getTotalPrice());
-        ordered.setAdditionalNotes(orderedDTO.getAdditionalNotes());
 
         Ordered newOrder = orderedRepository.save(ordered);
+
+        String id = String.valueOf(newOrder.getId());
+        System.out.println(id);
+        String price = String.valueOf(newOrder.getTotalPrice() * 100);
+        System.out.println(price);
 
         String tmnCode = "C7SGRW8H";
         String secretKey = "MJMALIFHTSTRGJYLHSVVRBSYLJPMXZPK";
         String vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        String returnUrl = "http://skillforge.website/";
+        String returnUrl = "http://localhost:5173/success";
 
         String currCode = "VND";
         Map<String, String> vnpParams = new TreeMap<>();
@@ -66,10 +68,10 @@ public class OrderController {
         vnpParams.put("vnp_TmnCode", tmnCode);
         vnpParams.put("vnp_Locale", "vn");
         vnpParams.put("vnp_CurrCode", currCode);
-        vnpParams.put("vnp_TxnRef", newOrder.getId() + "");
-        vnpParams.put("vnp_OrderInfo", "Thanh toan cho ma GD: " + newOrder.getId() + "");
+        vnpParams.put("vnp_TxnRef", id);
+        vnpParams.put("vnp_OrderInfo", "Thanh toan cho ma GD: " + id);
         vnpParams.put("vnp_OrderType", "other");
-        vnpParams.put("vnp_Amount", String.valueOf(orderedDTO.getTotalPrice()));
+        vnpParams.put("vnp_Amount", String.valueOf(price));
         vnpParams.put("vnp_ReturnUrl", returnUrl);
         vnpParams.put("vnp_CreateDate", formattedCreateDate);
         vnpParams.put("vnp_IpAddr", "http://skillforge.website/");
