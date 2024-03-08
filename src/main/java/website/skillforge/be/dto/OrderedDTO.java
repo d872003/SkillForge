@@ -4,8 +4,7 @@ import lombok.Data;
 
 @Data
 public class OrderedDTO {
-    Double totalPrice;
+    Long totalPrice;
     Long courseId;
-    String AdditionalNotes;
     
 }
