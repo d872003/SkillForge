@@ -4,8 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import website.skillforge.be.dto.OrderedDTO;
-import website.skillforge.be.entities.Course;
+import website.skillforge.be.dto.createDTO.OrderedDTO;
 import website.skillforge.be.entities.Ordered;
 import website.skillforge.be.enums.status.OrderStatus;
 import website.skillforge.be.repository.CourseRepository;
@@ -48,7 +47,6 @@ public class OrderController {
         ordered.setAccount(accountUtils.getCurrentAccount());
         ordered.setCourseId(orderedDTO.getCourseId());
         ordered.setTotalPrice(orderedDTO.getTotalPrice());
-
         Ordered newOrder = orderedRepository.save(ordered);
 
         String id = String.valueOf(newOrder.getId());
@@ -71,7 +69,7 @@ public class OrderController {
         vnpParams.put("vnp_TxnRef", id);
         vnpParams.put("vnp_OrderInfo", "Thanh toan cho ma GD: " + id);
         vnpParams.put("vnp_OrderType", "other");
-        vnpParams.put("vnp_Amount", String.valueOf(price));
+        vnpParams.put("vnp_Amount", price);
         vnpParams.put("vnp_ReturnUrl", returnUrl);
         vnpParams.put("vnp_CreateDate", formattedCreateDate);
         vnpParams.put("vnp_IpAddr", "http://skillforge.website/");

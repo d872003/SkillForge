@@ -2,7 +2,7 @@ package website.skillforge.be.services.assignment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import website.skillforge.be.dto.createDTO.CreateAssignmentRequestDTO;
+import website.skillforge.be.dto.createDTO.assignmentDto.CreateAssignmentRequestDTO;
 import website.skillforge.be.entities.assignment.Assignment;
 import website.skillforge.be.repository.assignmentRepo.AssignmentRepository;
 import website.skillforge.be.repository.LessonRepository;

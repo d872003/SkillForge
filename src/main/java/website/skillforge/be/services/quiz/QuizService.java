@@ -2,8 +2,8 @@ package website.skillforge.be.services.quiz;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import website.skillforge.be.dto.createDTO.CreateQuizRequestDTO;
-import website.skillforge.be.dto.createDTO.GetAllQuizResponse;
+import website.skillforge.be.dto.createDTO.quizDto.CreateQuizRequestDTO;
+import website.skillforge.be.dto.createDTO.quizDto.GetAllQuizResponse;
 import website.skillforge.be.entities.Lesson;
 import website.skillforge.be.entities.quiz.Quiz;
 import website.skillforge.be.repository.LessonRepository;

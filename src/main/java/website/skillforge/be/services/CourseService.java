@@ -2,12 +2,10 @@ package website.skillforge.be.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import website.skillforge.be.dto.CourseDetailResponse;
+import website.skillforge.be.dto.createDTO.CourseDetailResponse;
 import website.skillforge.be.dto.createDTO.CreateCourseRequestDTO;
-import website.skillforge.be.dto.createDTO.CreateLessonRequestDTO;
 import website.skillforge.be.dto.createDTO.GetAllLessonResponse;
 import website.skillforge.be.entities.*;
-import website.skillforge.be.entities.quiz.Quiz;
 import website.skillforge.be.enums.status.CourseStatus;
 import website.skillforge.be.repository.CategoryRepository;
 import website.skillforge.be.repository.CourseRepository;

@@ -4,7 +4,7 @@
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.web.bind.annotation.*;
-//import website.skillforge.be.dto.createDTO.CreateCriterionRequestDTO;
+//import website.skillforge.be.dto.createDTO.assignmentDto.CreateCriterionRequestDTO;
 //import website.skillforge.be.entities.assignment.Criterion;
 //import website.skillforge.be.services.assignment.CriterionService;
 //

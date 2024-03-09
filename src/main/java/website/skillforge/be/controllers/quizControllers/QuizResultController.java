@@ -6,7 +6,7 @@
 //import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RestController;
-//import website.skillforge.be.dto.createDTO.CreateQuizResultRequestDto;
+//import website.skillforge.be.dto.createDTO.quizDto.CreateQuizResultRequestDto;
 //import website.skillforge.be.entities.quiz.QuizResult;
 //import website.skillforge.be.services.quiz.QuizResultService;
 //

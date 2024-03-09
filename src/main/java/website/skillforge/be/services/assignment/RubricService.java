@@ -2,7 +2,7 @@ package website.skillforge.be.services.assignment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import website.skillforge.be.dto.createDTO.CreateRubricRequestDTO;
+import website.skillforge.be.dto.createDTO.assignmentDto.CreateRubricRequestDTO;
 import website.skillforge.be.entities.assignment.Rubric;
 import website.skillforge.be.repository.assignmentRepo.AssignmentRepository;
 import website.skillforge.be.repository.assignmentRepo.RubricRepository;

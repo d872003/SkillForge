@@ -1,15 +1,11 @@
-package website.skillforge.be.dto;
+package website.skillforge.be.dto.createDTO;
 
 import lombok.Data;
-import website.skillforge.be.dto.createDTO.CreateLessonRequestDTO;
-import website.skillforge.be.dto.createDTO.CreateQuizRequestDTO;
 import website.skillforge.be.dto.createDTO.GetAllLessonResponse;
-import website.skillforge.be.dto.createDTO.GetAllQuizResponse;
+import website.skillforge.be.dto.createDTO.quizDto.GetAllQuizResponse;
 import website.skillforge.be.entities.Account;
 import website.skillforge.be.entities.Category;
 import website.skillforge.be.entities.Chapter;
-import website.skillforge.be.entities.Lesson;
-import website.skillforge.be.entities.quiz.Quiz;
 
 import java.util.List;
 
