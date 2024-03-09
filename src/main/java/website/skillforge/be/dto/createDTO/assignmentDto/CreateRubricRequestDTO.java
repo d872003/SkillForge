@@ -1,4 +1,4 @@
-package website.skillforge.be.dto.createDTO;
+package website.skillforge.be.dto.createDTO.assignmentDto;
 
 import lombok.Data;
 
@@ -6,9 +6,9 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Data
-public class CreateQuizRequestDTO {
+public class CreateRubricRequestDTO {
 
     private String name;
     private String description;
-    private long lesson_id;
+    private long assignment_id;
 }

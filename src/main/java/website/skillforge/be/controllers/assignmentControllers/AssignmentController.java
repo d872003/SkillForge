@@ -4,7 +4,7 @@
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.web.bind.annotation.*;
-//import website.skillforge.be.dto.createDTO.CreateAssignmentRequestDTO;
+//import website.skillforge.be.dto.createDTO.assignmentDto.CreateAssignmentRequestDTO;
 //import website.skillforge.be.entities.assignment.Assignment;
 //import website.skillforge.be.services.assignment.AssignmentService;
 //

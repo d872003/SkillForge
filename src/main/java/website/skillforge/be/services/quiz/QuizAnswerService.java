@@ -2,7 +2,7 @@ package website.skillforge.be.services.quiz;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import website.skillforge.be.dto.createDTO.CreateAnswerRequestDTO;
+import website.skillforge.be.dto.createDTO.quizDto.CreateAnswerRequestDTO;
 import website.skillforge.be.entities.quiz.QuizAnswer;
 import website.skillforge.be.entities.quiz.QuizQuestion;
 import website.skillforge.be.repository.quizRepo.QuizAnswerRepository;
