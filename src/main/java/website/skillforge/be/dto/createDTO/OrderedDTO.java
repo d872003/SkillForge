@@ -6,9 +6,4 @@ import lombok.Data;
 public class OrderedDTO {
     Long totalPrice;
     Long courseId;
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 47be61c (done vnpay)
 }
