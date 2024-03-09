@@ -35,7 +35,7 @@ public class Chapter {
     @JoinColumn(name = "account_id")
     private Account createBy;
 
-    @OneToMany(mappedBy = "chapter")
+    @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Lesson> lesson;
 }

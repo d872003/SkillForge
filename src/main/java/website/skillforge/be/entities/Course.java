@@ -40,11 +40,11 @@ public class Course {
     @JoinColumn(name = "account_id")
     private Account createBy;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Chapter> chapter;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<CourseEnrollment> courseEnrollment;
 }

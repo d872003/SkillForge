@@ -24,13 +24,12 @@ public class Quiz {
     Date createdDate;
     Date lastUpdatedDate;
 
-    @ManyToOne
+    @OneToOne
     @JsonIgnore
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
 
-    @OneToMany(mappedBy = "quiz")
-    @JsonIgnore
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<QuizQuestion> quizQuestion;
 
 }

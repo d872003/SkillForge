@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import website.skillforge.be.dto.createDTO.CreateLessonRequestDTO;
 import website.skillforge.be.entities.Lesson;
 import website.skillforge.be.services.LessonService;
@@ -19,6 +20,11 @@ public class LessonController {
     public ResponseEntity createLesson(@RequestBody CreateLessonRequestDTO createLessonRequestDTO) {
         Lesson lesson = lessonService.createLesson(createLessonRequestDTO);
         return ResponseEntity.ok(lesson);
+    }
+
+    @PostMapping("quiza")
+    public ResponseEntity createQuiz(@RequestParam String url, @RequestParam Long lessonId) {
+        return ResponseEntity.ok(lessonService.createQuiz(url));
     }
 
     @DeleteMapping("/lesson/{id}")
