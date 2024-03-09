@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface QuizQuestionRepository extends JpaRepository<QuizQuestion, Long> {
 
-    QuizQuestion findQuizQuestionByQuestionNumber(int questionNumber);
+    QuizQuestion findQuizQuestionByQuestionNumber(String questionNumber);
 
     QuizQuestion findQuizQuestionById(Long id);
 

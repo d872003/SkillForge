@@ -20,7 +20,7 @@ public class QuizQuestionService {
     public QuizQuestion createQuestion(CreateQuestionRequestDTO createQuestionRequest) {
         QuizQuestion question = new QuizQuestion();
         Quiz quiz = quizRepository.findQuizById(createQuestionRequest.getQuiz_id());
-        question.setQuestionNumber(createQuestionRequest.getQuestionNumber());
+//        question.setQuestionNumber(createQuestionRequest.getQuestionNumber());
         question.setQuestionContent(createQuestionRequest.getQuestionContent());
         question.setQuiz(quiz);
         return quizQuestionRepository.save(question);
@@ -36,7 +36,7 @@ public class QuizQuestionService {
         if (question == null) {
             return null;
         }
-        question.setQuestionNumber(createQuestionRequest.getQuestionNumber());
+//        question.setQuestionNumber(createQuestionRequest.getQuestionNumber());
         question.setQuestionContent(createQuestionRequest.getQuestionContent());
         question.setQuiz(quizRepository.findQuizById(createQuestionRequest.getQuiz_id()));
         return quizQuestionRepository.save(question);

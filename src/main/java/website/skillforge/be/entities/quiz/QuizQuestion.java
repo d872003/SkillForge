@@ -15,7 +15,7 @@ public class QuizQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    private int questionNumber;
+    private String questionNumber;
     @Column(columnDefinition = "nvarchar(255)")
     private String questionContent;
     private double questionScore;
@@ -25,7 +25,6 @@ public class QuizQuestion {
     @JsonIgnore
     private Quiz quiz;
 
-    @OneToMany(mappedBy = "quizQuestion")
-    @JsonIgnore
+    @OneToMany(mappedBy = "quizQuestion", cascade = CascadeType.ALL)
     private List<QuizAnswer> quizAnswers;
 }

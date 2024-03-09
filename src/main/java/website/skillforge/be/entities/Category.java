@@ -26,7 +26,7 @@ public class Category {
     private Date lastUpdatedDate;
 
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @JsonIgnore
     List<Course> course;
 }

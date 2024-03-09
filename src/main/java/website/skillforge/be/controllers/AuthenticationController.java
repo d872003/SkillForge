@@ -37,13 +37,13 @@ public class AuthenticationController {
     }
 
     @GetMapping("/authentication/getAccountById")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity getAccountById(@RequestParam Long id) {
         return ResponseEntity.ok(authenticationService.getAccountById(id));
     }
 
     @GetMapping("/authentication/getAllAccounts")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity getAllAccounts() {
         return ResponseEntity.ok(authenticationService.getAllAccounts());
     }

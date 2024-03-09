@@ -36,7 +36,7 @@ public class OldQuizService {
     public OldQuizQuestion saveOldQuizQuestion(Long id) {
         OldQuizQuestion oldQuizQuestion1 = new OldQuizQuestion();
         QuizQuestion quizQuestion1 = quizQuestionRepository.findQuizQuestionById(id);
-        oldQuizQuestion1.setQuestionNumber(quizQuestion1.getQuestionNumber());
+//        oldQuizQuestion1.setQuestionNumber(quizQuestion1.getQuestionNumber());
         oldQuizQuestion1.setQuestionContent(quizQuestion1.getQuestionContent());
         oldQuizQuestion1.setQuestionScore(quizQuestion1.getQuestionScore());
         return oldQuizQuestionRepository.save(oldQuizQuestion1);
@@ -48,7 +48,7 @@ public class OldQuizService {
 
         for (QuizQuestion quizQuestion : quizQuestions) {
             OldQuizQuestion oldQuizQuestion = saveOldQuizQuestion(quizQuestion.getId());
-            oldQuizQuestion.setQuestionNumber(quizQuestion.getQuestionNumber());
+//            oldQuizQuestion.setQuestionNumber(quizQuestion.getQuestionNumber());
             oldQuizQuestion.setQuestionContent(quizQuestion.getQuestionContent());
             oldQuizQuestion.setQuestionScore(quizQuestion.getQuestionScore());
             oldQuizQuestions.add(oldQuizQuestion);

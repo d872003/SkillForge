@@ -35,11 +35,11 @@ public class Lesson {
     @JoinColumn(name = "account_id")
     private Account createBy;
 
-    @OneToMany(mappedBy = "lesson")
+    @OneToOne(mappedBy = "lesson", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Quiz> quiz;
+    private Quiz quiz;
 
-    @OneToMany(mappedBy = "lesson")
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Assignment> assignment;
 }
