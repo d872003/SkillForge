@@ -9,7 +9,6 @@ import website.skillforge.be.entities.quiz.Quiz;
 import website.skillforge.be.repository.LessonRepository;
 import website.skillforge.be.repository.quizRepo.QuizRepository;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,7 +57,7 @@ public class QuizService {
         return quizRepository.findQuizById(id);
     }
 
-    public List<Quiz> getQuizByLessonId(Long id) {
+    public Quiz getQuizByLessonId(Long id) {
         return quizRepository.findQuizByLesson_id(id);
     }
 
@@ -66,19 +65,14 @@ public class QuizService {
         return quizRepository.findAll();
     }
 
-    public List<GetAllQuizResponse> getAllQuizDTOByLessonId(Long id) {
-        List<Quiz> quizzes = quizRepository.findQuizByLesson_id(id);
-        List<GetAllQuizResponse> quizDTOs = new ArrayList<>();
-        for (Quiz quiz : quizzes) {
-            GetAllQuizResponse quizDTO = new GetAllQuizResponse();
-            quizDTO.setId(quiz.getId());
-            quizDTO.setName(quiz.getName());
-            quizDTO.setDescription(quiz.getDescription());
-            quizDTO.setLesson_id(quiz.getLesson().getId());
-            quizDTOs.add(quizDTO);
-        }
+    public GetAllQuizResponse getAllQuizDTOByLessonId(Long id) {
+        Quiz quiz = quizRepository.findQuizByLesson_id(id);
+        GetAllQuizResponse quizDTOs = new GetAllQuizResponse();
+        GetAllQuizResponse quizDTO = new GetAllQuizResponse();
+        quizDTO.setId(quiz.getId());
+        quizDTO.setName(quiz.getName());
+        quizDTO.setDescription(quiz.getDescription());
+        quizDTO.setLesson_id(quiz.getLesson().getId());
         return quizDTOs;
     }
-
-
 }

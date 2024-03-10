@@ -108,9 +108,6 @@ public class CourseService {
         courseDetailResponse.setChapters(chapterService.GetChaptersByCourseId(course.getId()));
         for (Chapter chapter : courseDetailResponse.getChapters()) {
             courseDetailResponse.setLessons(lessonService.getAllLessonDTOByChapterId(chapter.getId()));
-            for (GetAllLessonResponse lesson : courseDetailResponse.getLessons()) {
-                courseDetailResponse.setQuizzes(quizService.getAllQuizDTOByLessonId(lesson.getId()));
-            }
         }
         return courseDetailResponse;
     }
