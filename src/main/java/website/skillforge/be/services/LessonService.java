@@ -176,7 +176,6 @@ public class LessonService {
         lesson.setChapter(chapter);
         lesson.setCreateBy(account);
         lesson.setQuiz(quiz);
-
         return lessonRepository.save(lesson);
     }
 

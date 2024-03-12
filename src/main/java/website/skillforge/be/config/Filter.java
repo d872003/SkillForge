@@ -33,12 +33,12 @@ public class Filter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
+        String token = getToken(request);
         String uri = request.getRequestURI();
-        if (uri.contains("login") || uri.contains("register") || uri.contains("swagger-ui") || uri.contains("v3") || uri.contentEquals("/courseDetailAll") || uri.contains("/courseDetail")) {
+        if (uri.contains("login") || uri.contains("register") || uri.contains("swagger-ui") || uri.contains("v3") || (uri.contentEquals("/courseDetailAll") && token == null) || (uri.contentEquals("/courseDetail/{id}") && token == null)) {
             filterChain.doFilter(request, response);
         }else{
-            String token = getToken(request);
+
             if(token == null){
                 resolver.resolveException(request, response, null, new AuthenticationException("Empty Token"));
                 return;

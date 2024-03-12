@@ -33,6 +33,8 @@ public class OrderController {
     private OrderedRepository orderedRepository;
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    EnrollController enroll;
 
     @PostMapping("/order")
     public ResponseEntity createUrl(@RequestBody OrderedDTO orderedDTO) throws NoSuchAlgorithmException, InvalidKeyException, Exception {
@@ -105,6 +107,7 @@ public class OrderController {
     public Ordered orderSuccess(@RequestParam long orderId) {
         Ordered ordered = orderedRepository.findOrderedById(orderId);
         ordered.setStatus(OrderStatus.PAID);
+        enroll.enrollCourseAfterPay(ordered.getCourseId());
         return orderedRepository.save(ordered);
     }
 

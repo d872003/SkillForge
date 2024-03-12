@@ -70,7 +70,7 @@ public class CourseController {
         return ResponseEntity.ok(course);
     }
 
-    @GetMapping("courseDetail/{id}")
+    @GetMapping("/courseDetail/{id}")
     public ResponseEntity getCourseDetail(@PathVariable Long id) {
         return ResponseEntity.ok(courseService.getCourseDetail(id));
     }
