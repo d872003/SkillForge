@@ -22,6 +22,4 @@ public class CourseDetailResponse {
     List<Chapter> chapters;
     List<GetAllLessonResponse> lessons;
     List<GetAllQuizResponse> quizzes;
-
-
 }

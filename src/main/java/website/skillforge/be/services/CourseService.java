@@ -5,9 +5,12 @@ import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.createDTO.CourseDetailResponse;
 import website.skillforge.be.dto.createDTO.CreateCourseRequestDTO;
 import website.skillforge.be.dto.createDTO.GetAllLessonResponse;
+import website.skillforge.be.dto.createDTO.quizDto.GetAllQuizResponse;
 import website.skillforge.be.entities.*;
+import website.skillforge.be.entities.quiz.Quiz;
 import website.skillforge.be.enums.status.CourseStatus;
 import website.skillforge.be.repository.CategoryRepository;
+import website.skillforge.be.repository.CourseEnrollmentRepository;
 import website.skillforge.be.repository.CourseRepository;
 
 import website.skillforge.be.services.quiz.QuizService;
@@ -16,6 +19,7 @@ import website.skillforge.be.util.AccountUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CourseService {
@@ -29,6 +33,8 @@ public class CourseService {
     LessonService lessonService;
     @Autowired
     QuizService quizService;
+    @Autowired
+    CourseEnrollmentRepository courseEnrollmentRepository;
 
     @Autowired
     AccountUtil accountUtil;
@@ -86,11 +92,29 @@ public class CourseService {
     }
 
     public List<CourseDetailResponse> getCourseDetail() {
+        Account account = accountUtil.getCurrentAccount();
         List<CourseDetailResponse> courseDetailResponse = new ArrayList<>();
         List<Course> courses = getAllCourses();
-        for (Course course : courses) {
-            courseDetailResponse.add(getCourseDetail(course.getId()));
+
+        List<CourseEnrollment> courseEnrollment = new ArrayList<>();
+        if (account != null) {
+            courseEnrollment = courseEnrollmentRepository.findCourseEnrollmentByAccount_id(account.getId());
         }
+
+        for (Course course : courses) {
+            boolean isEnrolled = false;
+            for (CourseEnrollment enrollment : courseEnrollment) {
+                if (course.getId().equals(enrollment.getCourse().getId())) {
+                    isEnrolled = true;
+                    break;
+                }
+            }
+
+            if (!isEnrolled) {
+                courseDetailResponse.add(getCourseDetail(course.getId()));
+            }
+        }
+
         return courseDetailResponse;
     }
 
@@ -106,9 +130,25 @@ public class CourseService {
         courseDetailResponse.setCategory(course.getCategory());
         courseDetailResponse.setCreateBy(course.getCreateBy());
         courseDetailResponse.setChapters(chapterService.GetChaptersByCourseId(course.getId()));
+
         for (Chapter chapter : courseDetailResponse.getChapters()) {
             courseDetailResponse.setLessons(lessonService.getAllLessonDTOByChapterId(chapter.getId()));
         }
+
+        if (accountUtil.getCurrentAccount() != null) {
+            List<GetAllQuizResponse> quizzes = new ArrayList<>();
+            for (GetAllLessonResponse lesson : courseDetailResponse.getLessons()) {
+                GetAllQuizResponse quiz = quizService.getAllQuizDTOByLessonId(lesson.getId());
+                if (quiz != null) {
+                    quizzes.add(quiz);
+                }
+            }
+            courseDetailResponse.setQuizzes(quizzes);
+        } else {
+            // Nếu không có tài khoản đăng nhập, không lấy thông tin quiz
+            courseDetailResponse.setQuizzes(new ArrayList<>());
+        }
+
         return courseDetailResponse;
     }
 

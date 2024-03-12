@@ -16,16 +16,15 @@ public class CourseEnrollment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @Enumerated(EnumType.STRING)
     EnrollStatus status;
     Date startDate;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "course_id")
-    private Course course;
+    Course course;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "account_id")
-    private Account account;
+    Account account;
 }

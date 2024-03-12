@@ -7,6 +7,10 @@ import website.skillforge.be.entities.Account;
 @Component
 public class AccountUtil {
     public Account getCurrentAccount() {
-        return (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        try {
+            return (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

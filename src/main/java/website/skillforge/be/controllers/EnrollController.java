@@ -4,14 +4,17 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import website.skillforge.be.dto.createDTO.CourseDetailResponse;
 import website.skillforge.be.entities.Course;
 import website.skillforge.be.entities.CourseEnrollment;
 import website.skillforge.be.enums.status.EnrollStatus;
 import website.skillforge.be.repository.CourseEnrollmentRepository;
 import website.skillforge.be.repository.CourseRepository;
+import website.skillforge.be.services.CourseService;
 import website.skillforge.be.util.AccountUtil;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -22,7 +25,10 @@ public class EnrollController {
     @Autowired
     CourseEnrollmentRepository courseEnrollmentRepository;
     @Autowired
-    private AccountUtil accountUtils;
+    CourseService courseService;
+    @Autowired
+    AccountUtil accountUtils;
+
 
     @PostMapping("/enroll")
     public void enrollCourseAfterPay(@RequestParam Long id) {
@@ -36,11 +42,15 @@ public class EnrollController {
     }
 
     @GetMapping("/enroll")
-    public ResponseEntity getEnrolledCourse(@RequestParam Long id) {
-        Course course = courseRepository.findCourseById(id);
+    public ResponseEntity getEnrolledCourse() {
+        List<CourseDetailResponse> course = courseService.getCourseDetail();
         return ResponseEntity.ok(course);
     }
 
+    @GetMapping("/enroll/myCourseDetail")
+    public ResponseEntity getMyCourseDetail() {
+        return null;
+    }
     @GetMapping("/enroll/all")
     public ResponseEntity getAllEnrolledCourse() {
         return ResponseEntity.ok(courseEnrollmentRepository.findAll());
