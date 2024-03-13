@@ -16,7 +16,7 @@ public class QuizQuestion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     private String questionNumber;
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String questionContent;
     private double questionScore;
 

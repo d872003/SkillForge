@@ -19,7 +19,7 @@ public class Quiz {
     private Long id;
     @Column(columnDefinition = "nvarchar(255)")
     private String name;
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String description;
     Date createdDate;
     Date lastUpdatedDate;

@@ -43,13 +43,14 @@ public class EnrollController {
 
     @GetMapping("/enroll")
     public ResponseEntity getEnrolledCourse() {
-        List<CourseDetailResponse> course = courseService.getCourseDetail();
+        List<CourseDetailResponse> course = courseService.getEnrollCourseDetail();
         return ResponseEntity.ok(course);
     }
 
-    @GetMapping("/enroll/myCourseDetail")
-    public ResponseEntity getMyCourseDetail() {
-        return null;
+    @GetMapping("/enroll/{id}")
+    public ResponseEntity getMyCourseDetail(@PathVariable Long id) {
+        CourseDetailResponse course = courseService.getEnrollCourseDetail(id);
+        return ResponseEntity.ok(course);
     }
     @GetMapping("/enroll/all")
     public ResponseEntity getAllEnrolledCourse() {

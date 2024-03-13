@@ -56,6 +56,7 @@ public class LessonService {
     AccountUtil accountUtil;
 
     public Quiz createQuiz(String url) {
+        if(url == null) return null;
         MultipartFile multipartFile = convert(url);
         List<String> data = new ArrayList<>();
         List<QuizQuestion> quizQuestions = new ArrayList<>();
@@ -63,6 +64,7 @@ public class LessonService {
         quiz.setCreatedDate(new Date());
         quiz.setQuizQuestion(quizQuestions);
         quizRepository.save(quiz);
+        int numOfQuestion = 0;
         try (Workbook workbook = new XSSFWorkbook(multipartFile.getInputStream())) {
             Sheet sheet = workbook.getSheetAt(0); // Assuming the data is in the first sheet
 
@@ -84,6 +86,7 @@ public class LessonService {
                     data.add(cell.toString());
                     if (cellIndex == 0) {
                         quizQuestion.setQuestionNumber(cell.toString());
+                        numOfQuestion++;
                     }
                     if (cellIndex == 1) {
                         quizQuestion.setQuestionContent(cell.toString());
@@ -121,6 +124,9 @@ public class LessonService {
                     }
 
                     cellIndex++;
+                }
+                for(QuizQuestion q : quizQuestions){
+                    q.setQuestionScore(10/(float)numOfQuestion);
                 }
                 quizQuestions.add(quizQuestion);
             }
@@ -167,7 +173,9 @@ public class LessonService {
         Chapter chapter = chapterRepository.findChapterById(createLessonRequestDTO.getChapter_id());
         Lesson lesson = new Lesson();
         Quiz quiz = createQuiz(createLessonRequestDTO.getQuiz());
-        quiz.setLesson(lesson);
+        if(quiz != null){
+            quiz.setLesson(lesson);
+        }
         lesson.setName(createLessonRequestDTO.getName());
         lesson.setVideoLink(createLessonRequestDTO.getVideoLink());
         lesson.setDescription(createLessonRequestDTO.getDescription());
@@ -175,7 +183,9 @@ public class LessonService {
         lesson.setLastUpdatedDate(date);
         lesson.setChapter(chapter);
         lesson.setCreateBy(account);
-        lesson.setQuiz(quiz);
+        if(quiz != null) {
+            lesson.setQuiz(quiz);
+        }
         return lessonRepository.save(lesson);
     }
 

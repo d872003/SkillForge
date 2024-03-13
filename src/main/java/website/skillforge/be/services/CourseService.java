@@ -92,6 +92,15 @@ public class CourseService {
     }
 
     public List<CourseDetailResponse> getCourseDetail() {
+        List<CourseDetailResponse> courseDetailResponse = new ArrayList<>();
+        List<Course> courses = getAllCourses();
+        List<CourseEnrollment> courseEnrollment = new ArrayList<>();
+        for (Course course : courses) {
+                courseDetailResponse.add(getCourseDetail(course.getId()));
+        }
+        return courseDetailResponse;
+    }
+    public List<CourseDetailResponse> getEnrollCourseDetail() {
         Account account = accountUtil.getCurrentAccount();
         List<CourseDetailResponse> courseDetailResponse = new ArrayList<>();
         List<Course> courses = getAllCourses();
@@ -111,13 +120,12 @@ public class CourseService {
             }
 
             if (!isEnrolled) {
-                courseDetailResponse.add(getCourseDetail(course.getId()));
+                courseDetailResponse.add(getEnrollCourseDetail(course.getId()));
             }
         }
 
         return courseDetailResponse;
     }
-
     public CourseDetailResponse getCourseDetail(Long id) {
         CourseDetailResponse courseDetailResponse = new CourseDetailResponse();
         Course course = getCourseById(id);
@@ -129,28 +137,83 @@ public class CourseService {
         courseDetailResponse.setDescription(course.getDescription());
         courseDetailResponse.setCategory(course.getCategory());
         courseDetailResponse.setCreateBy(course.getCreateBy());
-        courseDetailResponse.setChapters(chapterService.GetChaptersByCourseId(course.getId()));
-
-        for (Chapter chapter : courseDetailResponse.getChapters()) {
-            courseDetailResponse.setLessons(lessonService.getAllLessonDTOByChapterId(chapter.getId()));
+        List<Chapter> chapters = chapterService.GetChaptersByCourseId(course.getId());
+        courseDetailResponse.setChapters(chapters);
+        List<GetAllQuizResponse> quizzes = new ArrayList<>();
+        List<GetAllLessonResponse> allLessons = new ArrayList<>();
+        for (Chapter chapter : chapters) {
+            List<GetAllLessonResponse> lessons = lessonService.getAllLessonDTOByChapterId(chapter.getId());
+            allLessons.addAll(lessons);
         }
+        courseDetailResponse.setLessons(allLessons);
+        return courseDetailResponse;
+    }
+    public CourseDetailResponse getEnrollCourseDetail(Long id) {
+        CourseDetailResponse courseDetailResponse = new CourseDetailResponse();
+        Course course = getCourseById(id);
+        courseDetailResponse.setId(course.getId());
+        courseDetailResponse.setName(course.getName());
+        courseDetailResponse.setCode(course.getCode());
+        courseDetailResponse.setPrice(course.getPrice());
+        courseDetailResponse.setPictureLink(course.getPictureLink());
+        courseDetailResponse.setDescription(course.getDescription());
+        courseDetailResponse.setCategory(course.getCategory());
+        courseDetailResponse.setCreateBy(course.getCreateBy());
+        List<Chapter> chapters = chapterService.GetChaptersByCourseId(course.getId());
+        courseDetailResponse.setChapters(chapters);
+        List<GetAllQuizResponse> quizzes = new ArrayList<>();
+
+        List<GetAllLessonResponse> allLessons = new ArrayList<>();
+        for (Chapter chapter : chapters) {
+            List<GetAllLessonResponse> lessons = lessonService.getAllLessonDTOByChapterId(chapter.getId());
+            allLessons.addAll(lessons);
+        }
+        courseDetailResponse.setLessons(allLessons);
 
         if (accountUtil.getCurrentAccount() != null) {
-            List<GetAllQuizResponse> quizzes = new ArrayList<>();
-            for (GetAllLessonResponse lesson : courseDetailResponse.getLessons()) {
+            for (GetAllLessonResponse lesson : allLessons) {
                 GetAllQuizResponse quiz = quizService.getAllQuizDTOByLessonId(lesson.getId());
                 if (quiz != null) {
                     quizzes.add(quiz);
                 }
             }
-            courseDetailResponse.setQuizzes(quizzes);
-        } else {
-            // Nếu không có tài khoản đăng nhập, không lấy thông tin quiz
-            courseDetailResponse.setQuizzes(new ArrayList<>());
         }
-
+        courseDetailResponse.setQuizzes(quizzes);
         return courseDetailResponse;
     }
+//    public CourseDetailResponse getCourseDetail(Long id) {
+//        CourseDetailResponse courseDetailResponse = new CourseDetailResponse();
+//        Course course = getCourseById(id);
+//        courseDetailResponse.setId(course.getId());
+//        courseDetailResponse.setName(course.getName());
+//        courseDetailResponse.setCode(course.getCode());
+//        courseDetailResponse.setPrice(course.getPrice());
+//        courseDetailResponse.setPictureLink(course.getPictureLink());
+//        courseDetailResponse.setDescription(course.getDescription());
+//        courseDetailResponse.setCategory(course.getCategory());
+//        courseDetailResponse.setCreateBy(course.getCreateBy());
+//        courseDetailResponse.setChapters(chapterService.GetChaptersByCourseId(course.getId()));
+//
+//        for (Chapter chapter : courseDetailResponse.getChapters()) {
+//            courseDetailResponse.setLessons(lessonService.getAllLessonDTOByChapterId(chapter.getId()));
+//        }
+//
+//        if (accountUtil.getCurrentAccount() != null) {
+//            List<GetAllQuizResponse> quizzes = new ArrayList<>();
+//            for (GetAllLessonResponse lesson : courseDetailResponse.getLessons()) {
+//                GetAllQuizResponse quiz = quizService.getAllQuizDTOByLessonId(lesson.getId());
+//                if (quiz != null) {
+//                    quizzes.add(quiz);
+//                }
+//            }
+//            courseDetailResponse.setQuizzes(quizzes);
+//        } else {
+//            // Nếu không có tài khoản đăng nhập, không lấy thông tin quiz
+//            courseDetailResponse.setQuizzes(new ArrayList<>());
+//        }
+//
+//        return courseDetailResponse;
+//    }
 
     public List<Course> getAllCourses() {
         return courseRepository.findAll();

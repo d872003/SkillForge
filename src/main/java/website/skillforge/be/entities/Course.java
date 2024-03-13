@@ -23,7 +23,7 @@ public class Course {
     String name;
     double price;
     String code;
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(MAX)")
     String pictureLink;
     @Column(columnDefinition = "nvarchar(MAX)")
     String description;

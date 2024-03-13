@@ -67,12 +67,14 @@ public class QuizService {
 
     public GetAllQuizResponse getAllQuizDTOByLessonId(Long id) {
         Quiz quiz = quizRepository.findQuizByLesson_id(id);
-        GetAllQuizResponse quizDTOs = new GetAllQuizResponse();
+        if (quiz == null) {
+            return null;
+        }
         GetAllQuizResponse quizDTO = new GetAllQuizResponse();
         quizDTO.setId(quiz.getId());
         quizDTO.setName(quiz.getName());
         quizDTO.setDescription(quiz.getDescription());
         quizDTO.setLesson_id(quiz.getLesson().getId());
-        return quizDTOs;
+        return quizDTO;
     }
 }
