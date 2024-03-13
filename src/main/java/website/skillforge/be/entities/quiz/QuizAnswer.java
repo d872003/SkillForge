@@ -15,6 +15,8 @@ public class QuizAnswer {
     private int answerNumber;
     @Column(columnDefinition = "nvarchar(MAX)")
     private String answerContent;
+    private double answerScore;
+
     private boolean isTrue;
 
     @ManyToOne

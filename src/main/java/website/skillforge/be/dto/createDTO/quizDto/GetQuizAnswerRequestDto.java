@@ -1,11 +1,12 @@
 package website.skillforge.be.dto.createDTO.quizDto;
 
 import lombok.Data;
+import website.skillforge.be.entities.quiz.QuizAnswer;
 
 import java.util.List;
 
 @Data
 public class GetQuizAnswerRequestDto {
     private Long quizId;
-//    private List<An> answerIds;
+    private List<Long> answerIds;
 }

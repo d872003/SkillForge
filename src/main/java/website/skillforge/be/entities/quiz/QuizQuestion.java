@@ -18,7 +18,7 @@ public class QuizQuestion {
     private String questionNumber;
     @Column(columnDefinition = "nvarchar(MAX)")
     private String questionContent;
-    private double questionScore;
+    double questionScore;
 
     @ManyToOne
     @JoinColumn(name = "quiz_id")

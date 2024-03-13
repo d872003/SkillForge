@@ -1,6 +1,9 @@
 package website.skillforge.be.dto.createDTO;
 
 import lombok.Data;
+import website.skillforge.be.entities.quiz.Quiz;
+
+import java.util.List;
 
 @Data
 public class GetAllLessonResponse {
@@ -8,5 +11,6 @@ public class GetAllLessonResponse {
     private String name;
     private String description;
     private String videoLink;
+    private Quiz quiz;
     private long chapter_id;
 }

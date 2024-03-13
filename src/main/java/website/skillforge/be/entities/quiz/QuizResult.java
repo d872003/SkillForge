@@ -17,7 +17,7 @@ public class QuizResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int score;
+    private double score;
 
     private int trueAnswerNumber;
 
