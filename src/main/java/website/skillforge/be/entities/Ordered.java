@@ -18,6 +18,9 @@ public class Ordered {
     Date createdDate;
     OrderStatus status;
     Double totalPrice;
+    String currency;
+    String method;
+    String intent;
     Long courseId;
     @ManyToOne
     @JoinColumn(name = "account_id")
