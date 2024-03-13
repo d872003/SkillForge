@@ -18,7 +18,7 @@ public class Chapter {
     Long id;
     @Column(columnDefinition = "nvarchar(255)")
     String name;
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(MAX)")
     String description;
     boolean isFreeChapter;
 

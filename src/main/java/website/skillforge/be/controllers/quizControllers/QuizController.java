@@ -40,7 +40,7 @@ public class QuizController {
 
     @GetMapping("/quiz/lessonId")
     public ResponseEntity getQuizByLessonId(@RequestParam Long id) {
-        return ResponseEntity.ok(quizService.getQuizByLessonId(id));
+        return ResponseEntity.ok(quizService.getAllQuizDTOByLessonId(id));
     }
 
     @GetMapping("/quiz")

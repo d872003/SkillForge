@@ -13,7 +13,7 @@ public class QuizAnswer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int answerNumber;
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String answerContent;
     private boolean isTrue;
 

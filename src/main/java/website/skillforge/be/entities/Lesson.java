@@ -19,8 +19,9 @@ public class Lesson {
     Long id;
     @Column(columnDefinition = "nvarchar(255)")
     String name;
+    @Column(columnDefinition = "varchar(MAX)")
     String videoLink;
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(MAX)")
     String description;
     Date createdDate;
     Date lastUpdatedDate;
@@ -36,7 +37,6 @@ public class Lesson {
     private Account createBy;
 
     @OneToOne(mappedBy = "lesson", cascade = CascadeType.ALL)
-    @JsonIgnore
     private Quiz quiz;
 
     @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
