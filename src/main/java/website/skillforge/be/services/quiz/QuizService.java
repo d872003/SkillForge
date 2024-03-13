@@ -54,6 +54,7 @@ public class QuizService {
     }
 
     public Quiz getQuizById(Long id) {
+
         return quizRepository.findQuizById(id);
     }
 

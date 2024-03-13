@@ -92,24 +92,13 @@ public class CourseService {
     }
 
     public List<CourseDetailResponse> getCourseDetail() {
-        List<CourseDetailResponse> courseDetailResponse = new ArrayList<>();
-        List<Course> courses = getAllCourses();
-        List<CourseEnrollment> courseEnrollment = new ArrayList<>();
-        for (Course course : courses) {
-                courseDetailResponse.add(getCourseDetail(course.getId()));
-        }
-        return courseDetailResponse;
-    }
-    public List<CourseDetailResponse> getEnrollCourseDetail() {
         Account account = accountUtil.getCurrentAccount();
         List<CourseDetailResponse> courseDetailResponse = new ArrayList<>();
         List<Course> courses = getAllCourses();
-
         List<CourseEnrollment> courseEnrollment = new ArrayList<>();
         if (account != null) {
             courseEnrollment = courseEnrollmentRepository.findCourseEnrollmentByAccount_id(account.getId());
         }
-
         for (Course course : courses) {
             boolean isEnrolled = false;
             for (CourseEnrollment enrollment : courseEnrollment) {
@@ -118,12 +107,25 @@ public class CourseService {
                     break;
                 }
             }
-
             if (!isEnrolled) {
-                courseDetailResponse.add(getEnrollCourseDetail(course.getId()));
+                courseDetailResponse.add(getCourseDetail(course.getId()));
             }
         }
+        return courseDetailResponse;
+    }
 
+    public List<CourseDetailResponse> getEnrollCourseDetail() {
+        Account account = accountUtil.getCurrentAccount();
+        List<CourseEnrollment> courseEnrollment = new ArrayList<>();
+        List<CourseDetailResponse> courseDetailResponse = new ArrayList<>();
+        if (account != null) {
+            courseEnrollment = courseEnrollmentRepository.findCourseEnrollmentByAccount_id(account.getId());
+            for (CourseEnrollment enrollment : courseEnrollment) {
+                CourseDetailResponse c = getEnrollCourseDetail(enrollment.getCourse().getId());
+                ;
+                courseDetailResponse.add(c);
+            }
+        }
         return courseDetailResponse;
     }
     public CourseDetailResponse getCourseDetail(Long id) {
@@ -161,24 +163,19 @@ public class CourseService {
         courseDetailResponse.setCreateBy(course.getCreateBy());
         List<Chapter> chapters = chapterService.GetChaptersByCourseId(course.getId());
         courseDetailResponse.setChapters(chapters);
-        List<GetAllQuizResponse> quizzes = new ArrayList<>();
 
         List<GetAllLessonResponse> allLessons = new ArrayList<>();
         for (Chapter chapter : chapters) {
             List<GetAllLessonResponse> lessons = lessonService.getAllLessonDTOByChapterId(chapter.getId());
             allLessons.addAll(lessons);
         }
-        courseDetailResponse.setLessons(allLessons);
-
-        if (accountUtil.getCurrentAccount() != null) {
-            for (GetAllLessonResponse lesson : allLessons) {
-                GetAllQuizResponse quiz = quizService.getAllQuizDTOByLessonId(lesson.getId());
-                if (quiz != null) {
-                    quizzes.add(quiz);
-                }
+        for (GetAllLessonResponse lesson : allLessons) {
+            Quiz quiz = quizService.getQuizByLessonId(lesson.getId());
+            if (quiz != null) {
+                lesson.setQuiz(quiz);
             }
         }
-        courseDetailResponse.setQuizzes(quizzes);
+        courseDetailResponse.setLessons(allLessons);
         return courseDetailResponse;
     }
 //    public CourseDetailResponse getCourseDetail(Long id) {

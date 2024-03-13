@@ -13,6 +13,7 @@ public class OldQuizAnswer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int answerNumber;
+    private double answerScore;
     @Column(columnDefinition = "nvarchar(255)")
     private String answerContent;
     private boolean isTrue;

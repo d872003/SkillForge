@@ -67,9 +67,7 @@ public class LessonService {
         int numOfQuestion = 0;
         try (Workbook workbook = new XSSFWorkbook(multipartFile.getInputStream())) {
             Sheet sheet = workbook.getSheetAt(0); // Assuming the data is in the first sheet
-
             Iterator<Row> rowIterator = sheet.iterator();
-
             if (rowIterator.hasNext()) {
                 rowIterator.next();
             }
@@ -122,14 +120,16 @@ public class LessonService {
                                 break;
                         }
                     }
-
                     cellIndex++;
-                }
-                for(QuizQuestion q : quizQuestions){
-                    q.setQuestionScore(10/(float)numOfQuestion);
                 }
                 quizQuestions.add(quizQuestion);
             }
+
+            // Tính điểm cho từng câu hỏi sau khi đã duyệt qua tất cả câu hỏi
+            for (QuizQuestion q : quizQuestions) {
+                q.setQuestionScore(10 / (float) numOfQuestion);
+            }
+
         } catch (IOException e) {
             // Handle exception
             e.printStackTrace();
