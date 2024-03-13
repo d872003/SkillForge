@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import website.skillforge.be.entities.Account;
 
 import java.util.Date;
 import java.util.List;
@@ -30,4 +31,8 @@ public class OldQuiz {
     @OneToMany(mappedBy = "oldQuiz")
     @JsonIgnore
     private List<OldQuizQuestion> oldQuizQuestion;
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account doBy;
+
 }

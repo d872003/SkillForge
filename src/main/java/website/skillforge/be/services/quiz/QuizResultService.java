@@ -68,6 +68,7 @@ QuizResultService {
         oldQuiz.setLessonName(quiz.getLesson().getName());
         oldQuiz.setChapterName(quiz.getLesson().getChapter().getName());
         oldQuiz.setCourseName(quiz.getLesson().getChapter().getCourse().getName());
+        oldQuiz.setDoBy(account);
         oldQuizRepository.save(oldQuiz);
         return quizResult;
     }
