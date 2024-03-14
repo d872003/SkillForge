@@ -2,12 +2,15 @@ package website.skillforge.be.services.quiz;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import website.skillforge.be.dto.createDTO.quizDto.CheckDoQuizResponse;
 import website.skillforge.be.dto.createDTO.quizDto.CreateQuizRequestDTO;
 import website.skillforge.be.dto.createDTO.quizDto.GetAllQuizResponse;
 import website.skillforge.be.entities.Lesson;
 import website.skillforge.be.entities.quiz.Quiz;
 import website.skillforge.be.repository.LessonRepository;
 import website.skillforge.be.repository.quizRepo.QuizRepository;
+import website.skillforge.be.repository.quizRepo.QuizResultRepository;
+import website.skillforge.be.util.AccountUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -18,6 +21,10 @@ public class QuizService {
     private QuizRepository quizRepository;
     @Autowired
     private LessonRepository lessonRepository;
+    @Autowired
+    QuizResultRepository quizResultRepository;
+    @Autowired
+    private AccountUtil accountUtil;
 
     public Quiz createQuiz(CreateQuizRequestDTO createQuizRequestDTO) {
         Lesson lesson = lessonRepository.findLessonById(createQuizRequestDTO.getLesson_id());
@@ -54,12 +61,15 @@ public class QuizService {
     }
 
     public Quiz getQuizById(Long id) {
-
         return quizRepository.findQuizById(id);
     }
 
-    public Quiz getQuizByLessonId(Long id) {
-        return quizRepository.findQuizByLesson_id(id);
+    public CheckDoQuizResponse getQuizByLessonId(Long id) {
+        CheckDoQuizResponse checkDoQuizResponse = new CheckDoQuizResponse();
+        Quiz quiz = quizRepository.findQuizByLesson_id(id);
+        checkDoQuizResponse.setIsDo(quizResultRepository.findQuizResultByAccount_id(accountUtil.getCurrentAccount().getId()) != null);
+        checkDoQuizResponse.setQuiz(quiz);
+        return checkDoQuizResponse;
     }
 
     public List<Quiz> getAllQuizzes() {
