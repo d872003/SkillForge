@@ -92,7 +92,12 @@ public class CourseService {
     }
 
     public List<CourseDetailResponse> getCourseDetail() {
-        Account account = accountUtil.getCurrentAccount();
+        Account account = null;
+        try {
+            account = accountUtil.getCurrentAccount();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         List<CourseDetailResponse> courseDetailResponse = new ArrayList<>();
         List<Course> courses = getAllCourses();
         List<CourseEnrollment> courseEnrollment = new ArrayList<>();
@@ -121,9 +126,7 @@ public class CourseService {
         if (account != null) {
             courseEnrollment = courseEnrollmentRepository.findCourseEnrollmentByAccount_id(account.getId());
             for (CourseEnrollment enrollment : courseEnrollment) {
-                CourseDetailResponse c = getEnrollCourseDetail(enrollment.getCourse().getId());
-                ;
-                courseDetailResponse.add(c);
+                courseDetailResponse.add(getEnrollCourseDetail(enrollment.getCourse().getId()));
             }
         }
         return courseDetailResponse;
@@ -170,7 +173,7 @@ public class CourseService {
             allLessons.addAll(lessons);
         }
         for (GetAllLessonResponse lesson : allLessons) {
-            Quiz quiz = quizService.getQuizByLessonId(lesson.getId());
+            Quiz quiz = quizService.getQuizByLessonId2(lesson.getId());
             if (quiz != null) {
                 lesson.setQuiz(quiz);
             }

@@ -15,6 +15,7 @@ public class QuizController {
     @Autowired
     QuizService quizService;
 
+
     @PostMapping("/quiz")
     public ResponseEntity createQuiz(@RequestBody CreateQuizRequestDTO createQuizRequestDTO) {
         Quiz quiz = quizService.createQuiz(createQuizRequestDTO);

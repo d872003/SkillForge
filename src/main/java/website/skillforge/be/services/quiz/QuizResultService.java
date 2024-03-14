@@ -2,6 +2,7 @@ package website.skillforge.be.services.quiz;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import website.skillforge.be.dto.createDTO.quizDto.CheckDoQuizResponse;
 import website.skillforge.be.dto.createDTO.quizDto.CreateQuizResultRequestDto;
 import website.skillforge.be.dto.createDTO.quizDto.GetQuizAnswerRequestDto;
 import website.skillforge.be.entities.*;
@@ -32,7 +33,7 @@ QuizResultService {
     private QuizRepository quizRepository;
     @Autowired
     private AccountUtil accountUtil;
-
+    List<Long> answerIds;
     public CreateQuizResultRequestDto createQuizResult(GetQuizAnswerRequestDto answerRequestDto) {
         QuizResult quizResult = new QuizResult();
         CreateQuizResultRequestDto createQuizResultRequestDto = new CreateQuizResultRequestDto();
@@ -88,6 +89,7 @@ QuizResultService {
         List<Long> falseQuestionIds = new ArrayList<>();
         List<Long> falseAnswerIds = new ArrayList<>();
         List<Long> trueAnswerIds = new ArrayList<>();
+        answerIds = answerRequestDto.getAnswerIds();
         for (Long userAns : answerRequestDto.getAnswerIds()) {
             QuizAnswer quizAnswer = quizAnswerRepository.findQuizAnswerById(userAns);
             if (quizAnswer == null) {
@@ -111,6 +113,11 @@ QuizResultService {
         return score;
     }
 
+    public List<Long> getUserAns() {
+        List<Long> answers = new ArrayList<>();
+        answers.addAll(answerIds);
+        return answers;
+    }
 
     public QuizResult getQuizResult(Long id) {
         return quizResultRepository.findQuizResultById(id);

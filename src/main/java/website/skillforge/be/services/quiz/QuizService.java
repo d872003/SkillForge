@@ -24,8 +24,9 @@ public class QuizService {
     @Autowired
     QuizResultRepository quizResultRepository;
     @Autowired
+    QuizResultService quizResultService;
+    @Autowired
     private AccountUtil accountUtil;
-
     public Quiz createQuiz(CreateQuizRequestDTO createQuizRequestDTO) {
         Lesson lesson = lessonRepository.findLessonById(createQuizRequestDTO.getLesson_id());
         Date date = new Date();
@@ -61,17 +62,23 @@ public class QuizService {
     }
 
     public Quiz getQuizById(Long id) {
+
         return quizRepository.findQuizById(id);
     }
 
+    public Quiz getQuizByLessonId2(Long id) {
+        return quizRepository.findQuizByLesson_id(id);
+    }
     public CheckDoQuizResponse getQuizByLessonId(Long id) {
         CheckDoQuizResponse checkDoQuizResponse = new CheckDoQuizResponse();
         Quiz quiz = quizRepository.findQuizByLesson_id(id);
-        checkDoQuizResponse.setIsDo(quizResultRepository.findQuizResultByAccount_id(accountUtil.getCurrentAccount().getId()) != null);
+        if (quizResultRepository.findQuizResultByDoByIdAndQuizId(accountUtil.getCurrentAccount().getId(), quiz.getId()) != null) {
+            checkDoQuizResponse.setIsDo(true);
+        }
         checkDoQuizResponse.setQuiz(quiz);
+        checkDoQuizResponse.setAnswerIds(quizResultService.getUserAns());
         return checkDoQuizResponse;
     }
-
     public List<Quiz> getAllQuizzes() {
         return quizRepository.findAll();
     }

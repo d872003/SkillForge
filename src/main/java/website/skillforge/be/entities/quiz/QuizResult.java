@@ -25,9 +25,13 @@ public class QuizResult {
 
     private Date date;
 
+    @OneToOne
+    @JoinColumn(name = "quiz_id")
+    Quiz quiz;
+
     @ManyToOne
     @JoinColumn(name = "account_id")
-    private Account doBy;
+    Account doBy;
 
 
 }

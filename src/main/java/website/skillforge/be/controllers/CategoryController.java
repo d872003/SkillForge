@@ -50,7 +50,7 @@ public class CategoryController {
         return ResponseEntity.ok(category);
     }
 
-    @GetMapping("/category")
+    @GetMapping("/categoryAll")
     public ResponseEntity getAllCategories() {
         return ResponseEntity.ok(categoryService.getAllCategories());
     }

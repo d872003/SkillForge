@@ -24,10 +24,10 @@ public class OldQuiz {
     private String courseName;
     private String chapterName;
     private String lessonName;
-    @OneToOne
-    @JoinColumn(name = "quizResult_id")
-    @JsonIgnore
-    private QuizResult quizResult;
+    //    @OneToOne
+//    @JoinColumn(name = "quizResult_id")
+//    @JsonIgnore
+//    private QuizResult quizResult;
     @OneToMany(mappedBy = "oldQuiz")
     @JsonIgnore
     private List<OldQuizQuestion> oldQuizQuestion;
