@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import website.skillforge.be.dto.createDTO.CreateLessonRequestDTO;
 import website.skillforge.be.entities.Lesson;
+import website.skillforge.be.repository.quizRepo.QuizResultRepository;
 import website.skillforge.be.services.LessonService;
 
 @RestController
@@ -15,6 +16,7 @@ import website.skillforge.be.services.LessonService;
 public class LessonController {
     @Autowired
     LessonService lessonService;
+
 
     @PostMapping("/lesson")
     public ResponseEntity createLesson(@RequestBody CreateLessonRequestDTO createLessonRequestDTO) {

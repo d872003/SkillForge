@@ -33,15 +33,22 @@ QuizResultService {
     @Autowired
     private AccountUtil accountUtil;
 
-    public QuizResult createQuizResult(GetQuizAnswerRequestDto answerRequestDto) {
+    public CreateQuizResultRequestDto createQuizResult(GetQuizAnswerRequestDto answerRequestDto) {
         QuizResult quizResult = new QuizResult();
+        CreateQuizResultRequestDto createQuizResultRequestDto = new CreateQuizResultRequestDto();
         Account account = accountUtil.getCurrentAccount();
-        quizResult.setScore(scoring(quizResult, answerRequestDto));
+        quizResult.setScore(scoring(quizResult, answerRequestDto, createQuizResultRequestDto));
         quizResult.setDoBy(account);
         quizResult.setDate(new Date());
         quizResultRepository.save(quizResult);
         OldQuiz oldQuiz = new OldQuiz();
         Quiz quiz = quizRepository.findQuizById(answerRequestDto.getQuizId());
+        oldQuiz.setCreatedDate(new Date());
+        oldQuiz.setLessonName(quiz.getLesson().getName());
+        oldQuiz.setChapterName(quiz.getLesson().getChapter().getName());
+        oldQuiz.setCourseName(quiz.getLesson().getChapter().getCourse().getName());
+        oldQuiz.setDoBy(account);
+        oldQuizRepository.save(oldQuiz);
         List<OldQuizQuestion> oldQuizQuestions = new ArrayList<>();
         for (QuizQuestion question : quiz.getQuizQuestion()) {
             OldQuizQuestion oldQuizQuestion = new OldQuizQuestion();
@@ -49,6 +56,7 @@ QuizResultService {
             oldQuizQuestion.setQuestionContent(question.getQuestionContent());
             oldQuizQuestion.setQuestionScore(question.getQuestionScore());
             oldQuizQuestion.setOldQuiz(oldQuiz);
+            oldQuizQuestionRepository.save(oldQuizQuestion);
             List<OldQuizAnswer> oldQuizAnswers = new ArrayList<>();
             for (QuizAnswer quizAnswer : question.getQuizAnswers()) {
                 OldQuizAnswer oldQuizAnswer = new OldQuizAnswer();
@@ -60,17 +68,11 @@ QuizResultService {
                 oldQuizAnswerRepository.save(oldQuizAnswer);
             }
             oldQuizQuestion.setOldQuizAnswers(oldQuizAnswers);
-            oldQuizQuestionRepository.save(oldQuizQuestion);
             oldQuizQuestions.add(oldQuizQuestion);
         }
         oldQuiz.setOldQuizQuestion(oldQuizQuestions);
-        oldQuiz.setCreatedDate(new Date());
-        oldQuiz.setLessonName(quiz.getLesson().getName());
-        oldQuiz.setChapterName(quiz.getLesson().getChapter().getName());
-        oldQuiz.setCourseName(quiz.getLesson().getChapter().getCourse().getName());
-        oldQuiz.setDoBy(account);
-        oldQuizRepository.save(oldQuiz);
-        return quizResult;
+        createQuizResultRequestDto.setQuizResult(quizResult);
+        return createQuizResultRequestDto;
     }
 
     public Double getScoreAnswer(QuizAnswer quizAnswer) {
@@ -79,23 +81,36 @@ QuizResultService {
         return quizAnswer.getAnswerScore();
     }
 
-    public Double scoring(QuizResult quizResult, GetQuizAnswerRequestDto answerRequestDto) {
+    public Double scoring(QuizResult quizResult, GetQuizAnswerRequestDto answerRequestDto, CreateQuizResultRequestDto createQuizResultRequestDto) {
         double score = 0;
         int trueAnswerNumber = quizResult.getTrueAnswerNumber();
         int falseAnswerNumber = quizResult.getFalseAnswerNumber();
+        List<Long> falseQuestionIds = new ArrayList<>();
+        List<Long> falseAnswerIds = new ArrayList<>();
+        List<Long> trueAnswerIds = new ArrayList<>();
         for (Long userAns : answerRequestDto.getAnswerIds()) {
             QuizAnswer quizAnswer = quizAnswerRepository.findQuizAnswerById(userAns);
+            if (quizAnswer == null) {
+                continue;
+            }
             if (quizAnswer.isTrue()) {
                 score += getScoreAnswer(quizAnswer);
                 trueAnswerNumber++;
+                trueAnswerIds.add(quizAnswer.getId());
             } else {
                 falseAnswerNumber++;
+                falseQuestionIds.add(quizAnswer.getQuizQuestion().getId());
+                falseAnswerIds.add(quizAnswer.getId());
             }
         }
+        createQuizResultRequestDto.setFalseQuestionIds(falseQuestionIds);
+        createQuizResultRequestDto.setFalseAnswerIds(falseAnswerIds);
+        createQuizResultRequestDto.setTrueAnswerIds(trueAnswerIds);
         quizResult.setTrueAnswerNumber(trueAnswerNumber);
         quizResult.setFalseAnswerNumber(falseAnswerNumber);
         return score;
     }
+
 
     public QuizResult getQuizResult(Long id) {
         return quizResultRepository.findQuizResultById(id);
