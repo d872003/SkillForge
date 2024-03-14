@@ -7,6 +7,7 @@ import website.skillforge.be.dto.createDTO.quizDto.CreateQuizRequestDTO;
 import website.skillforge.be.dto.createDTO.quizDto.GetAllQuizResponse;
 import website.skillforge.be.entities.Lesson;
 import website.skillforge.be.entities.quiz.Quiz;
+import website.skillforge.be.entities.quiz.QuizResult;
 import website.skillforge.be.repository.LessonRepository;
 import website.skillforge.be.repository.quizRepo.QuizRepository;
 import website.skillforge.be.repository.quizRepo.QuizResultRepository;
@@ -72,9 +73,7 @@ public class QuizService {
     public CheckDoQuizResponse getQuizByLessonId(Long id) {
         CheckDoQuizResponse checkDoQuizResponse = new CheckDoQuizResponse();
         Quiz quiz = quizRepository.findQuizByLesson_id(id);
-        if (quizResultRepository.findQuizResultByDoByIdAndQuizId(accountUtil.getCurrentAccount().getId(), quiz.getId()) != null) {
-            checkDoQuizResponse.setIsDo(true);
-        }
+        checkDoQuizResponse.setIsDo(quizResultRepository.findQuizResultByQuizId(quiz.getId()) != null);
         checkDoQuizResponse.setQuiz(quiz);
         checkDoQuizResponse.setAnswerIds(quizResultService.getUserAns());
         return checkDoQuizResponse;

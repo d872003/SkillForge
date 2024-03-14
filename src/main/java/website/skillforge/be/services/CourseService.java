@@ -144,7 +144,6 @@ public class CourseService {
         courseDetailResponse.setCreateBy(course.getCreateBy());
         List<Chapter> chapters = chapterService.GetChaptersByCourseId(course.getId());
         courseDetailResponse.setChapters(chapters);
-        List<GetAllQuizResponse> quizzes = new ArrayList<>();
         List<GetAllLessonResponse> allLessons = new ArrayList<>();
         for (Chapter chapter : chapters) {
             List<GetAllLessonResponse> lessons = lessonService.getAllLessonDTOByChapterId(chapter.getId());

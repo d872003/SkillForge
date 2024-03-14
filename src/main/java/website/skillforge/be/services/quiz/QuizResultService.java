@@ -34,6 +34,7 @@ QuizResultService {
     @Autowired
     private AccountUtil accountUtil;
     List<Long> answerIds;
+    int count = 0;
     public CreateQuizResultRequestDto createQuizResult(GetQuizAnswerRequestDto answerRequestDto) {
         QuizResult quizResult = new QuizResult();
         CreateQuizResultRequestDto createQuizResultRequestDto = new CreateQuizResultRequestDto();
@@ -44,6 +45,7 @@ QuizResultService {
         quizResultRepository.save(quizResult);
         OldQuiz oldQuiz = new OldQuiz();
         Quiz quiz = quizRepository.findQuizById(answerRequestDto.getQuizId());
+        quizResult.setQuiz(quiz);
         oldQuiz.setCreatedDate(new Date());
         oldQuiz.setLessonName(quiz.getLesson().getName());
         oldQuiz.setChapterName(quiz.getLesson().getChapter().getName());
@@ -90,6 +92,7 @@ QuizResultService {
         List<Long> falseAnswerIds = new ArrayList<>();
         List<Long> trueAnswerIds = new ArrayList<>();
         answerIds = answerRequestDto.getAnswerIds();
+        count = 1;
         for (Long userAns : answerRequestDto.getAnswerIds()) {
             QuizAnswer quizAnswer = quizAnswerRepository.findQuizAnswerById(userAns);
             if (quizAnswer == null) {
@@ -114,9 +117,15 @@ QuizResultService {
     }
 
     public List<Long> getUserAns() {
-        List<Long> answers = new ArrayList<>();
-        answers.addAll(answerIds);
-        return answers;
+        if (count == 1) {
+            count = 0;
+            List<Long> answers = new ArrayList<>();
+            for (Long id : answerIds) {
+                answers.add(id);
+            }
+            return answers;
+        }
+        return null;
     }
 
     public QuizResult getQuizResult(Long id) {
