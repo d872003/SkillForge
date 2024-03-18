@@ -54,6 +54,7 @@ public class EnrollController {
     }
     @GetMapping("/enroll/all")
     public ResponseEntity getAllEnrolledCourse() {
+
         return ResponseEntity.ok(courseEnrollmentRepository.findAll());
     }
 }

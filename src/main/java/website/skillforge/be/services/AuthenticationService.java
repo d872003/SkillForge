@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.authenticationDTO.LoginRequestDTO;
 import website.skillforge.be.dto.authenticationDTO.LoginResponseDTO;
+import website.skillforge.be.dto.authenticationDTO.ProfileResponseDTO;
 import website.skillforge.be.dto.authenticationDTO.RegisterRequestDTO;
 import website.skillforge.be.entities.Account;
 import website.skillforge.be.enums.status.AccountStatus;
@@ -28,6 +29,8 @@ public class AuthenticationService {
     PasswordEncoder passwordEncoder;
     @Autowired
     AuthenticationManager authenticationManager;
+    @Autowired
+    CourseService courseService;
     @Autowired
     TokenHandler tokenHandler;
 
@@ -88,6 +91,19 @@ public class AuthenticationService {
 
     public Account getAccountById(Long id) {
         return accountRepository.findAccountById(id);
+    }
+
+    public ProfileResponseDTO getProfileById(String token) {
+        try {
+            String username = tokenHandler.getInfoByToken(token);
+            Account account = accountRepository.findAccountByUsername(username);
+            ProfileResponseDTO profileResponseDTO = new ProfileResponseDTO();
+            profileResponseDTO.setAccount(account);
+            profileResponseDTO.setCourseDetailResponse(courseService.getEnrollCourseDetail());
+            return profileResponseDTO;
+        } catch (Exception e) {
+            throw new InternalAuthenticationServiceException("Authentication failed: " + e.getMessage());
+        }
     }
 
     public List<Account> getAllAccounts() {
