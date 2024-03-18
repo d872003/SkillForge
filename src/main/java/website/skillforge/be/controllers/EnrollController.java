@@ -47,6 +47,12 @@ public class EnrollController {
         return ResponseEntity.ok(course);
     }
 
+    @GetMapping("/studentEnroll/{id}")
+    public ResponseEntity getStudentEnrolledCourse(@PathVariable Long id) {
+        List<CourseEnrollment> course = courseService.getStudentEnrollCourseDetail(id);
+        return ResponseEntity.ok(course);
+    }
+
     @GetMapping("/enroll/{id}")
     public ResponseEntity getMyCourseDetail(@PathVariable Long id) {
         CourseDetailResponse course = courseService.getEnrollCourseDetail(id);

@@ -105,6 +105,9 @@ public class CourseService {
         return courseDetailResponse;
     }
 
+    public List<CourseEnrollment> getStudentEnrollCourseDetail(long id) {
+        return courseEnrollmentRepository.findCourseEnrollmentByCourse_id(id);
+    }
 
     public List<CourseDetailResponse> getCourseDetail() {
         Account account = null;
