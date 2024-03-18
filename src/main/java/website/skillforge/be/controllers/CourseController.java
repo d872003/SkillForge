@@ -6,13 +6,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import website.skillforge.be.dto.createDTO.CreateCourseRequestDTO;
+import website.skillforge.be.entities.Account;
 import website.skillforge.be.entities.Chapter;
 import website.skillforge.be.entities.Course;
 import website.skillforge.be.entities.Lesson;
+import website.skillforge.be.enums.Role;
+import website.skillforge.be.repository.CourseRepository;
 import website.skillforge.be.services.ChapterService;
 import website.skillforge.be.services.CourseService;
 import website.skillforge.be.services.LessonService;
 import website.skillforge.be.services.quiz.QuizService;
+import website.skillforge.be.util.AccountUtil;
 
 import javax.annotation.security.PermitAll;
 import java.util.HashMap;
@@ -31,6 +35,10 @@ public class CourseController {
     LessonService lessonService;
     @Autowired
     QuizService quizService;
+    @Autowired
+    CourseRepository courseRepository;
+    @Autowired
+    AccountUtil accountUtil;
     @PostMapping("/course")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
     public ResponseEntity createCourse(@RequestBody CreateCourseRequestDTO createCourseRequestDTO) {
@@ -74,6 +82,12 @@ public class CourseController {
     public ResponseEntity getCourseDetail(@PathVariable Long id) {
         return ResponseEntity.ok(courseService.getCourseDetail(id));
     }
+
+    @GetMapping("/getCourseByTeacherId")
+    public ResponseEntity getCourseByTeacherId() {
+        return ResponseEntity.ok(courseService.getCourseByTeacherId());
+    }
+
     @GetMapping("/courseDetailAll")
     public ResponseEntity getCourseDetailAll() {
         return ResponseEntity.ok(courseService.getCourseDetail());

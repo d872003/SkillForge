@@ -1,6 +1,7 @@
 package website.skillforge.be.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.createDTO.CourseDetailResponse;
 import website.skillforge.be.dto.createDTO.CreateCourseRequestDTO;
@@ -8,6 +9,7 @@ import website.skillforge.be.dto.createDTO.GetAllLessonResponse;
 import website.skillforge.be.dto.createDTO.quizDto.GetAllQuizResponse;
 import website.skillforge.be.entities.*;
 import website.skillforge.be.entities.quiz.Quiz;
+import website.skillforge.be.enums.Role;
 import website.skillforge.be.enums.status.CourseStatus;
 import website.skillforge.be.repository.CategoryRepository;
 import website.skillforge.be.repository.CourseEnrollmentRepository;
@@ -90,6 +92,19 @@ public class CourseService {
         }
         return null;
     }
+
+    public List<CourseDetailResponse> getCourseByTeacherId() {
+        Account account = accountUtil.getCurrentAccount();
+        List<CourseDetailResponse> courseDetailResponse = new ArrayList<>();
+        if (account.getRole() == Role.TEACHER) {
+            List<Course> courses = courseRepository.findCourseByCreateById(account.getId());
+            for (Course course : courses) {
+                courseDetailResponse.add(getEnrollCourseDetail(course.getId()));
+            }
+        }
+        return courseDetailResponse;
+    }
+
 
     public List<CourseDetailResponse> getCourseDetail() {
         Account account = null;
@@ -180,39 +195,7 @@ public class CourseService {
         courseDetailResponse.setLessons(allLessons);
         return courseDetailResponse;
     }
-//    public CourseDetailResponse getCourseDetail(Long id) {
-//        CourseDetailResponse courseDetailResponse = new CourseDetailResponse();
-//        Course course = getCourseById(id);
-//        courseDetailResponse.setId(course.getId());
-//        courseDetailResponse.setName(course.getName());
-//        courseDetailResponse.setCode(course.getCode());
-//        courseDetailResponse.setPrice(course.getPrice());
-//        courseDetailResponse.setPictureLink(course.getPictureLink());
-//        courseDetailResponse.setDescription(course.getDescription());
-//        courseDetailResponse.setCategory(course.getCategory());
-//        courseDetailResponse.setCreateBy(course.getCreateBy());
-//        courseDetailResponse.setChapters(chapterService.GetChaptersByCourseId(course.getId()));
-//
-//        for (Chapter chapter : courseDetailResponse.getChapters()) {
-//            courseDetailResponse.setLessons(lessonService.getAllLessonDTOByChapterId(chapter.getId()));
-//        }
-//
-//        if (accountUtil.getCurrentAccount() != null) {
-//            List<GetAllQuizResponse> quizzes = new ArrayList<>();
-//            for (GetAllLessonResponse lesson : courseDetailResponse.getLessons()) {
-//                GetAllQuizResponse quiz = quizService.getAllQuizDTOByLessonId(lesson.getId());
-//                if (quiz != null) {
-//                    quizzes.add(quiz);
-//                }
-//            }
-//            courseDetailResponse.setQuizzes(quizzes);
-//        } else {
-//            // Nếu không có tài khoản đăng nhập, không lấy thông tin quiz
-//            courseDetailResponse.setQuizzes(new ArrayList<>());
-//        }
-//
-//        return courseDetailResponse;
-//    }
+
 
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
