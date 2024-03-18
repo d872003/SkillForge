@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import website.skillforge.be.entities.assignment.Assignment;
 import website.skillforge.be.entities.quiz.Quiz;
 
 import java.util.Date;
@@ -39,7 +38,4 @@ public class Lesson {
     @OneToOne(mappedBy = "lesson", cascade = CascadeType.ALL)
     private Quiz quiz;
 
-    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Assignment> assignment;
 }
