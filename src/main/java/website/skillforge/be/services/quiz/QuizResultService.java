@@ -37,6 +37,7 @@ QuizResultService {
     int count = 0;
     public CreateQuizResultRequestDto createQuizResult(GetQuizAnswerRequestDto answerRequestDto) {
         QuizResult quizResult = new QuizResult();
+        List<Long> answerIds = answerRequestDto.getAnswerIds();
         CreateQuizResultRequestDto createQuizResultRequestDto = new CreateQuizResultRequestDto();
         Account account = accountUtil.getCurrentAccount();
         quizResult.setScore(scoring(quizResult, answerRequestDto, createQuizResultRequestDto));

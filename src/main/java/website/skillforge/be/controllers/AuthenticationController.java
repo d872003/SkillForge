@@ -48,6 +48,11 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.getAllAccounts());
     }
 
+    @GetMapping("/authentication/getAccountProfile")
+    public ResponseEntity getAccountProfile(@RequestParam String token) {
+        return ResponseEntity.ok(authenticationService.getProfileById(token));
+    }
+
     @DeleteMapping("/authentication/deleteAccount")
     public ResponseEntity deleteAccount(@RequestParam Long id) {
         authenticationService.deleteAccount(id);

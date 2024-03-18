@@ -6,9 +6,7 @@ import website.skillforge.be.entities.Ordered;
 
 @Repository
 public interface OrderedRepository extends JpaRepository<Ordered, Long> {
-
     Ordered findOrderedById(long id);
 
     Ordered findOrderedByAccount_id(long account_id);
-
 }

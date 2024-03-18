@@ -11,18 +11,24 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
-public class Ordered {
+
+public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     Date createdDate;
     @Enumerated(EnumType.STRING)
     OrderStatus status;
-    double totalPrice;
+    double price;
+    Long courseId;
+
+    @ManyToOne
+    @JoinColumn(name = "ordered_id")
+    private Ordered ordered;
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany(mappedBy = "ordered")
-    private List<OrderDetail> orderDetails;
+    @OneToMany(mappedBy = "orderDetail")
+    List<Transactions> transactions; // <>
 }
