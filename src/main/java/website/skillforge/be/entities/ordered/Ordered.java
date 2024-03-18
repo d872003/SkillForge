@@ -1,8 +1,9 @@
-package website.skillforge.be.entities;
+package website.skillforge.be.entities.ordered;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import website.skillforge.be.entities.Account;
 import website.skillforge.be.enums.status.OrderStatus;
 
 import java.util.Date;
@@ -24,5 +25,5 @@ public class Ordered {
     private Account account;
 
     @OneToMany(mappedBy = "ordered")
-    private List<OrderDetail> orderDetails;
+    private List<OrderedDetail> orderedDetails;
 }

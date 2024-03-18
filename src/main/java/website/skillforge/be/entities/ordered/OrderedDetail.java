@@ -1,8 +1,10 @@
-package website.skillforge.be.entities;
+package website.skillforge.be.entities.ordered;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import website.skillforge.be.entities.Account;
+import website.skillforge.be.entities.Transactions;
 import website.skillforge.be.enums.status.OrderStatus;
 
 import java.util.Date;
@@ -12,7 +14,7 @@ import java.util.List;
 @Setter
 @Getter
 
-public class OrderDetail {
+public class OrderedDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -29,6 +31,6 @@ public class OrderDetail {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany(mappedBy = "orderDetail")
+    @OneToMany(mappedBy = "orderedDetail")
     List<Transactions> transactions; // <>
 }

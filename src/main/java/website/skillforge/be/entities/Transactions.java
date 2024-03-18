@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import website.skillforge.be.entities.ordered.OrderedDetail;
 
 @Entity
 @Getter
@@ -24,7 +25,7 @@ public class Transactions {
     Wallet to;
 
     @ManyToOne
-    @JoinColumn(name = "order_detail_id")
+    @JoinColumn(name = "ordered_detail_id")
     @JsonIgnore
-    OrderDetail orderDetail;
+    OrderedDetail orderedDetail;
 }
