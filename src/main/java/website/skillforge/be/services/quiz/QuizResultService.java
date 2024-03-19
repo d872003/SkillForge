@@ -36,6 +36,7 @@ QuizResultService {
     List<Long> answerIds;
     int count = 0;
     public CreateQuizResultRequestDto createQuizResult(GetQuizAnswerRequestDto answerRequestDto) {
+        QuizService.checkDo = 1;
         QuizResult quizResult = new QuizResult();
         List<Long> answerIds = answerRequestDto.getAnswerIds();
         CreateQuizResultRequestDto createQuizResultRequestDto = new CreateQuizResultRequestDto();
