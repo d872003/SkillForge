@@ -13,5 +13,7 @@ public interface QuizResultRepository extends JpaRepository<QuizResult, Long> {
 
     QuizResult findQuizResultByQuizId(Long quiz_id);
 
+    QuizResult findFirstByDoById(Long account_id);
+
 
 }
