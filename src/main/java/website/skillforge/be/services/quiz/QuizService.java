@@ -3,8 +3,6 @@ package website.skillforge.be.services.quiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.createDTO.quizDto.CheckDoQuizResponse;
-import website.skillforge.be.dto.createDTO.quizDto.CreateQuizRequestDTO;
-import website.skillforge.be.dto.createDTO.quizDto.GetAllQuizResponse;
 import website.skillforge.be.entities.Lesson;
 import website.skillforge.be.entities.UserAnswer;
 import website.skillforge.be.entities.quiz.Quiz;
@@ -36,39 +34,12 @@ public class QuizService {
 
 
 
-    public Quiz createQuiz(CreateQuizRequestDTO createQuizRequestDTO) {
-        Lesson lesson = lessonRepository.findLessonById(createQuizRequestDTO.getLesson_id());
-        Date date = new Date();
-        Quiz quiz = new Quiz();
-        quiz.setName(createQuizRequestDTO.getName());
-        quiz.setDescription(createQuizRequestDTO.getDescription());
-        quiz.setCreatedDate(date);
-        quiz.setLastUpdatedDate(date);
-        quiz.setLesson(lesson);
-        quizRepository.save(quiz);
-        return quiz;
-    }
-
     public Quiz deleteQuizById(Long id) {
         Quiz quiz = quizRepository.findQuizById(id);
         quizRepository.deleteById(id);
         return quiz;
     }
 
-    public Quiz updateQuiz(Long id, CreateQuizRequestDTO createQuizRequestDTO) {
-        Lesson lesson = lessonRepository.findLessonById(createQuizRequestDTO.getLesson_id());
-        Date date = new Date();
-        if (lesson == null) {
-            return null;
-        }
-        Quiz quiz = quizRepository.findQuizById(id);
-        quiz.setName(createQuizRequestDTO.getName());
-        quiz.setDescription(createQuizRequestDTO.getDescription());
-        quiz.setLastUpdatedDate(date);
-        quiz.setLesson(lesson);
-        quizRepository.save(quiz);
-        return quiz;
-    }
 
     public Quiz getQuizById(Long id) {
 
