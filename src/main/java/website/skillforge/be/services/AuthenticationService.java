@@ -14,6 +14,7 @@ import website.skillforge.be.dto.authenticationDTO.LoginRequestDTO;
 import website.skillforge.be.dto.authenticationDTO.LoginResponseDTO;
 import website.skillforge.be.dto.authenticationDTO.ProfileResponseDTO;
 import website.skillforge.be.dto.authenticationDTO.RegisterRequestDTO;
+import website.skillforge.be.dto.createDTO.UpdateAccountDto;
 import website.skillforge.be.entities.Account;
 import website.skillforge.be.enums.status.AccountStatus;
 import website.skillforge.be.repository.AccountRepository;
@@ -110,19 +111,17 @@ public class AuthenticationService {
         return accountRepository.findAll();
     }
 
-    public Account updateAccount(Long id, RegisterRequestDTO registerRequestDTO) {
+    public Account updateAccount(Long id, UpdateAccountDto update) {
         Account account = accountRepository.findAccountById(id);
-        if (account == null) {
+        if (account == null || account.getStatus() == AccountStatus.DELETED) {
             return null;
         }
-        account.setUsername(registerRequestDTO.getUsername());
-        account.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
-        account.setEmail(registerRequestDTO.getEmail());
-        account.setFullName(registerRequestDTO.getFullName());
-        account.setAvatar(registerRequestDTO.getAvatar());
-        account.setRole(registerRequestDTO.getRole());
-        account.setPhone(registerRequestDTO.getPhone());
-        account.setStatus(AccountStatus.ACTIVE);
+        account.setPassword(passwordEncoder.encode(update.getPassword()));
+        account.setEmail(update.getEmail());
+        account.setFullName(update.getFullName());
+        account.setAvatar(update.getAvatar());
+        account.setPhone(update.getPhone());
+        accountRepository.save(account);
         return account;
     }
 

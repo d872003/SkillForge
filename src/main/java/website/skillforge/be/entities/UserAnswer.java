@@ -11,6 +11,7 @@ public class UserAnswer {
     @Id
     Long answerId;
     Long quizId;
+    boolean isTrue;
     @ManyToOne
     @JoinColumn(name = "account_id")
     Account account;
