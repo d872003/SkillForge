@@ -16,19 +16,19 @@ public class QuizAnswerController {
     private QuizAnswerService quizAnswerService;
 
     @PostMapping("/answer")
-    public ResponseEntity createAnswer(@RequestBody CreateAnswerRequestDTO createAnswerRequestDTO) {
+    public ResponseEntity<?> createAnswer(@RequestBody CreateAnswerRequestDTO createAnswerRequestDTO) {
         QuizAnswer answer = quizAnswerService.createAnswer(createAnswerRequestDTO);
         return ResponseEntity.ok(answer);
     }
 
     @DeleteMapping("/answer/{id}")
-    public ResponseEntity deleteAnswer(@PathVariable Long id) {
+    public ResponseEntity<?> deleteAnswer(@PathVariable Long id) {
         quizAnswerService.deleteAnswerById(id);
         return ResponseEntity.ok("deleted");
     }
 
     @PutMapping("/answer/{id}")
-    public ResponseEntity updateAnswer(@PathVariable Long id, @RequestBody CreateAnswerRequestDTO createAnswerRequestDTO) {
+    public ResponseEntity<?> updateAnswer(@PathVariable Long id, @RequestBody CreateAnswerRequestDTO createAnswerRequestDTO) {
         QuizAnswer answer = quizAnswerService.updateAnswer(id, createAnswerRequestDTO);
         return ResponseEntity.ok(answer);
     }

@@ -2,9 +2,7 @@ package website.skillforge.be.services.quiz;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import website.skillforge.be.dto.createDTO.UserAnswerDto;
 import website.skillforge.be.dto.createDTO.quizDto.CheckDoQuizResponse;
-import website.skillforge.be.entities.Lesson;
 import website.skillforge.be.entities.UserAnswer;
 import website.skillforge.be.entities.quiz.Quiz;
 import website.skillforge.be.entities.quiz.QuizResult;
@@ -16,7 +14,6 @@ import website.skillforge.be.repository.quizRepo.QuizResultRepository;
 import website.skillforge.be.util.AccountUtil;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -58,7 +55,6 @@ public class QuizService {
     public CheckDoQuizResponse getQuizByLessonId(Long id) {
         List<UserAnswer> userAnsIds = new ArrayList<>();
         CheckDoQuizResponse checkDoQuizResponse = new CheckDoQuizResponse();
-        List<UserAnswerDto> userAnswerDtos = new ArrayList<>();
         Quiz quiz = quizRepository.findQuizByLesson_id(id);
         if ((quizResultRepository.findQuizResultByQuizId(quiz.getId()) != null)) {
             QuizResult quizResult = quizResultRepository.findFirstByDoById(accountUtil.getCurrentAccount().getId());
@@ -81,13 +77,20 @@ public class QuizService {
             checkDo = 0;
         }
         userAnsIds = userAnswerRepository.findUserAnswerByQuizIdAndAccountId(quiz.getId(), accountUtil.getCurrentAccount().getId());
+        List<Long> userAnswers = new ArrayList<>();
+        List<Long> falseAnswerIds = new ArrayList<>();
+        List<Long> trueAnswerIds = new ArrayList<>();
         for (UserAnswer userAnswer : userAnsIds) {
-            UserAnswerDto userAnswerDto = new UserAnswerDto();
-            userAnswerDto.setId(userAnswer.getAnswerId());
-            userAnswerDto.setTrue(userAnswer.isTrue());
-            userAnswerDtos.add(userAnswerDto);
+            userAnswers.add(userAnswer.getAnswerId());
+            if (userAnswer.isTrue()) {
+                trueAnswerIds.add(userAnswer.getAnswerId());
+            } else {
+                falseAnswerIds.add(userAnswer.getAnswerId());
+            }
         }
-        checkDoQuizResponse.setAnswerUser(userAnswerDtos);
+        checkDoQuizResponse.setAnswerUser(userAnswers);
+        checkDoQuizResponse.setFalseAnswerIds(falseAnswerIds);
+        checkDoQuizResponse.setTrueAnswerIds(trueAnswerIds);
         return checkDoQuizResponse;
     }
     public List<Quiz> getAllQuizzes() {
