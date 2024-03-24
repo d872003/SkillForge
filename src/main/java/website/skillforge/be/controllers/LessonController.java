@@ -19,40 +19,40 @@ public class LessonController {
 
 
     @PostMapping("/lesson")
-    public ResponseEntity createLesson(@RequestBody CreateLessonRequestDTO createLessonRequestDTO) {
+    public ResponseEntity<?> createLesson(@RequestBody CreateLessonRequestDTO createLessonRequestDTO) {
         Lesson lesson = lessonService.createLesson(createLessonRequestDTO);
         return ResponseEntity.ok(lesson);
     }
 
     @PostMapping("quiza")
-    public ResponseEntity createQuiz(@RequestParam String url, @RequestParam Long lessonId) {
+    public ResponseEntity<?> createQuiz(@RequestParam String url, @RequestParam Long lessonId) {
         return ResponseEntity.ok(lessonService.createQuiz(url));
     }
 
     @DeleteMapping("/lesson/{id}")
-    public ResponseEntity deleteLesson(@PathVariable Long id) {
+    public ResponseEntity<?> deleteLesson(@PathVariable Long id) {
         lessonService.deleteLessonById(id);
         return ResponseEntity.ok("Lesson deleted successfully");
     }
 
     @PutMapping("/lesson/{id}")
-    public ResponseEntity updateLesson(@PathVariable Long id, @RequestBody CreateLessonRequestDTO updateLessonDTO) {
+    public ResponseEntity<?> updateLesson(@PathVariable Long id, @RequestBody CreateLessonRequestDTO updateLessonDTO) {
         Lesson lesson = lessonService.updateLesson(id, updateLessonDTO);
         return ResponseEntity.ok(lesson);
     }
 
     @PutMapping("/lesson/chapterId")
-    public ResponseEntity updateLessonByChapterId(@RequestParam Long id, @RequestBody CreateLessonRequestDTO updateLessonDTO) {
+    public ResponseEntity<?> updateLessonByChapterId(@RequestParam Long id, @RequestBody CreateLessonRequestDTO updateLessonDTO) {
         return ResponseEntity.ok(lessonService.UpdateLessonByChapterId(id, updateLessonDTO));
     }
 
     @GetMapping("/lesson")
-    public ResponseEntity getAllLessons() {
+    public ResponseEntity<?> getAllLessons() {
         return ResponseEntity.ok(lessonService.getAllLesson());
     }
 
     @GetMapping("/lesson/{id}")
-    public ResponseEntity getLessonById(@PathVariable Long id) {
+    public ResponseEntity<?> getLessonById(@PathVariable Long id) {
         return ResponseEntity.ok(lessonService.findLessonById(id));
     }
     //

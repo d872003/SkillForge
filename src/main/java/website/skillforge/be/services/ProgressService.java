@@ -34,6 +34,8 @@ public class ProgressService {
         Progress progress = new Progress();
         Lesson lesson = lessonRepository.findLessonById(createProgressDto.getLessonId());
         progress.setLesson(lesson);
+        progress.setCreatedDate(new Date());
+        progress.setCourseId(lesson.getChapter().getCourse().getId());
         progress.setAccount(accountUtil.getCurrentAccount());
         return progressRepository.save(progress);
     }
@@ -66,4 +68,7 @@ public class ProgressService {
         return percent;
     }
 
+    public List<Progress> getProgressByCourseIdAndAccountId(long courseId) {
+        return progressRepository.findProgressByCourseIdAndAccountId(courseId, accountUtil.getCurrentAccount().getId());
+    }
 }

@@ -28,17 +28,17 @@ import java.util.Map;
 @SecurityRequirement(name = "api")
 public class CourseController {
     @Autowired
-    CourseService courseService;
+    private CourseService courseService;
     @Autowired
-    ChapterService chapterService;
+    private ChapterService chapterService;
     @Autowired
-    LessonService lessonService;
+    private LessonService lessonService;
     @Autowired
-    QuizService quizService;
+    private QuizService quizService;
     @Autowired
-    CourseRepository courseRepository;
+    private CourseRepository courseRepository;
     @Autowired
-    AccountUtil accountUtil;
+    private AccountUtil accountUtil;
     @PostMapping("/course")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
     public ResponseEntity<?> createCourse(@RequestBody CreateCourseRequestDTO createCourseRequestDTO) {

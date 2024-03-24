@@ -36,6 +36,8 @@ public class CourseService {
     @Autowired
     QuizService quizService;
     @Autowired
+    ProgressService progressService;
+    @Autowired
     CourseEnrollmentRepository courseEnrollmentRepository;
 
     @Autowired
@@ -183,10 +185,17 @@ public class CourseService {
         courseDetailResponse.setCreateBy(course.getCreateBy());
         List<Chapter> chapters = chapterService.GetChaptersByCourseId(course.getId());
         courseDetailResponse.setChapters(chapters);
-
+        List<Progress> progresses = progressService.getProgressByCourseIdAndAccountId(course.getId());
         List<GetAllLessonResponse> allLessons = new ArrayList<>();
         for (Chapter chapter : chapters) {
             List<GetAllLessonResponse> lessons = lessonService.getAllLessonDTOByChapterId(chapter.getId());
+            for (GetAllLessonResponse lesson : lessons) {
+                for (Progress progress : progresses) {
+                    if (progress.getLesson().getId() == lesson.getId()) {
+                        lesson.isCompleted();
+                    }
+                }
+            }
             allLessons.addAll(lessons);
         }
         for (GetAllLessonResponse lesson : allLessons) {

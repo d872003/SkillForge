@@ -15,10 +15,10 @@ import java.util.Date;
 public class CourseEnrollment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     @Enumerated(EnumType.STRING)
-    EnrollStatus status;
-    Date startDate;
+    private EnrollStatus status;
+    private Date startDate;
 
     @ManyToOne
     @JoinColumn(name = "course_id")

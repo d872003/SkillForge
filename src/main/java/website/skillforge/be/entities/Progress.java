@@ -16,13 +16,13 @@ public class Progress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date createdDate;
-
+    private long courseId;
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToOne
+    @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;

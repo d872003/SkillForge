@@ -12,11 +12,11 @@ import java.util.Date;
 public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     @Column(columnDefinition = "nvarchar(MAX)")
-    String content;
+    private String content;
     int star;
-    Date createdDate;
+    private Date createdDate;
     @ManyToOne
     @JoinColumn(name = "account_id")
     Account account;

@@ -6,11 +6,11 @@ import website.skillforge.be.enums.status.AccountStatus;
 
 @Data
 public class LoginResponseDTO {
-    String username;
-    String fullName;
-    String email;
-    String phone;
-    Role role;
-    AccountStatus status;
-    String token;
+    private String username;
+    private String fullName;
+    private String email;
+    private String phone;
+    private Role role;
+    private AccountStatus status;
+    private String token;
 }

@@ -15,11 +15,11 @@ import java.util.List;
 public class Ordered {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    Date createdDate;
+    private Long id;
+    private Date createdDate;
     @Enumerated(EnumType.STRING)
-    OrderStatus status;
-    double totalPrice;
+    private OrderStatus status;
+    private double totalPrice;
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;

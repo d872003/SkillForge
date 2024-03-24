@@ -11,26 +11,26 @@ import website.skillforge.be.services.quiz.QuizService;
 @SecurityRequirement(name = "api")
 public class QuizController {
     @Autowired
-    QuizService quizService;
+    private QuizService quizService;
 
     @DeleteMapping("/quiz")
-    public ResponseEntity deleteQuiz(@RequestBody Long id) {
+    public ResponseEntity<?> deleteQuiz(@RequestBody Long id) {
         quizService.deleteQuizById(id);
         return ResponseEntity.ok("Quiz deleted successfully");
     }
 
     @GetMapping("/quiz/{id}")
-    public ResponseEntity getQuizById(@PathVariable Long id) {
+    public ResponseEntity<?> getQuizById(@PathVariable Long id) {
         return ResponseEntity.ok(quizService.getQuizById(id));
     }
 
     @GetMapping("/quiz/lessonId")
-    public ResponseEntity getQuizByLessonId(@RequestParam Long id) {
+    public ResponseEntity<?> getQuizByLessonId(@RequestParam Long id) {
         return ResponseEntity.ok(quizService.getQuizByLessonId(id));
     }
 
     @GetMapping("/quiz")
-    public ResponseEntity getAllQuizzes() {
+    public ResponseEntity<?> getAllQuizzes() {
         return ResponseEntity.ok(quizService.getAllQuizzes());
     }
 

@@ -18,19 +18,19 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", insertable = false, updatable = false)
-    Long id;
+    private Long id;
     @Column(columnDefinition = "nvarchar(255)")
-    String name;
+    private String name;
     double price;
-    String code;
+    private String code;
     @Column(columnDefinition = "nvarchar(MAX)")
-    String pictureLink;
+    private String pictureLink;
     @Column(columnDefinition = "nvarchar(MAX)")
-    String description;
-    Date createdDate;
-    Date lastUpdatedDate;
+    private String description;
+    private Date createdDate;
+    private Date lastUpdatedDate;
     @Enumerated(EnumType.STRING)
-    CourseStatus courseStatus;
+    private CourseStatus courseStatus;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

@@ -58,9 +58,4 @@ public class EnrollController {
         CourseDetailResponse course = courseService.getEnrollCourseDetail(id);
         return ResponseEntity.ok(course);
     }
-    @GetMapping("/enroll/all")
-    public ResponseEntity getAllEnrolledCourse() {
-
-        return ResponseEntity.ok(courseEnrollmentRepository.findAll());
-    }
 }

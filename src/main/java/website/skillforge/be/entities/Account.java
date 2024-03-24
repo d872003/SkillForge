@@ -25,23 +25,23 @@ public class Account implements UserDetails {
     private Long id;
     @Column(unique = true, nullable = false)
     private String username;
-    String avatar;
+    private String avatar;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    String password;
+    private String password;
     @Column(columnDefinition = "nvarchar(255)")
-    String fullName;
+    private String fullName;
     @Column(unique = true, nullable = false)
-    String email;
+    private String email;
     @Column(columnDefinition = "nvarchar(255)")
-    String phone;
+    private String phone;
     @Enumerated(EnumType.STRING)
-    Role role;
+    private Role role;
     @Enumerated(EnumType.STRING)
-    AccountStatus status;
+    private AccountStatus status;
 
     @OneToOne(mappedBy = "account")
     @JsonIgnore
-    Wallet wallet;
+    private Wallet wallet;
 
 
     @Override
@@ -73,11 +73,11 @@ public class Account implements UserDetails {
 
     @OneToMany(mappedBy = "createBy")
     @JsonIgnore
-    List<Course> course;
+    private List<Course> course;
 
     @OneToMany(mappedBy = "doBy")
     @JsonIgnore
-    List<QuizResult> quizResult;
+    private List<QuizResult> quizResult;
 
     @OneToMany(mappedBy = "account")
     @JsonIgnore

@@ -14,18 +14,18 @@ public class Transactions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    double money;
+    private double money;
 
     @ManyToOne()
     @JoinColumn(name = "from_id")
-    Wallet from;
+    private Wallet from;
 
     @ManyToOne()
     @JoinColumn(name = "to_id")
-    Wallet to;
+    private Wallet to;
 
     @ManyToOne
     @JoinColumn(name = "ordered_detail_id")
     @JsonIgnore
-    OrderedDetail orderedDetail;
+    private OrderedDetail orderedDetail;
 }

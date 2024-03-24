@@ -15,15 +15,15 @@ import java.util.List;
 public class Chapter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     @Column(columnDefinition = "nvarchar(255)")
-    String name;
+    private String name;
     @Column(columnDefinition = "nvarchar(MAX)")
-    String description;
+    private String description;
     boolean isFreeChapter;
 
-    Date createdDate;
-    Date lastUpdatedDate;
+    private Date createdDate;
+    private Date lastUpdatedDate;
 
     @ManyToOne
     @JsonIgnore

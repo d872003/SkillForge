@@ -15,43 +15,43 @@ import website.skillforge.be.services.CategoryService;
 
 public class CategoryController {
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
 
     @PostMapping("/category")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
-    public ResponseEntity createCategory(@RequestBody CreateCategoryRequestDTO createCategoryRequestDTO) {
+    public ResponseEntity<?> createCategory(@RequestBody CreateCategoryRequestDTO createCategoryRequestDTO) {
         Category category = categoryService.createCategory(createCategoryRequestDTO);
         return ResponseEntity.ok(category);
     }
 
     @DeleteMapping("/category/{id}")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
-    public ResponseEntity deleteCategory(@PathVariable Long id) {
+    public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategoryById(id);
         return ResponseEntity.ok("Deleted successfully");
     }
 
     @PutMapping("/category/{id}")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
-    public ResponseEntity updateCategory(@PathVariable Long id, @RequestBody CreateCategoryRequestDTO updateCategoryDTO) {
+    public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody CreateCategoryRequestDTO updateCategoryDTO) {
         Category newCategory = categoryService.updateCategory(id, updateCategoryDTO);
         return ResponseEntity.ok(newCategory);
     }
 
     @GetMapping("/category/{id}")
-    public ResponseEntity getCategoryById(@PathVariable Long id) {
+    public ResponseEntity<?> getCategoryById(@PathVariable Long id) {
         Category category = categoryService.findCategoryById(id);
         return ResponseEntity.ok(category);
     }
 
     @GetMapping("/category/{name}")
-    public ResponseEntity getCategoryByName(@PathVariable String name) {
+    public ResponseEntity<?> getCategoryByName(@PathVariable String name) {
         Category category = categoryService.findCategoryByName(name);
         return ResponseEntity.ok(category);
     }
 
     @GetMapping("/categoryAll")
-    public ResponseEntity getAllCategories() {
+    public ResponseEntity<?> getAllCategories() {
         return ResponseEntity.ok(categoryService.getAllCategories());
     }
 }

@@ -6,6 +6,6 @@ import java.util.List;
 
 @Data
 public class OrderedDTO {
-    Long totalPrice;
-    List<Long> courseId;
+    private Long totalPrice;
+    private List<Long> courseId;
 }

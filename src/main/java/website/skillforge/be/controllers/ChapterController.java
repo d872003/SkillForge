@@ -21,49 +21,49 @@ public class ChapterController {
 
 
     @PostMapping("/chapter")
-    public ResponseEntity createChapter(@RequestBody CreateChapterRequestDTO createChapterRequestDTO) {
+    public ResponseEntity<?> createChapter(@RequestBody CreateChapterRequestDTO createChapterRequestDTO) {
         return ResponseEntity.ok(chapterService.CreateChapter(createChapterRequestDTO));
     }
 
     @PostMapping("/chapters")
-    public ResponseEntity createChapters(@RequestBody List<CreateChapterRequestDTO> createChapterRequestDTO) {
+    public ResponseEntity<?> createChapters(@RequestBody List<CreateChapterRequestDTO> createChapterRequestDTO) {
         return ResponseEntity.ok(chapterService.CreateChapters(createChapterRequestDTO));
     }
 
     @DeleteMapping("/chapter/{id}")
-    public ResponseEntity deleteChapter(@PathVariable Long id) {
+    public ResponseEntity<?> deleteChapter(@PathVariable Long id) {
         chapterService.DeleteChapterById(id);
         return ResponseEntity.ok("deleted successfully");
     }
 
     @PutMapping("/chapter/{id}")
-    public ResponseEntity updateChapter(@PathVariable Long id, @RequestBody CreateChapterRequestDTO updateChapterRequestDTO) {
+    public ResponseEntity<?> updateChapter(@PathVariable Long id, @RequestBody CreateChapterRequestDTO updateChapterRequestDTO) {
         return ResponseEntity.ok(chapterService.UpdateChapterById(id, updateChapterRequestDTO));
     }
 
     @PutMapping("/chapters")
-    public ResponseEntity updateChapters(@RequestParam List<Long> id, @RequestBody List<CreateChapterRequestDTO> updateChapterRequestDTO) {
+    public ResponseEntity<?> updateChapters(@RequestParam List<Long> id, @RequestBody List<CreateChapterRequestDTO> updateChapterRequestDTO) {
         return ResponseEntity.ok(chapterService.UpdateChaptersById(id, updateChapterRequestDTO));
     }
 
     @PutMapping("/chapters/courseId")
-    public ResponseEntity UpdateChaptersByCourseId(@RequestParam Long id, @RequestBody CreateChapterRequestDTO updateChapterRequestDTO) {
+    public ResponseEntity<?> UpdateChaptersByCourseId(@RequestParam Long id, @RequestBody CreateChapterRequestDTO updateChapterRequestDTO) {
         return ResponseEntity.ok(chapterService.UpdateChaptersByCourseId(id, updateChapterRequestDTO));
     }
 
 
     @GetMapping("/chapter/{id}")
-    public ResponseEntity getChapterById(@PathVariable Long id) {
+    public ResponseEntity<?> getChapterById(@PathVariable Long id) {
         return ResponseEntity.ok(chapterService.GetChapterById(id));
     }
 
     @GetMapping("/chapters/courseId")
-    public ResponseEntity getChaptersByCourseId(@RequestParam Long id) {
+    public ResponseEntity<?> getChaptersByCourseId(@RequestParam Long id) {
         return ResponseEntity.ok(chapterService.GetChaptersByCourseId(id));
     }
 
     @GetMapping("/chapter")
-    public ResponseEntity getAllChapters() {
+    public ResponseEntity<?> getAllChapters() {
         return ResponseEntity.ok(chapterService.GetAllChapters());
     }
 }

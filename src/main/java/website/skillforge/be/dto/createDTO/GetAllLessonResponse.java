@@ -11,6 +11,7 @@ public class GetAllLessonResponse {
     private String name;
     private String description;
     private String videoLink;
+    private boolean isCompleted;
     private Quiz quiz;
     private long chapter_id;
 }
