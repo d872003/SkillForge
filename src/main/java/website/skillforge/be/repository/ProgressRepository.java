@@ -13,4 +13,6 @@ public interface ProgressRepository extends JpaRepository<Progress, Long> {
     List<Progress> findProgressByAccountId(Long accountId);
 
     List<Progress> findProgressByCourseIdAndAccountId(Long courseId, Long accountId);
+
+    Progress findProgressByLessonIdAndAccountId(Long lessonId, Long accountId);
 }

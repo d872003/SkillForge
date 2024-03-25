@@ -45,17 +45,17 @@ public class AuthenticationController {
 
     @GetMapping("/authentication/getAllAccounts")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity getAllAccounts() {
+    public ResponseEntity<?> getAllAccounts() {
         return ResponseEntity.ok(authenticationService.getAllAccounts());
     }
 
     @GetMapping("/authentication/getAccountProfile")
-    public ResponseEntity getAccountProfile(@RequestParam String token) {
-        return ResponseEntity.ok(authenticationService.getProfileById(token));
+    public ResponseEntity<?> getAccountProfile() {
+        return ResponseEntity.ok(authenticationService.getProfileById());
     }
 
     @DeleteMapping("/authentication/deleteAccount")
-    public ResponseEntity deleteAccount(@RequestParam Long id) {
+    public ResponseEntity<?> deleteAccount(@RequestParam Long id) {
         authenticationService.deleteAccount(id);
         return ResponseEntity.ok("Account deleted");
     }

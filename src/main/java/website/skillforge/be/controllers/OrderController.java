@@ -27,6 +27,7 @@ import java.util.*;
 @CrossOrigin("*")
 @SecurityRequirement(name = "api")
 public class OrderController {
+
     @Autowired
     private AccountUtil accountUtils;
     @Autowired
@@ -36,16 +37,13 @@ public class OrderController {
     @Autowired
     private CourseRepository courseRepository;
     @Autowired
-    EnrollController enroll;
-
+    private EnrollController enroll;
     @Autowired
-    AccountRepository accountRepository;
-
+    private AccountRepository accountRepository;
     @Autowired
-    WalletRepository walletRepository;
-
+    private WalletRepository walletRepository;
     @Autowired
-    TransactionRepository transactionRepository;
+    private TransactionRepository transactionRepository;
 
     @PostMapping("/order")
     public ResponseEntity<?> createUrl(@RequestBody OrderedDTO orderedDTO) throws NoSuchAlgorithmException, InvalidKeyException, Exception {
@@ -166,6 +164,8 @@ public class OrderController {
             Transactions transactions = new Transactions();
             transactions.setFrom(null);
             transactions.setTo(studentWallet);
+            transactions.setDate(new Date());
+            transactions.setCourse(course);
             transactions.setMoney(course.getPrice());
             transactions.setOrderedDetail(orderedDetail);
             orderedDetail.getTransactions().add(transactions);
@@ -174,6 +174,8 @@ public class OrderController {
             Transactions transactions2 = new Transactions();
             transactions2.setFrom(studentWallet);
             transactions2.setTo(adwallet);
+            transactions2.setDate(new Date());
+            transactions2.setCourse(course);
             transactions2.setMoney(course.getPrice());
             transactions2.setOrderedDetail(orderedDetail);
             orderedDetail.getTransactions().add(transactions2);
@@ -182,14 +184,16 @@ public class OrderController {
             Transactions transactions3 = new Transactions();
             transactions3.setFrom(adwallet);
             transactions3.setTo(teacherWallet);
+            transactions3.setDate(new Date());
+            transactions3.setCourse(course);
             transactions3.setMoney(course.getPrice() * 0.9);
             transactions3.setOrderedDetail(orderedDetail);
             orderedDetail.getTransactions().add(transactions3);
             transactionRepository.save(transactions3);
 
             adwallet.setBalance(adwallet.getBalance() + course.getPrice() * 0.1);
-            teacherWallet.setBalance(teacherWallet.getBalance() + course.getPrice() * 0.9);
             walletRepository.save(adwallet);
+            teacherWallet.setBalance(teacherWallet.getBalance() + course.getPrice() * 0.9);
             walletRepository.save(teacherWallet);
         }
 

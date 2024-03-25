@@ -15,7 +15,7 @@ public class Feedback {
     private Long id;
     @Column(columnDefinition = "nvarchar(MAX)")
     private String content;
-    int star;
+    float star;
     private Date createdDate;
     @ManyToOne
     @JoinColumn(name = "account_id")

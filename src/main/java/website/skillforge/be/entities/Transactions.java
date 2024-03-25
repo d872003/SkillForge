@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import website.skillforge.be.entities.ordered.OrderedDetail;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -15,6 +17,12 @@ public class Transactions {
     private Long id;
 
     private double money;
+
+    private Date date;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     @ManyToOne()
     @JoinColumn(name = "from_id")

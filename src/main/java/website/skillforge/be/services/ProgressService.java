@@ -31,6 +31,9 @@ public class ProgressService {
     private LessonRepository lessonRepository;
 
     public Progress createProgress(CreateProgressDto createProgressDto) {
+        if (progressRepository.findProgressByLessonIdAndAccountId(createProgressDto.getLessonId(), accountUtil.getCurrentAccount().getId()) != null) {
+            return null;
+        }
         Progress progress = new Progress();
         Lesson lesson = lessonRepository.findLessonById(createProgressDto.getLessonId());
         progress.setLesson(lesson);
@@ -70,5 +73,9 @@ public class ProgressService {
 
     public List<Progress> getProgressByCourseIdAndAccountId(long courseId) {
         return progressRepository.findProgressByCourseIdAndAccountId(courseId, accountUtil.getCurrentAccount().getId());
+    }
+
+    public Progress getProgressByLessonIdAndAccountId(long lessonId) {
+        return progressRepository.findProgressByLessonIdAndAccountId(lessonId, accountUtil.getCurrentAccount().getId());
     }
 }

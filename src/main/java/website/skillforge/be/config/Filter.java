@@ -37,7 +37,7 @@ public class Filter extends OncePerRequestFilter {
         String uri = request.getRequestURI();
         if (uri.contains("login") || uri.contains("register") || uri.contains("swagger-ui") || uri.contains("v3")
                 || (uri.contains("/courseDetailAll")) && token == null || uri.contains("/getCourseById")
-                || uri.contains("/categoryAll")) {
+                || uri.contains("/categoryAll") || uri.equals(("/feedback/courseId"))) {
             filterChain.doFilter(request, response);
         }else{
 
