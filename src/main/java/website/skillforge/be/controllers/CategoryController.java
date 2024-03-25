@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import website.skillforge.be.dto.createDTO.CreateCategoryRequestDTO;
-import website.skillforge.be.entities.Category;
+import website.skillforge.be.entities.courses.Category;
 import website.skillforge.be.services.CategoryService;
 
 @RestController

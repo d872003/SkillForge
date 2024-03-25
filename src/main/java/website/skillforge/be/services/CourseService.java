@@ -1,14 +1,13 @@
 package website.skillforge.be.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.createDTO.CourseDetailResponse;
 import website.skillforge.be.dto.createDTO.CreateCourseRequestDTO;
 import website.skillforge.be.dto.createDTO.GetAllLessonResponse;
-import website.skillforge.be.dto.createDTO.quizDto.GetAllQuizResponse;
-import website.skillforge.be.entities.*;
-import website.skillforge.be.entities.quiz.Quiz;
+import website.skillforge.be.entities.accounts.Account;
+import website.skillforge.be.entities.courses.*;
+import website.skillforge.be.entities.quizzes.Quiz;
 import website.skillforge.be.enums.Role;
 import website.skillforge.be.enums.status.CourseStatus;
 import website.skillforge.be.repository.CategoryRepository;
@@ -21,7 +20,6 @@ import website.skillforge.be.util.AccountUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class CourseService {

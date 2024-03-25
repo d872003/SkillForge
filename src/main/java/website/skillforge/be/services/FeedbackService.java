@@ -2,8 +2,8 @@ package website.skillforge.be.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import website.skillforge.be.dto.CreateFeedbackDto;
-import website.skillforge.be.entities.Feedback;
+import website.skillforge.be.dto.createDTO.CreateFeedbackDto;
+import website.skillforge.be.entities.courses.Feedback;
 import website.skillforge.be.repository.CourseRepository;
 import website.skillforge.be.repository.FeedbackRepository;
 import website.skillforge.be.util.AccountUtil;

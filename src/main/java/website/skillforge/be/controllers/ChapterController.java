@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import website.skillforge.be.dto.createDTO.CreateChapterRequestDTO;
-import website.skillforge.be.entities.Chapter;
 import website.skillforge.be.services.ChapterService;
 
 import java.util.List;

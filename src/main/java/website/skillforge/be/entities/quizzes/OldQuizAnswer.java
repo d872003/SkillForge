@@ -1,4 +1,4 @@
-package website.skillforge.be.entities.quiz;
+package website.skillforge.be.entities.quizzes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

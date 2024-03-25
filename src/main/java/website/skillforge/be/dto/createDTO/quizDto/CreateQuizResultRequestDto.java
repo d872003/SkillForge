@@ -1,10 +1,8 @@
 package website.skillforge.be.dto.createDTO.quizDto;
 
 import lombok.Data;
-import website.skillforge.be.entities.quiz.OldQuizQuestion;
-import website.skillforge.be.entities.quiz.QuizResult;
+import website.skillforge.be.entities.quizzes.QuizResult;
 
-import java.util.Date;
 import java.util.List;
 
 @Data

@@ -1,9 +1,8 @@
 package website.skillforge.be.util;
 
 import io.jsonwebtoken.*;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Component;
-import website.skillforge.be.entities.Account;
+import website.skillforge.be.entities.accounts.Account;
 
 import java.util.Date;
 

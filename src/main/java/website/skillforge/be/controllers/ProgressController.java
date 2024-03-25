@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import website.skillforge.be.dto.createDTO.CreateProgressDto;
-import website.skillforge.be.entities.Progress;
+import website.skillforge.be.entities.courses.Progress;
 import website.skillforge.be.repository.ProgressRepository;
 import website.skillforge.be.services.ProgressService;
 

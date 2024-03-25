@@ -10,7 +10,7 @@ import website.skillforge.be.dto.authenticationDTO.LoginRequestDTO;
 import website.skillforge.be.dto.authenticationDTO.LoginResponseDTO;
 import website.skillforge.be.dto.authenticationDTO.RegisterRequestDTO;
 import website.skillforge.be.dto.createDTO.UpdateAccountDto;
-import website.skillforge.be.entities.Account;
+import website.skillforge.be.entities.accounts.Account;
 import website.skillforge.be.services.AuthenticationService;
 
 @RestController
@@ -61,7 +61,7 @@ public class AuthenticationController {
     }
 
     @PutMapping("/authentication/updateAccount")
-    public ResponseEntity updateAccount(@RequestParam Long id, @RequestBody UpdateAccountDto updateAccount) {
+    public ResponseEntity<?> updateAccount(@RequestParam Long id, @RequestBody UpdateAccountDto updateAccount) {
         return ResponseEntity.ok(authenticationService.updateAccount(id, updateAccount));
     }
 }

@@ -1,4 +1,4 @@
-package website.skillforge.be.dto;
+package website.skillforge.be.dto.createDTO;
 
 import lombok.Data;
 

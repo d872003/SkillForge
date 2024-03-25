@@ -1,4 +1,4 @@
-package website.skillforge.be.entities;
+package website.skillforge.be.entities.accounts;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,7 +8,9 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import website.skillforge.be.entities.quiz.QuizResult;
+import website.skillforge.be.entities.courses.Course;
+import website.skillforge.be.entities.courses.CourseEnrollment;
+import website.skillforge.be.entities.quizzes.QuizResult;
 import website.skillforge.be.enums.status.AccountStatus;
 import website.skillforge.be.enums.Role;
 

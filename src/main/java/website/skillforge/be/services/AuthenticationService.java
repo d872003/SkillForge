@@ -15,7 +15,7 @@ import website.skillforge.be.dto.authenticationDTO.LoginResponseDTO;
 import website.skillforge.be.dto.authenticationDTO.ProfileResponseDTO;
 import website.skillforge.be.dto.authenticationDTO.RegisterRequestDTO;
 import website.skillforge.be.dto.createDTO.UpdateAccountDto;
-import website.skillforge.be.entities.Account;
+import website.skillforge.be.entities.accounts.Account;
 import website.skillforge.be.enums.status.AccountStatus;
 import website.skillforge.be.repository.AccountRepository;
 import website.skillforge.be.util.AccountUtil;
