@@ -18,44 +18,44 @@ import website.skillforge.be.services.AuthenticationService;
 @SecurityRequirement(name = "api")
 public class AuthenticationController {
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @PostMapping("/authentication/register")
-    public ResponseEntity register(@RequestBody RegisterRequestDTO account) {
+    public ResponseEntity<?> register(@RequestBody RegisterRequestDTO account) {
         Account newAcoount = authenticationService.register(account);
         return ResponseEntity.ok(newAcoount);
     }
 
     @PostMapping("/authentication/login")
-    public ResponseEntity login(@RequestBody LoginRequestDTO account) {
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO account) {
         LoginResponseDTO newAcoount = authenticationService.login(account);
         return ResponseEntity.ok(newAcoount);
     }
 
     @PostMapping("/authentication/loginGoogle")
-    public ResponseEntity loginGoogle(@RequestBody LoginGoogleRequest account) {
+    public ResponseEntity<?> loginGoogle(@RequestBody LoginGoogleRequest account) {
         return ResponseEntity.ok(authenticationService.loginGoogle(account.getToken()));
     }
 
     @GetMapping("/authentication/getAccountById")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity getAccountById(@RequestParam Long id) {
+    public ResponseEntity<?> getAccountById(@RequestParam Long id) {
         return ResponseEntity.ok(authenticationService.getAccountById(id));
     }
 
     @GetMapping("/authentication/getAllAccounts")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity getAllAccounts() {
+    public ResponseEntity<?> getAllAccounts() {
         return ResponseEntity.ok(authenticationService.getAllAccounts());
     }
 
     @GetMapping("/authentication/getAccountProfile")
-    public ResponseEntity getAccountProfile(@RequestParam String token) {
-        return ResponseEntity.ok(authenticationService.getProfileById(token));
+    public ResponseEntity<?> getAccountProfile() {
+        return ResponseEntity.ok(authenticationService.getProfileById());
     }
 
     @DeleteMapping("/authentication/deleteAccount")
-    public ResponseEntity deleteAccount(@RequestParam Long id) {
+    public ResponseEntity<?> deleteAccount(@RequestParam Long id) {
         authenticationService.deleteAccount(id);
         return ResponseEntity.ok("Account deleted");
     }

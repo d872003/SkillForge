@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import website.skillforge.be.entities.ordered.OrderedDetail;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -14,18 +16,24 @@ public class Transactions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    double money;
+    private double money;
+
+    private Date date;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     @ManyToOne()
     @JoinColumn(name = "from_id")
-    Wallet from;
+    private Wallet from;
 
     @ManyToOne()
     @JoinColumn(name = "to_id")
-    Wallet to;
+    private Wallet to;
 
     @ManyToOne
     @JoinColumn(name = "ordered_detail_id")
     @JsonIgnore
-    OrderedDetail orderedDetail;
+    private OrderedDetail orderedDetail;
 }

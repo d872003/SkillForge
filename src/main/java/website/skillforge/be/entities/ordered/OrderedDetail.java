@@ -17,12 +17,12 @@ import java.util.List;
 public class OrderedDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    Date createdDate;
+    private Long id;
+    private Date createdDate;
     @Enumerated(EnumType.STRING)
-    OrderStatus status;
-    double price;
-    Long courseId;
+    private OrderStatus status;
+    private double price;
+    private Long courseId;
 
     @ManyToOne
     @JoinColumn(name = "ordered_id")
@@ -32,5 +32,5 @@ public class OrderedDetail {
     private Account account;
 
     @OneToMany(mappedBy = "orderedDetail")
-    List<Transactions> transactions; // <>
+    private List<Transactions> transactions; // <>
 }

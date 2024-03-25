@@ -16,31 +16,25 @@ public class QuizQuestionController {
     private QuizQuestionService quizQuestionService;
 
     @PostMapping("/question")
-    public ResponseEntity createQuestion(@RequestBody CreateQuestionRequestDTO createQuestionRequestDTO) {
+    public ResponseEntity<?> createQuestion(@RequestBody CreateQuestionRequestDTO createQuestionRequestDTO) {
         QuizQuestion question = quizQuestionService.createQuestion(createQuestionRequestDTO);
         return ResponseEntity.ok(question);
     }
 
-    @DeleteMapping("/question/{id}")
-    public ResponseEntity deleteQuestion(@RequestBody Long id) {
-        quizQuestionService.deleteQuestionById(id);
-        return ResponseEntity.ok("QuizQuestion deleted successfully");
-    }
-
     @PutMapping("/question/{id}")
-    public ResponseEntity updateQuestion(@PathVariable Long id, @RequestBody CreateQuestionRequestDTO createQuestionRequestDTO) {
+    public ResponseEntity<?> updateQuestion(@PathVariable Long id, @RequestBody CreateQuestionRequestDTO createQuestionRequestDTO) {
         QuizQuestion question = quizQuestionService.updateQuestion(id, createQuestionRequestDTO);
         return ResponseEntity.ok(question);
     }
 
     @GetMapping("/question/{id}")
-    public ResponseEntity getQuestionById(@PathVariable Long id) {
+    public ResponseEntity<?> getQuestionById(@PathVariable Long id) {
         QuizQuestion question = quizQuestionService.getQuestionById(id);
         return ResponseEntity.ok(question);
     }
 
     @GetMapping("/questions")
-    public ResponseEntity getAllQuestions() {
+    public ResponseEntity<?> getAllQuestions() {
         return ResponseEntity.ok(quizQuestionService.getAllQuestions());
     }
 }

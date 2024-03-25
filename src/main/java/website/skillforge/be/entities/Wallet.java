@@ -14,17 +14,17 @@ public class Wallet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    double balance;
+    private double balance;
 
     @OneToOne
     @JoinColumn(name = "account_id")
-    Account account;
+    private Account account;
 
     @OneToMany(mappedBy = "from")
     @JsonIgnore
-    List<Transactions> payFor;
+    private List<Transactions> payFor;
 
     @OneToMany(mappedBy = "to")
     @JsonIgnore
-    List<Transactions> receiveFrom;
+    private List<Transactions> receiveFrom;
 }

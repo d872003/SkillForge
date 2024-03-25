@@ -36,8 +36,9 @@ public class CourseService {
     @Autowired
     QuizService quizService;
     @Autowired
+    ProgressService progressService;
+    @Autowired
     CourseEnrollmentRepository courseEnrollmentRepository;
-
     @Autowired
     AccountUtil accountUtil;
 
@@ -66,6 +67,7 @@ public class CourseService {
     }
 
     public Course getCourseById(Long id) {
+
         return courseRepository.findCourseById(id);
     }
 
@@ -170,6 +172,8 @@ public class CourseService {
         courseDetailResponse.setLessons(allLessons);
         return courseDetailResponse;
     }
+    //
+
     public CourseDetailResponse getEnrollCourseDetail(Long id) {
         CourseDetailResponse courseDetailResponse = new CourseDetailResponse();
         Course course = getCourseById(id);
@@ -183,11 +187,16 @@ public class CourseService {
         courseDetailResponse.setCreateBy(course.getCreateBy());
         List<Chapter> chapters = chapterService.GetChaptersByCourseId(course.getId());
         courseDetailResponse.setChapters(chapters);
-
         List<GetAllLessonResponse> allLessons = new ArrayList<>();
         for (Chapter chapter : chapters) {
             List<GetAllLessonResponse> lessons = lessonService.getAllLessonDTOByChapterId(chapter.getId());
-            allLessons.addAll(lessons);
+            for (GetAllLessonResponse lesson : lessons) {
+                Progress progress = progressService.getProgressByLessonIdAndAccountId(lesson.getId());
+                if (progress != null) {
+                    lesson.SetIsCompleted(true);
+                }
+                allLessons.add(lesson);
+            }
         }
         for (GetAllLessonResponse lesson : allLessons) {
             Quiz quiz = quizService.getQuizByLessonId2(lesson.getId());

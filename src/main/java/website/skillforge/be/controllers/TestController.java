@@ -21,7 +21,7 @@ public class TestController {
 
 
     @GetMapping("/test/public")
-    public ResponseEntity test() {
+    public ResponseEntity<?> test() {
         Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(account);
     }

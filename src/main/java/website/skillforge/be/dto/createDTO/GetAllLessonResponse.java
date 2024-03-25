@@ -11,6 +11,13 @@ public class GetAllLessonResponse {
     private String name;
     private String description;
     private String videoLink;
+
+    private boolean isCompleted;
+
+    public void SetIsCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
     private Quiz quiz;
     private long chapter_id;
 }

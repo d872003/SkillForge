@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 public class UserAnswer {
     @Id
-    Long answerId;
-    Long quizId;
-    boolean isTrue;
+    private Long answerId;
+    private Long quizId;
+    private boolean isTrue;
     @ManyToOne
     @JoinColumn(name = "account_id")
-    Account account;
+    private Account account;
 
 }

@@ -28,6 +28,6 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @JsonIgnore
-    List<Course> course;
+    private List<Course> course;
 }
 

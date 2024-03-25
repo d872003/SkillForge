@@ -37,5 +37,6 @@ public class Lesson {
 
     @OneToOne(mappedBy = "lesson", cascade = CascadeType.ALL)
     private Quiz quiz;
-
+    @OneToMany(mappedBy = "lesson")
+    private List<Progress> progresses;
 }

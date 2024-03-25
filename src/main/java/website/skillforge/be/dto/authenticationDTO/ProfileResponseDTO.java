@@ -9,6 +9,6 @@ import java.util.List;
 
 @Data
 public class ProfileResponseDTO {
-    Account account;
-    List<CourseDetailResponse> courseDetailResponse;
+    private Account account;
+    private List<CourseDetailResponse> courseDetailResponse;
 }

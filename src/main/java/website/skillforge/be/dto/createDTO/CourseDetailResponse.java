@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 public class CourseDetailResponse {
-    Long id;
+    private Long id;
     private String name;
     private double price;
     private String code;
@@ -20,6 +20,6 @@ public class CourseDetailResponse {
     private String description;
     private Category category;
     private Account createBy;
-    List<Chapter> chapters;
-    List<GetAllLessonResponse> lessons;
+    private List<Chapter> chapters;
+    private List<GetAllLessonResponse> lessons;
 }

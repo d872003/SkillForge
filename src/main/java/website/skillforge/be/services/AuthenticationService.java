@@ -18,6 +18,7 @@ import website.skillforge.be.dto.createDTO.UpdateAccountDto;
 import website.skillforge.be.entities.Account;
 import website.skillforge.be.enums.status.AccountStatus;
 import website.skillforge.be.repository.AccountRepository;
+import website.skillforge.be.util.AccountUtil;
 import website.skillforge.be.util.TokenHandler;
 
 import java.util.List;
@@ -34,6 +35,8 @@ public class AuthenticationService {
     CourseService courseService;
     @Autowired
     TokenHandler tokenHandler;
+    @Autowired
+    AccountUtil accountUtil;
 
     public Account register(RegisterRequestDTO registerRequestDTO) {
         Account account = new Account();
@@ -94,10 +97,9 @@ public class AuthenticationService {
         return accountRepository.findAccountById(id);
     }
 
-    public ProfileResponseDTO getProfileById(String token) {
+    public ProfileResponseDTO getProfileById() {
         try {
-            String username = tokenHandler.getInfoByToken(token);
-            Account account = accountRepository.findAccountByUsername(username);
+            Account account = accountUtil.getCurrentAccount();
             ProfileResponseDTO profileResponseDTO = new ProfileResponseDTO();
             profileResponseDTO.setAccount(account);
             profileResponseDTO.setCourseDetailResponse(courseService.getEnrollCourseDetail());

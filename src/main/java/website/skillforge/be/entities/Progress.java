@@ -4,27 +4,26 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import website.skillforge.be.enums.status.EnrollStatus;
 
 import java.util.Date;
 
 @Entity
-@Setter
 @Getter
+@Setter
+public class Progress {
 
-public class CourseEnrollment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING)
-    private EnrollStatus status;
-    private Date startDate;
-
+    private Date createdDate;
+    private long courseId;
     @ManyToOne
-    @JoinColumn(name = "course_id")
-    Course course;
-
-    @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "account_id")
-    Account account;
+    private Account account;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "lesson_id")
+    private Lesson lesson;
 }

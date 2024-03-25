@@ -28,73 +28,73 @@ import java.util.Map;
 @SecurityRequirement(name = "api")
 public class CourseController {
     @Autowired
-    CourseService courseService;
+    private CourseService courseService;
     @Autowired
-    ChapterService chapterService;
+    private ChapterService chapterService;
     @Autowired
-    LessonService lessonService;
+    private LessonService lessonService;
     @Autowired
-    QuizService quizService;
+    private QuizService quizService;
     @Autowired
-    CourseRepository courseRepository;
+    private CourseRepository courseRepository;
     @Autowired
-    AccountUtil accountUtil;
+    private AccountUtil accountUtil;
     @PostMapping("/course")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
-    public ResponseEntity createCourse(@RequestBody CreateCourseRequestDTO createCourseRequestDTO) {
+    public ResponseEntity<?> createCourse(@RequestBody CreateCourseRequestDTO createCourseRequestDTO) {
         Course course = courseService.createCourse(createCourseRequestDTO);
         return ResponseEntity.ok(course);
     }
     @DeleteMapping("/course/{id}")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
-    public ResponseEntity deleteCourse(@PathVariable Long id) {
+    public ResponseEntity<?> deleteCourse(@PathVariable Long id) {
         courseService.deleteCourseById(id);
         return ResponseEntity.ok("Deleted successfully");
     }
 
     @PutMapping("/course/{id}")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
-    public ResponseEntity updateCourse(@PathVariable Long id, @RequestBody CreateCourseRequestDTO updateCourseDTO) {
+    public ResponseEntity<?> updateCourse(@PathVariable Long id, @RequestBody CreateCourseRequestDTO updateCourseDTO) {
         Course newCourse = courseService.updateCourse(id, updateCourseDTO);
         return ResponseEntity.ok(newCourse);
     }
 
     @GetMapping("/course/{id}")
     @PermitAll
-    public ResponseEntity getCourseById(@PathVariable Long id) {
+    public ResponseEntity<?> getCourseById(@PathVariable Long id) {
         Course course = courseService.getCourseById(id);
         return ResponseEntity.ok(course);
     }
 
     @GetMapping("/courseByName/{name}")
-    public ResponseEntity getCourseByName(@PathVariable String name) {
+    public ResponseEntity<?> getCourseByName(@PathVariable String name) {
         Course course = courseService.getCourseByName(name);
         return ResponseEntity.ok(course);
     }
 
     @GetMapping("/courseByCode/{code}")
-    public ResponseEntity getCourseByCode(@PathVariable String code) {
+    public ResponseEntity<?> getCourseByCode(@PathVariable String code) {
         Course course = courseService.getCourseByCode(code);
         return ResponseEntity.ok(course);
     }
 
     @GetMapping("/getCourseById/{id}")
-    public ResponseEntity getCourseDetail(@PathVariable Long id) {
+    public ResponseEntity<?> getCourseDetail(@PathVariable Long id) {
         return ResponseEntity.ok(courseService.getCourseDetail(id));
     }
 
     @GetMapping("/getCourseByTeacherId")
-    public ResponseEntity getCourseByTeacherId() {
+    public ResponseEntity<?> getCourseByTeacherId() {
         return ResponseEntity.ok(courseService.getCourseByTeacherId());
     }
 
     @GetMapping("/courseDetailAll")
-    public ResponseEntity getCourseDetailAll() {
+    public ResponseEntity<?> getCourseDetailAll() {
         return ResponseEntity.ok(courseService.getCourseDetail());
     }
 
     @GetMapping("/course")
-    public ResponseEntity getAllCourses() {
+    public ResponseEntity<?> getAllCourses() {
 
         return ResponseEntity.ok(courseService.getAllCourses());
     }
