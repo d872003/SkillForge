@@ -4,9 +4,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import website.skillforge.be.dto.createDTO.CourseDetailResponse;
-import website.skillforge.be.entities.Course;
-import website.skillforge.be.entities.CourseEnrollment;
+import website.skillforge.be.dto.createDTO.EnrolledCourseDetailResponse;
+import website.skillforge.be.entities.courses.Course;
+import website.skillforge.be.entities.courses.CourseEnrollment;
 import website.skillforge.be.enums.status.EnrollStatus;
 import website.skillforge.be.repository.CourseEnrollmentRepository;
 import website.skillforge.be.repository.CourseRepository;
@@ -42,20 +42,20 @@ public class EnrollController {
     }
 
     @GetMapping("/enroll")
-    public ResponseEntity getEnrolledCourse() {
-        List<CourseDetailResponse> course = courseService.getEnrollCourseDetail();
+    public ResponseEntity<?> getEnrolledCourse() {
+        List<EnrolledCourseDetailResponse> course = courseService.getEnrollCourseDetail();
         return ResponseEntity.ok(course);
     }
 
     @GetMapping("/studentEnroll/{id}")
-    public ResponseEntity getStudentEnrolledCourse(@PathVariable Long id) {
+    public ResponseEntity<?> getStudentEnrolledCourse(@PathVariable Long id) {
         List<CourseEnrollment> course = courseService.getStudentEnrollCourseDetail(id);
         return ResponseEntity.ok(course);
     }
 
     @GetMapping("/enroll/{id}")
-    public ResponseEntity getMyCourseDetail(@PathVariable Long id) {
-        CourseDetailResponse course = courseService.getEnrollCourseDetail(id);
+    public ResponseEntity<?> getMyCourseDetail(@PathVariable Long id) {
+        EnrolledCourseDetailResponse course = courseService.getEnrollCourseDetail(id);
         return ResponseEntity.ok(course);
     }
 }

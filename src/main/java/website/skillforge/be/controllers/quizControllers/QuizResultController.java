@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import website.skillforge.be.dto.createDTO.quizDto.CreateQuizResultRequestDto;
 import website.skillforge.be.dto.createDTO.quizDto.GetQuizAnswerRequestDto;
-import website.skillforge.be.entities.quiz.QuizResult;
 import website.skillforge.be.services.quiz.QuizResultService;
 
 @RestController

@@ -15,7 +15,7 @@ import website.skillforge.be.dto.authenticationDTO.LoginResponseDTO;
 import website.skillforge.be.dto.authenticationDTO.ProfileResponseDTO;
 import website.skillforge.be.dto.authenticationDTO.RegisterRequestDTO;
 import website.skillforge.be.dto.createDTO.UpdateAccountDto;
-import website.skillforge.be.entities.Account;
+import website.skillforge.be.entities.accounts.Account;
 import website.skillforge.be.enums.status.AccountStatus;
 import website.skillforge.be.repository.AccountRepository;
 import website.skillforge.be.util.AccountUtil;
@@ -102,7 +102,7 @@ public class AuthenticationService {
             Account account = accountUtil.getCurrentAccount();
             ProfileResponseDTO profileResponseDTO = new ProfileResponseDTO();
             profileResponseDTO.setAccount(account);
-            profileResponseDTO.setCourseDetailResponse(courseService.getEnrollCourseDetail());
+            profileResponseDTO.setEnrolledCourseDetailResponse(courseService.getEnrollCourseDetail());
             return profileResponseDTO;
         } catch (Exception e) {
             throw new InternalAuthenticationServiceException("Authentication failed: " + e.getMessage());

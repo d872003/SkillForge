@@ -2,11 +2,10 @@ package website.skillforge.be.services.quiz;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import website.skillforge.be.dto.createDTO.quizDto.CheckDoQuizResponse;
 import website.skillforge.be.dto.createDTO.quizDto.CreateQuizResultRequestDto;
 import website.skillforge.be.dto.createDTO.quizDto.GetQuizAnswerRequestDto;
-import website.skillforge.be.entities.*;
-import website.skillforge.be.entities.quiz.*;
+import website.skillforge.be.entities.accounts.Account;
+import website.skillforge.be.entities.quizzes.*;
 import website.skillforge.be.repository.quizRepo.*;
 import website.skillforge.be.util.AccountUtil;
 

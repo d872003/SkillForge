@@ -12,6 +12,15 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.Month;
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "Skill Forge API", version = "1.0", description = "The Skill Forge API for the self-help skill website provides endpoints for" +
         " managing user profiles, accessing skill categories, and tracking user progress. It allows users to enroll in various skill courses, track their learning journey, " +
@@ -29,6 +38,9 @@ public class SkillForgeApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SkillForgeApplication.class, args);
+
+
     }
+
 
 }

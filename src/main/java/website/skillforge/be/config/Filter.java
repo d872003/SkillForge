@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import website.skillforge.be.entities.Account;
+import website.skillforge.be.entities.accounts.Account;
 import website.skillforge.be.exception.exceptions.AuthenticationException;
 import website.skillforge.be.repository.AccountRepository;
 import website.skillforge.be.util.TokenHandler;

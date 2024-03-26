@@ -3,14 +3,13 @@ package website.skillforge.be.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.createDTO.CreateChapterRequestDTO;
-import website.skillforge.be.entities.Account;
-import website.skillforge.be.entities.Chapter;
-import website.skillforge.be.entities.Course;
+import website.skillforge.be.entities.accounts.Account;
+import website.skillforge.be.entities.courses.Chapter;
+import website.skillforge.be.entities.courses.Course;
 import website.skillforge.be.repository.ChapterRepository;
 import website.skillforge.be.repository.CourseRepository;
 import website.skillforge.be.util.AccountUtil;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

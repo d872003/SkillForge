@@ -1,9 +1,9 @@
-package website.skillforge.be.entities.quiz;
+package website.skillforge.be.entities.quizzes;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import website.skillforge.be.entities.Account;
+import website.skillforge.be.entities.accounts.Account;
 
 
 import java.util.Date;

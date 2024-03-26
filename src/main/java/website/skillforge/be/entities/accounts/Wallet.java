@@ -1,4 +1,4 @@
-package website.skillforge.be.entities;
+package website.skillforge.be.entities.accounts;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

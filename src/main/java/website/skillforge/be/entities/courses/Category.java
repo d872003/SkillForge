@@ -1,10 +1,9 @@
-package website.skillforge.be.entities.quiz;
+package website.skillforge.be.entities.courses;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import website.skillforge.be.entities.Lesson;
 
 import java.util.Date;
 import java.util.List;
@@ -12,24 +11,22 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Quiz {
-
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String code;
     @Column(columnDefinition = "nvarchar(255)")
     private String name;
     @Column(columnDefinition = "nvarchar(MAX)")
     private String description;
-    Date createdDate;
-    Date lastUpdatedDate;
 
-    @OneToOne
+    private Date createdDate;
+    private Date lastUpdatedDate;
+
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name = "lesson_id")
-    private Lesson lesson;
-
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
-    private List<QuizQuestion> quizQuestion;
-
+    private List<Course> course;
 }
+

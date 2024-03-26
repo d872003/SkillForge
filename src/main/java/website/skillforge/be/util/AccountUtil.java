@@ -2,7 +2,7 @@ package website.skillforge.be.util;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import website.skillforge.be.entities.Account;
+import website.skillforge.be.entities.accounts.Account;
 
 @Component
 public class AccountUtil {

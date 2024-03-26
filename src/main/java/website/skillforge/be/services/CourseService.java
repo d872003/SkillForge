@@ -1,14 +1,14 @@
 package website.skillforge.be.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.createDTO.CourseDetailResponse;
+import website.skillforge.be.dto.createDTO.EnrolledCourseDetailResponse;
 import website.skillforge.be.dto.createDTO.CreateCourseRequestDTO;
 import website.skillforge.be.dto.createDTO.GetAllLessonResponse;
-import website.skillforge.be.dto.createDTO.quizDto.GetAllQuizResponse;
-import website.skillforge.be.entities.*;
-import website.skillforge.be.entities.quiz.Quiz;
+import website.skillforge.be.entities.accounts.Account;
+import website.skillforge.be.entities.courses.*;
+import website.skillforge.be.entities.quizzes.Quiz;
 import website.skillforge.be.enums.Role;
 import website.skillforge.be.enums.status.CourseStatus;
 import website.skillforge.be.repository.CategoryRepository;
@@ -21,7 +21,6 @@ import website.skillforge.be.util.AccountUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class CourseService {
@@ -95,16 +94,16 @@ public class CourseService {
         return null;
     }
 
-    public List<CourseDetailResponse> getCourseByTeacherId() {
+    public List<EnrolledCourseDetailResponse> getCourseByTeacherId() {
         Account account = accountUtil.getCurrentAccount();
-        List<CourseDetailResponse> courseDetailResponse = new ArrayList<>();
+        List<EnrolledCourseDetailResponse> enrolledCourseDetailResponse = new ArrayList<>();
         if (account.getRole() == Role.TEACHER) {
             List<Course> courses = courseRepository.findCourseByCreateById(account.getId());
             for (Course course : courses) {
-                courseDetailResponse.add(getEnrollCourseDetail(course.getId()));
+                enrolledCourseDetailResponse.add(getEnrollCourseDetail(course.getId()));
             }
         }
-        return courseDetailResponse;
+        return enrolledCourseDetailResponse;
     }
 
     public List<CourseEnrollment> getStudentEnrollCourseDetail(long id) {
@@ -118,7 +117,7 @@ public class CourseService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        List<CourseDetailResponse> courseDetailResponse = new ArrayList<>();
+        List<CourseDetailResponse> enrolledCourseDetailResponse = new ArrayList<>();
         List<Course> courses = getAllCourses();
         List<CourseEnrollment> courseEnrollment = new ArrayList<>();
         if (account != null) {
@@ -133,60 +132,57 @@ public class CourseService {
                 }
             }
             if (!isEnrolled) {
-                courseDetailResponse.add(getCourseDetail(course.getId()));
+                enrolledCourseDetailResponse.add(getCourseDetail(course.getId()));
             }
         }
-        return courseDetailResponse;
+        return enrolledCourseDetailResponse;
     }
 
-    public List<CourseDetailResponse> getEnrollCourseDetail() {
+    public List<EnrolledCourseDetailResponse> getEnrollCourseDetail() {
         Account account = accountUtil.getCurrentAccount();
         List<CourseEnrollment> courseEnrollment = new ArrayList<>();
-        List<CourseDetailResponse> courseDetailResponse = new ArrayList<>();
+        List<EnrolledCourseDetailResponse> enrolledCourseDetailResponse = new ArrayList<>();
         if (account != null) {
             courseEnrollment = courseEnrollmentRepository.findCourseEnrollmentByAccount_id(account.getId());
             for (CourseEnrollment enrollment : courseEnrollment) {
-                courseDetailResponse.add(getEnrollCourseDetail(enrollment.getCourse().getId()));
+                enrolledCourseDetailResponse.add(getEnrollCourseDetail(enrollment.getCourse().getId()));
             }
         }
-        return courseDetailResponse;
+        return enrolledCourseDetailResponse;
     }
     public CourseDetailResponse getCourseDetail(Long id) {
-        CourseDetailResponse courseDetailResponse = new CourseDetailResponse();
+        CourseDetailResponse enrolledCourseDetailResponse = new CourseDetailResponse();
         Course course = getCourseById(id);
-        courseDetailResponse.setId(course.getId());
-        courseDetailResponse.setName(course.getName());
-        courseDetailResponse.setCode(course.getCode());
-        courseDetailResponse.setPrice(course.getPrice());
-        courseDetailResponse.setPictureLink(course.getPictureLink());
-        courseDetailResponse.setDescription(course.getDescription());
-        courseDetailResponse.setCategory(course.getCategory());
-        courseDetailResponse.setCreateBy(course.getCreateBy());
+        enrolledCourseDetailResponse.setId(course.getId());
+        enrolledCourseDetailResponse.setName(course.getName());
+        enrolledCourseDetailResponse.setCode(course.getCode());
+        enrolledCourseDetailResponse.setPrice(course.getPrice());
+        enrolledCourseDetailResponse.setPictureLink(course.getPictureLink());
+        enrolledCourseDetailResponse.setDescription(course.getDescription());
+        enrolledCourseDetailResponse.setCategory(course.getCategory());
+        enrolledCourseDetailResponse.setCreateBy(course.getCreateBy());
         List<Chapter> chapters = chapterService.GetChaptersByCourseId(course.getId());
-        courseDetailResponse.setChapters(chapters);
-        List<GetAllLessonResponse> allLessons = new ArrayList<>();
+        enrolledCourseDetailResponse.setChapters(chapters);
         for (Chapter chapter : chapters) {
-            List<GetAllLessonResponse> lessons = lessonService.getAllLessonDTOByChapterId(chapter.getId());
-            allLessons.addAll(lessons);
+            chapter.setLesson(lessonService.getAllLessonByChapterId(chapter.getId()));
         }
-        courseDetailResponse.setLessons(allLessons);
-        return courseDetailResponse;
+        return enrolledCourseDetailResponse;
     }
     //
 
-    public CourseDetailResponse getEnrollCourseDetail(Long id) {
-        CourseDetailResponse courseDetailResponse = new CourseDetailResponse();
+    public EnrolledCourseDetailResponse getEnrollCourseDetail(Long id) {
+        EnrolledCourseDetailResponse enrolledCourseDetailResponse = new EnrolledCourseDetailResponse();
         Course course = getCourseById(id);
-        courseDetailResponse.setId(course.getId());
-        courseDetailResponse.setName(course.getName());
-        courseDetailResponse.setCode(course.getCode());
-        courseDetailResponse.setPrice(course.getPrice());
-        courseDetailResponse.setPictureLink(course.getPictureLink());
-        courseDetailResponse.setDescription(course.getDescription());
-        courseDetailResponse.setCategory(course.getCategory());
-        courseDetailResponse.setCreateBy(course.getCreateBy());
+        enrolledCourseDetailResponse.setId(course.getId());
+        enrolledCourseDetailResponse.setName(course.getName());
+        enrolledCourseDetailResponse.setCode(course.getCode());
+        enrolledCourseDetailResponse.setPrice(course.getPrice());
+        enrolledCourseDetailResponse.setPictureLink(course.getPictureLink());
+        enrolledCourseDetailResponse.setDescription(course.getDescription());
+        enrolledCourseDetailResponse.setCategory(course.getCategory());
+        enrolledCourseDetailResponse.setCreateBy(course.getCreateBy());
         List<Chapter> chapters = chapterService.GetChaptersByCourseId(course.getId());
-        courseDetailResponse.setChapters(chapters);
+        enrolledCourseDetailResponse.setChapters(chapters);
         List<GetAllLessonResponse> allLessons = new ArrayList<>();
         for (Chapter chapter : chapters) {
             List<GetAllLessonResponse> lessons = lessonService.getAllLessonDTOByChapterId(chapter.getId());
@@ -204,8 +200,12 @@ public class CourseService {
                 lesson.setQuiz(quiz);
             }
         }
-        courseDetailResponse.setLessons(allLessons);
-        return courseDetailResponse;
+        if (progressService.percentCourse(id) == 100) {
+            enrolledCourseDetailResponse.setFineshed(true);
+        }
+        ;
+        enrolledCourseDetailResponse.setLessons(allLessons);
+        return enrolledCourseDetailResponse;
     }
 
 

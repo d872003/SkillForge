@@ -1,9 +1,7 @@
 package website.skillforge.be.dto.createDTO;
 
 import lombok.Data;
-import website.skillforge.be.entities.quiz.Quiz;
-
-import java.util.List;
+import website.skillforge.be.entities.quizzes.Quiz;
 
 @Data
 public class GetAllLessonResponse {

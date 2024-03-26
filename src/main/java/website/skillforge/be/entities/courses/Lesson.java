@@ -1,10 +1,11 @@
-package website.skillforge.be.entities;
+package website.skillforge.be.entities.courses;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import website.skillforge.be.entities.quiz.Quiz;
+import website.skillforge.be.entities.accounts.Account;
+import website.skillforge.be.entities.quizzes.Quiz;
 
 import java.util.Date;
 import java.util.List;
@@ -36,7 +37,10 @@ public class Lesson {
     private Account createBy;
 
     @OneToOne(mappedBy = "lesson", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Quiz quiz;
+
     @OneToMany(mappedBy = "lesson")
+    @JsonIgnore
     private List<Progress> progresses;
 }

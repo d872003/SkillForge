@@ -4,10 +4,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import website.skillforge.be.dto.createDTO.CreateLessonRequestDTO;
-import website.skillforge.be.entities.Lesson;
-import website.skillforge.be.repository.quizRepo.QuizResultRepository;
+import website.skillforge.be.entities.courses.Lesson;
 import website.skillforge.be.services.LessonService;
 
 @RestController
