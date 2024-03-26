@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import website.skillforge.be.dto.createDTO.CourseDetailResponse;
+import website.skillforge.be.dto.createDTO.EnrolledCourseDetailResponse;
 import website.skillforge.be.entities.courses.Course;
 import website.skillforge.be.entities.courses.CourseEnrollment;
 import website.skillforge.be.enums.status.EnrollStatus;
@@ -43,7 +43,7 @@ public class EnrollController {
 
     @GetMapping("/enroll")
     public ResponseEntity<?> getEnrolledCourse() {
-        List<CourseDetailResponse> course = courseService.getEnrollCourseDetail();
+        List<EnrolledCourseDetailResponse> course = courseService.getEnrollCourseDetail();
         return ResponseEntity.ok(course);
     }
 
@@ -55,7 +55,7 @@ public class EnrollController {
 
     @GetMapping("/enroll/{id}")
     public ResponseEntity<?> getMyCourseDetail(@PathVariable Long id) {
-        CourseDetailResponse course = courseService.getEnrollCourseDetail(id);
+        EnrolledCourseDetailResponse course = courseService.getEnrollCourseDetail(id);
         return ResponseEntity.ok(course);
     }
 }

@@ -37,7 +37,10 @@ public class Lesson {
     private Account createBy;
 
     @OneToOne(mappedBy = "lesson", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Quiz quiz;
+
     @OneToMany(mappedBy = "lesson")
+    @JsonIgnore
     private List<Progress> progresses;
 }

@@ -102,7 +102,7 @@ public class AuthenticationService {
             Account account = accountUtil.getCurrentAccount();
             ProfileResponseDTO profileResponseDTO = new ProfileResponseDTO();
             profileResponseDTO.setAccount(account);
-            profileResponseDTO.setCourseDetailResponse(courseService.getEnrollCourseDetail());
+            profileResponseDTO.setEnrolledCourseDetailResponse(courseService.getEnrollCourseDetail());
             return profileResponseDTO;
         } catch (Exception e) {
             throw new InternalAuthenticationServiceException("Authentication failed: " + e.getMessage());

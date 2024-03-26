@@ -36,6 +36,5 @@ public class Chapter {
     private Account createBy;
 
     @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<Lesson> lesson;
 }

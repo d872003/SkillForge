@@ -8,7 +8,7 @@ import website.skillforge.be.entities.courses.Chapter;
 import java.util.List;
 
 @Data
-public class CourseDetailResponse {
+public class EnrolledCourseDetailResponse {
     private Long id;
     private String name;
     private double price;
@@ -18,5 +18,7 @@ public class CourseDetailResponse {
     private Category category;
     private Account createBy;
     private List<Chapter> chapters;
-
+    private List<GetAllLessonResponse> lessons;
+    //filed for Profile
+    private boolean fineshed = false;
 }
