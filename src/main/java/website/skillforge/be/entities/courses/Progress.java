@@ -18,6 +18,7 @@ public class Progress {
     private Long id;
     private Date createdDate;
     private long courseId;
+
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "account_id")

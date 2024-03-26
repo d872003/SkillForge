@@ -25,60 +25,76 @@ public class ChartService {
     @Autowired
     TransactionRepository transactionRepository;
 
+    /**
+     * Retrieves monthly chart data based on the given request.
+     *
+     * @param request The chart request containing year, month, and interval information.
+     * @return The chart response object with labels, number of students, and revenue data.
+     */
     public ChartResponse getMonthlyChart(ChartRequest request) {
+        // Initialize the response object and lists to store data
         ChartResponse response = new ChartResponse();
         List<Integer> numOfStudents = new ArrayList<>();
         List<Double> revenue = new ArrayList<>();
+
+        // Retrieve all course enrollments and populate the months list
         List<CourseEnrollment> courseEnrollments = enrollRepository.findAll();
         List<Integer> months = new ArrayList<>();
         for (CourseEnrollment courseEnrollment : courseEnrollments) {
-            int month = courseEnrollment.getStartDate().getMonth();
-            months.add(++month);
-        }
-        List<Transactions> transactions = transactionRepository.findAll();
-        List<Integer> transactionMonths = new ArrayList<>();
-        for (Transactions transaction : transactions) {
-            int month = transaction.getDate().getMonth();
-            transactionMonths.add(++month);
+            months.add(courseEnrollment.getStartDate().getMonth() + 1);
         }
 
-        List<String> monthYearNames = new ArrayList<>();
+        // Retrieve all transactions and populate the transactionMonths list
+        List<Transactions> transactions = transactionRepository.findTransactionsByTo_Account_role(Role.ADMIN);
+        HashMap<Long, Integer> transactionMonths = new HashMap<>();
+        for (Transactions transaction : transactions) {
+            transactionMonths.put(transaction.getId(), transaction.getDate().getMonth() + 1);
+        }
+
+        // Set up year, startMonth, and DateTimeFormatter for formatting
         Year year = Year.of(request.getYear());
         Month startMonth = Month.of(request.getMonth());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM, yyyy", Locale.forLanguageTag("vi-VN"));
 
+        List<String> monthYearNames = new ArrayList<>();
         for (int i = 0; i < request.getInterval(); i++) {
+            // Get the previous year and month, format it, and add to the list of monthYearNames
+
             YearMonth previousYearMonth = YearMonth.of(year.getValue(), startMonth.minus(i));
+
             String formattedMonthYear = previousYearMonth.format(formatter);
             monthYearNames.add(formattedMonthYear.toUpperCase());
+
             int count = 0;
             for (Integer month : months) {
+                // Count the number of students enrolled in the previous year and month
                 if (month == previousYearMonth.getMonthValue()) {
                     count++;
                 }
-
             }
             numOfStudents.add(count);
 
             double total = 0;
-            for (Integer month : transactionMonths) {
+            for (Map.Entry<Long, Integer> hashMapEntry : transactionMonths.entrySet()) {
+                Long transactionId = hashMapEntry.getKey();
+                Integer month = hashMapEntry.getValue();
+                // Calculate the total revenue for the previous year and month
                 if (month == previousYearMonth.getMonthValue()) {
-                    List<Transactions> transactionsList = transactionRepository.findTransactionsByTo_Account_role(Role.ADMIN);
-                    for (Transactions transaction : transactionsList) {
-                        total += transaction.getMoney();
-                    }
+                    Transactions transaction = transactionRepository.findTransactionsById(transactionId);
+                    total += transaction.getMoney();
                 }
             }
             revenue.add(total);
-            //reset
-            count = 0;
-            total = 0;
+            if (startMonth.getValue() - i == 1) {
+                year = year.minusYears(1);
+            }
         }
-
+        // Reverse the lists for correct chronological order
         Collections.reverse(monthYearNames);
         Collections.reverse(numOfStudents);
         Collections.reverse(revenue);
 
+        // Set the data in the response object and return it
         response.setLabels(monthYearNames);
         response.setNumOfStudents(numOfStudents);
         response.setRevenue(revenue);
@@ -86,19 +102,4 @@ public class ChartService {
         return response;
     }
 
-    public static List<String> getPreviousMonths(int inputMonth, int inputYear) {
-        List<String> monthYearNames = new ArrayList<>();
-        Year year = Year.of(inputYear);
-        Month startMonth = Month.of(inputMonth);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM, yyyy", Locale.forLanguageTag("vi-VN"));
-
-        for (int i = 0; i < 3; i++) {
-            YearMonth previousYearMonth = YearMonth.of(year.getValue(), startMonth.minus(i));
-            String formattedMonthYear = previousYearMonth.format(formatter);
-            monthYearNames.add(formattedMonthYear);
-        }
-
-        Collections.reverse(monthYearNames); // Sắp xếp ngược lại để từ tháng xa đến gần
-        return monthYearNames;
-    }
 }

@@ -12,6 +12,8 @@ public interface TransactionRepository extends JpaRepository<Transactions, Long>
 
     List<Transactions> findTransactionsByTo_Account_role(Role role);
 
+    Transactions findTransactionsById(Long id);
+
     List<Transactions> findTransactionsByFrom_Account_id(Long id);
 
 }
