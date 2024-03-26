@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import website.skillforge.be.dto.createDTO.ChartRequest;
 import website.skillforge.be.dto.createDTO.ChartResponse;
+import website.skillforge.be.entities.accounts.Transactions;
 import website.skillforge.be.entities.courses.CourseEnrollment;
+import website.skillforge.be.enums.Role;
 import website.skillforge.be.repository.CourseEnrollmentRepository;
+import website.skillforge.be.repository.TransactionRepository;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -19,19 +22,26 @@ import java.util.*;
 public class ChartService {
     @Autowired
     CourseEnrollmentRepository enrollRepository;
+    @Autowired
+    TransactionRepository transactionRepository;
 
     public ChartResponse getMonthlyChart(ChartRequest request) {
         ChartResponse response = new ChartResponse();
         List<Integer> numOfStudents = new ArrayList<>();
         List<Double> revenue = new ArrayList<>();
         List<CourseEnrollment> courseEnrollments = enrollRepository.findAll();
-        List<Date> dates = new ArrayList<>();
         List<Integer> months = new ArrayList<>();
         for (CourseEnrollment courseEnrollment : courseEnrollments) {
-            dates.add(courseEnrollment.getStartDate());
             int month = courseEnrollment.getStartDate().getMonth();
             months.add(++month);
         }
+        List<Transactions> transactions = transactionRepository.findAll();
+        List<Integer> transactionMonths = new ArrayList<>();
+        for (Transactions transaction : transactions) {
+            int month = transaction.getDate().getMonth();
+            transactionMonths.add(++month);
+        }
+
         List<String> monthYearNames = new ArrayList<>();
         Year year = Year.of(request.getYear());
         Month startMonth = Month.of(request.getMonth());
@@ -40,21 +50,38 @@ public class ChartService {
         for (int i = 0; i < request.getInterval(); i++) {
             YearMonth previousYearMonth = YearMonth.of(year.getValue(), startMonth.minus(i));
             String formattedMonthYear = previousYearMonth.format(formatter);
-            monthYearNames.add(formattedMonthYear);
+            monthYearNames.add(formattedMonthYear.toUpperCase());
             int count = 0;
-            for (int j = 0; j < months.size(); j++) {
-                if (months.get(j) == previousYearMonth.getMonthValue()) {
+            for (Integer month : months) {
+                if (month == previousYearMonth.getMonthValue()) {
                     count++;
                 }
+
             }
             numOfStudents.add(count);
+
+            double total = 0;
+            for (Integer month : transactionMonths) {
+                if (month == previousYearMonth.getMonthValue()) {
+                    List<Transactions> transactionsList = transactionRepository.findTransactionsByTo_Account_role(Role.ADMIN);
+                    for (Transactions transaction : transactionsList) {
+                        total += transaction.getMoney();
+                    }
+                }
+            }
+            revenue.add(total);
+            //reset
             count = 0;
+            total = 0;
         }
 
         Collections.reverse(monthYearNames);
         Collections.reverse(numOfStudents);
+        Collections.reverse(revenue);
+
         response.setLabels(monthYearNames);
         response.setNumOfStudents(numOfStudents);
+        response.setRevenue(revenue);
 
         return response;
     }
