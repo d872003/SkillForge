@@ -8,5 +8,4 @@ import website.skillforge.be.entities.courses.Category;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     Category findCategoryById(long id);
     Category findCategoryByName(String name);
-
 }

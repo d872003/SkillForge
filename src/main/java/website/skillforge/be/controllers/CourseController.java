@@ -15,6 +15,7 @@ import website.skillforge.be.services.quiz.QuizService;
 import website.skillforge.be.util.AccountUtil;
 
 import javax.annotation.security.PermitAll;
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -22,16 +23,7 @@ import javax.annotation.security.PermitAll;
 public class CourseController {
     @Autowired
     private CourseService courseService;
-    @Autowired
-    private ChapterService chapterService;
-    @Autowired
-    private LessonService lessonService;
-    @Autowired
-    private QuizService quizService;
-    @Autowired
-    private CourseRepository courseRepository;
-    @Autowired
-    private AccountUtil accountUtil;
+
     @PostMapping("/course")
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('TEACHER')")
     public ResponseEntity<?> createCourse(@RequestBody CreateCourseRequestDTO createCourseRequestDTO) {
@@ -73,6 +65,12 @@ public class CourseController {
     @GetMapping("/getCourseByTeacherId")
     public ResponseEntity<?> getCourseByTeacherId() {
         return ResponseEntity.ok(courseService.getCourseByTeacherId());
+    }
+
+    @GetMapping("/getCourseByContainName/{name}")
+    public ResponseEntity<?> getCourseByContainName(@PathVariable String name) {
+        List<Course> courses = courseService.getCourseByContainsName(name);
+        return ResponseEntity.ok(courses);
     }
 
     @GetMapping("/courseDetailAll")

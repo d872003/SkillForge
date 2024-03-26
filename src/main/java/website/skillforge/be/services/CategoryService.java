@@ -6,6 +6,7 @@ import website.skillforge.be.dto.createDTO.CreateCategoryRequestDTO;
 import website.skillforge.be.entities.courses.Category;
 import website.skillforge.be.repository.CategoryRepository;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,17 @@ public class CategoryService {
 
     public Category findCategoryByName(String name) {
         return categoryRepository.findCategoryByName(name);
+    }
+
+    public List<Category> findCategoryContainName(String name) {
+        List<Category> categories = categoryRepository.findAll();
+        List<Category> result = new ArrayList<>();
+        for (Category category : categories) {
+            if (category.getName().toLowerCase().contains(name.toLowerCase())) {
+                result.add(category);
+            }
+        }
+        return result;
     }
 
 

@@ -208,7 +208,16 @@ public class CourseService {
         return enrolledCourseDetailResponse;
     }
 
-
+    public List<Course> getCourseByContainsName(String name) {
+        List<Course> courses = courseRepository.findAll();
+        List<Course> result = new ArrayList<>();
+        for (Course course : courses) {
+            if (course.getName().toLowerCase().contains(name.toLowerCase())) {
+                result.add(course);
+            }
+        }
+        return result;
+    }
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }

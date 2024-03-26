@@ -9,6 +9,8 @@ import website.skillforge.be.dto.createDTO.CreateCategoryRequestDTO;
 import website.skillforge.be.entities.courses.Category;
 import website.skillforge.be.services.CategoryService;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 @SecurityRequirement(name = "api")
@@ -42,6 +44,12 @@ public class CategoryController {
     @GetMapping("/category/{id}")
     public ResponseEntity<?> getCategoryById(@PathVariable Long id) {
         Category category = categoryService.findCategoryById(id);
+        return ResponseEntity.ok(category);
+    }
+
+    @GetMapping("/categoryContainName/{name}")
+    public ResponseEntity<?> getCategoryContainName(@PathVariable String name) {
+        List<Category> category = categoryService.findCategoryContainName(name);
         return ResponseEntity.ok(category);
     }
 
